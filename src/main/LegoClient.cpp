@@ -4,7 +4,7 @@
 #include <string>
 
 #include "./include/common/Logger.hpp"
-#include "./include/controller/ModelController.hpp"
+#include "./include/controller/Controller.hpp"
 
 using std::stoi;
 using std::string;
@@ -22,14 +22,14 @@ int main(int argc, char* argv[])
 	{
 		if (argc < 1)
 		{
-			Logger::error("Invalid arguments", invalid_argument("No model name provided."));
+			Logger::error("Invalid arguments", invalid_argument("No figure name provided."));
 
 			exit(1);
 		}
 
-		string model{ argv[0] };
+		string figureName{argv[0] };
 
-		// new lego controller().fetchAndPrint(model)
+		Controller().printFigure(figureName);
 	}
 	catch (exception const& e)
 	{
