@@ -26,10 +26,10 @@ Figure FigureRepository::findByName(std::string name) {
   //! socket.InitSSL();
 
   // connect to the server with https service
-  //! socket.SSLConnect((char*) HOST, (char*) "https");
+  //! socket.SSLConnect(HOST, (char*) "https");
 
   // send the request
-  //! socket.SSLWrite((void*) request.c_str(), request.length());
+  //! socket.SSLWrite(request.c_str(), request.length());
 
   /*
   // read the Htlm characters and store them in the response string
