@@ -1,10 +1,10 @@
 ## Primera entrega:
 
 * Cliente
-    * Controller (Jean)
+    * FigureController (Jean)
     * Figure (Antonio)
-    * Socket (Ariel)
-    * FigureService (Geanca)
+    * Socket & Client (Ariel)
+    * FigureRepository (Geanca)
 * Figura sencilla y su detalle de piezas (El que quiera)
 * Casos de prueba (Todos)
 * Documento de entrega (Plantilla pendiente)

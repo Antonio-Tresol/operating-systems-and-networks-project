@@ -5,9 +5,9 @@
 
 #include <string>
 
-#include "common/Logger.hpp"
+#include "net/Socket.hpp"
 
-class Controller {
- public:
-  void printFigure(std::string name);
+class HttpClient {
+public:
+    std::string get(const std::string& url);
 };

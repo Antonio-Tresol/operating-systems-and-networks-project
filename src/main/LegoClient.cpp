@@ -4,7 +4,7 @@
 #include <string>
 
 #include "./include/common/Logger.hpp"
-#include "./include/controller/Controller.hpp"
+#include "controller/FigureController.hpp"
 
 using std::stoi;
 using std::string;
@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 
 		string figureName{argv[0] };
 
-		Controller().printFigure(figureName);
+		FigureController().printFigure(figureName);
 	}
 	catch (exception const& e)
 	{

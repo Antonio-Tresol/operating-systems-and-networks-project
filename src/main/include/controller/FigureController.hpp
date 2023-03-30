@@ -5,11 +5,9 @@
 
 #include <string>
 
-#include "model/Figure.hpp"
+#include "common/Logger.hpp"
 
-class FigureService {
+class FigureController {
  public:
-  Figure fetchFigure(std::string name);
- private:
-  static constexpr char FIGURE_URL[]{"os.ecci.ucr.ac.cr/lego/list.php?figure="};
+  void printFigure(std::string name);
 };
