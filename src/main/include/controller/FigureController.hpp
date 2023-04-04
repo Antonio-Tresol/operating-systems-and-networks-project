@@ -9,5 +9,5 @@
 
 class FigureController {
  public:
-  void printFigure(std::string name);
+  void printFigureByName(std::string name);
 };

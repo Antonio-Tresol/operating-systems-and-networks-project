@@ -6,23 +6,31 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 
 using Row = std::pair<std::string, int>; // description, amount
 
 class Figure {
  public:
-  explicit Figure(const std::string &html);
+  static Figure fromHtml(const std::string &html);
 
   friend std::ostream& operator<<(std::ostream& os, const Figure& figure);
 
- private:
-  std::string name;
-  std::vector<Row> parts;
+  Figure() = delete;
+
+  const std::string name;
+  const std::vector<Row> parts;
+
+private:
+    Figure(std::string name, const std::vector<Row>& parts) : name(std::move(name)), parts(parts) {}
 };
 
-Figure::Figure(const std::string &html) {
-    // TODO
+Figure Figure::fromHtml(const std::string &html) {
+    std::string name; // Fill with parsed HTML
+    std::vector<Row> inputParts; // Fill with parsed HTML
+
+    return {name, inputParts};
 }
 
 std::ostream& operator<<(std::ostream& os, const Figure& figure) {
