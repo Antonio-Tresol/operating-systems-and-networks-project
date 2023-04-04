@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 
 		string figureName{argv[0] };
 
-		FigureController().printFigure(figureName);
+        FigureController().printFigureByName(figureName);
 	}
 	catch (exception const& e)
 	{
