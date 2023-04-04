@@ -41,15 +41,10 @@ class Logger {
 
   static void initialize();
 
-  /**
-    * @brief Sets internal timer to zero.
-   */
-  static void setStart();
-
  private:
-  static constexpr char LOG_DIR[8]{"./"};
+  static constexpr char LOG_DIR[8]{"./logs/"};
 
-  static constexpr char LOG_PATH[12]{"./log.txt"};
+  static constexpr char LOG_PATH[8]{"log.txt"};
 
   /**
    * @brief Determines the time it takes to process each method or action.
@@ -133,9 +128,5 @@ void Logger::initialize() {
   std::filesystem::remove_all(LOG_DIR);
   std::filesystem::create_directory(LOG_DIR);
 
-  file.open(LOG_PATH);
-}
-
-void Logger::setStart() {
-  start = std::chrono::high_resolution_clock::now();
+  file.open(std::string(LOG_DIR) + LOG_PATH);
 }
