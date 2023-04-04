@@ -20,23 +20,23 @@ int main(int argc, char* argv[])
 	Logger::initialize();
 	try
 	{
-		if (argc < 1)
+		if (argc < 2)
 		{
 			Logger::error("Invalid arguments", invalid_argument("No figure name provided."));
 
 			exit(1);
 		}
 
-		string figureName{argv[0] };
+		string figureName{argv[1] };
 
-		FigureController().printFigure(figureName);
+        FigureController().printFigureByName(figureName);
 	}
 	catch (exception const& e)
 	{
 		Logger::error("Client has crashed.", e);
 	}
 
-	Logger::print("Finished.");
+	Logger::info("Finished.");
 
 	exit(0);
 }

@@ -8,10 +8,7 @@
 #include <string>
 
 #include "model/Figure.hpp"
-#include "net/HttpClient.hpp"
-#include "net/Socket.hpp"
-
-#define SIZE 1024
+#include "net/HttpsClient.hpp"
 
 class FigureRepository {
  public:
