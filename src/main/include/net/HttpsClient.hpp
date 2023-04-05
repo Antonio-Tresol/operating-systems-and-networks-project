@@ -13,16 +13,11 @@ public:
     [[nodiscard]] std::string get(const std::string &url, const std::string &host) const;
 
 private:
-    static const std::string GET;
-    static const std::string HOST;
-    static const std::string CRLF;
-    static const std::string HTTPS;
+    static constexpr char GET[]{"GET / HTTP/1.1\r\n"};
+    static constexpr char HOST[]{"Host: "};
+    static constexpr char CRLF[]{"\r\n\r\n"};
+    static constexpr char HTTPS[]{"https"};
 };
-
-const std::string HttpsClient::GET{"GET / HTTP/1.1\r\n"};
-const std::string HttpsClient::HOST{"Host: "};
-const std::string HttpsClient::CRLF{"\r\n\r\n"};
-const std::string HttpsClient::HTTPS{"https"};
 
 std::string HttpsClient::get(const std::string &url, const std::string &host) const {
     try {
@@ -30,7 +25,7 @@ std::string HttpsClient::get(const std::string &url, const std::string &host) co
 
         socket.sslConnect(url, HTTPS);
 
-        const std::string request{GET + HOST + host + CRLF};
+        const std::string request{std::string{GET} + HOST + host + CRLF};
 
         socket.sslWrite(request);
 

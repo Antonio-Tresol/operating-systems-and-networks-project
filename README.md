@@ -1,6 +1,7 @@
 # pi-redes-sistemas-operativos
 
-
+### cpplint options
+--filter=-whitespace,-legal/copyright
 
 ## Getting started
 

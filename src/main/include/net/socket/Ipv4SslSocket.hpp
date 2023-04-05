@@ -2,21 +2,21 @@
 
 #pragma once
 
-#include <cstddef>
 #include <unistd.h>
-#include <cstdio>    // for perror
-#include <cstdlib>    // for exit
-#include <cstring>    // for memset
-#include <cerrno>
 #include <netdb.h>
 #include <arpa/inet.h>    // for inet_pton
 #include <sys/types.h>    // for connect
 #include <sys/socket.h>
 #include <openssl/ssl.h>
+#include <cstddef>
+#include <cstdio>    // for perror
+#include <cstdlib>    // for exit
+#include <cstring>    // for memset
+#include <cerrno>
+#include <string>
 
-#include "SslCtxPtr.hpp"
-#include "SslPtr.hpp"
-
+#include "./SslCtxPtr.hpp"
+#include "./SslPtr.hpp"
 
 /**
  *
@@ -54,7 +54,7 @@ public:
 
 private:
     static constexpr int TCP_ID{6};
-    static constexpr long MAX_SIZE{4096};
+    static constexpr int64_t MAX_SIZE{4096};
     static constexpr struct addrinfo hints{
             0,
             AF_UNSPEC,
@@ -92,7 +92,7 @@ private:
     fd_set read_fds{};
     struct timeval timeout{5, 0};
     SslCtxPtr sslContext{};
-    SslPtr ssl{(SSL_CTX *) this->sslContext};
+    SslPtr ssl{static_cast<SSL_CTX *>(this->sslContext)};
 };
 
 // TODO(aarevalo): Exception class. Deeper handling of system call responses.
@@ -111,11 +111,11 @@ Ipv4SslSocket::~Ipv4SslSocket() {
 void Ipv4SslSocket::sslConnect(const std::string &host, const std::string &service) const {
     tcpConnect(host, service);
 
-    if (!SSL_set_fd((SSL *) this->ssl, this->socketFd)) {
+    if (!SSL_set_fd(static_cast<SSL *>(this->ssl), this->socketFd)) {
         throw std::runtime_error(appendErr("Ipv4SslSocket::sslConnect: Failed to set SSL socket: "));
     }
 
-    if (0 >= SSL_connect((SSL *) this->ssl)) {
+    if (0 >= SSL_connect(static_cast<SSL *>(this->ssl))) {
         throw std::runtime_error(appendErr("Ipv4SslSocket::sslConnect: Failed to connect socket: "));
     }
 }
@@ -128,7 +128,9 @@ std::string Ipv4SslSocket::sslRead() {
 
     while (toRead && bytesRead) {
         if (isReadReady()) {
-            bytesRead = SSL_read((SSL *) ssl, (void *) current, toRead);
+            bytesRead = SSL_read(static_cast<SSL *>(this->ssl),
+                                 static_cast<void *>(current),
+                                 toRead);
             if (0 > bytesRead) {
                 throw std::runtime_error(appendErr("Ipv4SslSocket::sslRead: Failed to read from socket: "));
             }
@@ -147,7 +149,9 @@ std::string Ipv4SslSocket::sslRead() {
 }
 
 void Ipv4SslSocket::sslWrite(const std::string &text) const {
-    if (0 >= SSL_write((SSL *) ssl, (void *) text.c_str(), (int) text.size())) {
+    if (0 >= SSL_write(static_cast<SSL *>(this->ssl),
+                       static_cast<const void *>(text.c_str()),
+                       static_cast<int>(text.size()))) {
         throw std::runtime_error(appendErr("Ipv4SslSocket::sslWrite: Failed to write to socket: "));
     }
 }
