@@ -6,7 +6,7 @@
 #include <string>
 #include <sstream>
 
-#include "net/Ipv4SslSocket.hpp"
+#include "net/socket/Ipv4SslSocket.hpp"
 
 class HttpsClient {
 public:
