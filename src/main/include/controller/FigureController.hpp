@@ -8,27 +8,17 @@
 
 #include "common/Logger.hpp"
 #include "model/Figure.hpp"
-#include "net/HttpsClient.hpp"
+#include "data/FigureRepository.hpp"
 
 class FigureController {
 public:
-    Figure printFigureByName(const std::string &name);
+    void printFigureByName(const std::string &name) const;
 
 private:
-    static const std::string URL_TEMPLATE;
-    static const std::string HOST;
-
-    HttpsClient httpClient{HttpsClient()};
+    FigureRepository figureRepository{FigureRepository()};
 };
 
-const std::string FigureController::URL_TEMPLATE{"os.ecci.ucr.ac.cr/lego/list.php?figure={}"};
-const std::string FigureController::HOST{"redes.ecci"};
-
-Figure FigureController::printFigureByName(const std::string &name) {
-    std::string url{URL_TEMPLATE + name};
-    std::string html{httpClient.get(url, HOST)};
-
-    Figure figure{html};
-
+void FigureController::printFigureByName(const std::string &name) const {
+    Figure figure{figureRepository.findByName(name)};
     std::cout << figure;
 }
