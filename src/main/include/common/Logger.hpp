@@ -1,5 +1,5 @@
 // Copyright 2022 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
-
+// Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>
 #pragma once
 
 #include <chrono>
