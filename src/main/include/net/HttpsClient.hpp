@@ -11,6 +11,7 @@
 class HttpsClient {
 public:
     [[nodiscard]] std::string get(const std::string &url, const std::string &host) const;
+
 private:
     static const std::string GET;
     static const std::string HOST;
@@ -24,13 +25,18 @@ const std::string HttpsClient::CRLF{"\r\n\r\n"};
 const std::string HttpsClient::HTTPS{"https"};
 
 std::string HttpsClient::get(const std::string &url, const std::string &host) const {
-    Ipv4SslSocket socket{};
+    try {
+        Ipv4SslSocket socket{};
 
-    socket.sslConnect(url, HTTPS);
+        socket.sslConnect(url, HTTPS);
 
-    const std::string request{GET + HOST + host + CRLF};
+        const std::string request{GET + HOST + host + CRLF};
 
-    socket.sslWrite(request);
+        socket.sslWrite(request);
 
-    return socket.sslRead();
+        return socket.sslRead();
+    } catch (std::exception const &e) {
+        // TODO: Catch retryable
+        // std::throw_with_nested(CustomException("Error in outerFunction"));
+    }
 }

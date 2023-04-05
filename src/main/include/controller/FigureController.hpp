@@ -1,4 +1,4 @@
-// Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
+// Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.Agrega HttpsClient.
 // Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
 
 #pragma once
@@ -19,6 +19,7 @@ private:
 };
 
 void FigureController::printFigureByName(const std::string &name) const {
+    // TODO: Catch individual exception types.
     Figure figure{figureRepository.findByName(name)};
     std::cout << figure;
 }

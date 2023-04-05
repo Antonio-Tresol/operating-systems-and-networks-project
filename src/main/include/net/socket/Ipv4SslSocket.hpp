@@ -99,7 +99,7 @@ private:
 
 Ipv4SslSocket::Ipv4SslSocket() {
     if (-1 == socketFd) {
-        throw std::runtime_error(appendErr("Failed to create socket: "));
+        throw std::runtime_error(appendErr("Ipv4SslSocket::Ipv4SslSocket: Failed to create socket: "));
     }
 }
 
@@ -112,11 +112,11 @@ void Ipv4SslSocket::sslConnect(const std::string &host, const std::string &servi
     tcpConnect(host, service);
 
     if (!SSL_set_fd((SSL *) this->ssl, this->socketFd)) {
-        throw std::runtime_error(appendErr("Failed to set SSL socket: "));
+        throw std::runtime_error(appendErr("Ipv4SslSocket::sslConnect: Failed to set SSL socket: "));
     }
 
     if (0 >= SSL_connect((SSL *) this->ssl)) {
-        throw std::runtime_error(appendErr("Failed to connect socket: "));
+        throw std::runtime_error(appendErr("Ipv4SslSocket::sslConnect: Failed to connect socket: "));
     }
 }
 
@@ -130,7 +130,7 @@ std::string Ipv4SslSocket::sslRead() {
         if (isReadReady()) {
             bytesRead = SSL_read((SSL *) ssl, (void *) current, toRead);
             if (0 > bytesRead) {
-                throw std::runtime_error(appendErr("Failed to read from socket: "));
+                throw std::runtime_error(appendErr("Ipv4SslSocket::sslRead: Failed to read from socket: "));
             }
 
             current = &current[bytesRead];
@@ -148,7 +148,7 @@ std::string Ipv4SslSocket::sslRead() {
 
 void Ipv4SslSocket::sslWrite(const std::string &text) const {
     if (0 >= SSL_write((SSL *) ssl, (void *) text.c_str(), (int) text.size())) {
-        throw std::runtime_error(appendErr("Failed to write to socket: "));
+        throw std::runtime_error(appendErr("Ipv4SslSocket::sslWrite: Failed to write to socket: "));
     }
 }
 
@@ -160,7 +160,7 @@ void Ipv4SslSocket::tcpConnect(const std::string &host, const std::string &servi
     struct addrinfo *result;
 
     if (0 != getaddrinfo(host.c_str(), service.c_str(), &hints, &result)) {
-        throw std::runtime_error(appendErr("Failed to get address info: "));
+        throw std::runtime_error(appendErr("Ipv4SslSocket::tcpConnect: Failed to get address info: "));
     }
 
     for (struct addrinfo *rp{result}; rp; rp = rp->ai_next) {
@@ -183,6 +183,9 @@ bool Ipv4SslSocket::isReadReady() {
     timeout.tv_usec = 0;
 
     int select_result{select(socketFd + 1, &read_fds, nullptr, nullptr, &timeout)};
+    if (0 > select_result) {
+        throw std::runtime_error(appendErr("Ipv4SslSocket::isReadReady: Failed to select read_fds: "));
+    }
 
     return select_result > 0 && FD_ISSET(socketFd, &read_fds);
 }
