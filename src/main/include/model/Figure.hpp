@@ -34,6 +34,18 @@ Figure Figure::fromHtml(const std::string &html) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Figure& figure) {
-    std::string asString{" ? "}; // TODO
+    std::string asString = ""; // TODO
+    int totalParts = 0;
+    for (std::vector<Row>::size_type elem = 0; elem < figure.parts.size();
+      elem++) {
+        asString += std::to_string(figure.parts[elem].second);
+        asString += " pieces of ";
+        asString += figure.parts[elem].first;
+        // 3 pieces of lego
+        asString += "\n";
+        totalParts += figure.parts[elem].second;
+    }
+    asString = asString + "Total amount of parts for" + figure.name + " is: "
+      + std::to_string(totalParts); 
     return os << asString;
 }
