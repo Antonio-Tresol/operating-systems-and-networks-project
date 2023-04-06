@@ -12,11 +12,7 @@
  */
 class SslPtr {
 public:
-    explicit SslPtr(SSL_CTX* ctx) : ssl(SSL_new(ctx)) {
-        if (!ssl) {
-            throw std::runtime_error("Failed to create SSL");
-        }
-    }
+    explicit SslPtr(SSL_CTX* ctx);
 
     ~SslPtr();
 
@@ -26,17 +22,8 @@ public:
     SslPtr(const SslPtr &) = delete;
     SslPtr& operator=(const SslPtr&) = delete;
 
-    explicit operator SSL*() const {
-        return ssl;
-    }
+    explicit operator SSL*() const;
 
 private:
     SSL* ssl;
 };
-
-SslPtr::~SslPtr() {
-    if (ssl) {
-        SSL_shutdown(ssl);
-        SSL_free(ssl);
-    }
-}

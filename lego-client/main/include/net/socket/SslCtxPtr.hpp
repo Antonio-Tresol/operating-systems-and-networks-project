@@ -30,17 +30,3 @@ public:
 private:
     SSL_CTX* ctx{SSL_CTX_new(TLS_client_method())};
 };
-
-SslCtxPtr::SslCtxPtr() {
-    if (!ctx) {
-        throw std::runtime_error("Failed to create SSL_CTX");
-    }
-}
-
-SslCtxPtr::~SslCtxPtr() {
-    if (ctx) {
-        SSL_CTX_free(ctx);
-    }
-}
-
-

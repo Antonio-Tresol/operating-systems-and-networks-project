@@ -6,8 +6,8 @@
 
 #include <string>
 
-#include "model/Figure.hpp"
-#include "net/HttpsClient.hpp"
+#include "./model/Figure.hpp"
+#include "./net/HttpsClient.hpp"
 
 class FigureRepository {
  public:
@@ -16,11 +16,5 @@ class FigureRepository {
   static constexpr char HOST[]{"redes.ecci"};
   static constexpr char URL_TEMPLATE[]{"os.ecci.ucr.ac.cr/lego/list.php?figure="};
 
-  HttpsClient httpsClient{HttpsClient()};
+  HttpsClient httpsClient{};
 };
-
-Figure FigureRepository::findByName(const std::string& name) const {
-    const std::string url{URL_TEMPLATE + name};
-    const std::string html{httpsClient.get(url, HOST)};
-    return Figure::fromHtml(html);
-}

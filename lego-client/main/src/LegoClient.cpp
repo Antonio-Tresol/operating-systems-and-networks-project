@@ -3,14 +3,14 @@
 
 #include <string>
 
-#include "./include/common/Logger.hpp"
-#include "controller/FigureController.hpp"
+#include "./common/Logger.hpp"
+#include "./controller/FigureController.hpp"
 
-using std::stoi;
-using std::string;
+using std::exception;
 using std::invalid_argument;
 using std::out_of_range;
-using std::exception;
+using std::stoi;
+using std::string;
 
 /**
  * @brief Entry point.
