@@ -8,7 +8,9 @@
 #include <string>
 #include <utility>
 #include <vector>
-
+#include <regex>
+using Reg = std::regex;
+using Match = std::smatch;
 using Row = std::pair<std::string, int>; // description, amount
 
 class Figure {
@@ -23,14 +25,42 @@ class Figure {
   const std::vector<Row> parts;
 
 private:
-    Figure(std::string name, const std::vector<Row>& parts) : name(std::move(name)), parts(parts) {}
+    Figure(std::string name, const std::vector<Row>& parts)
+      : name(std::move(name)), parts(parts) {}
 };
 
 Figure Figure::fromHtml(const std::string &html) {
-    std::string name; // Fill with parsed HTML
-    std::vector<Row> inputParts; // Fill with parsed HTML
-
-    return {name, inputParts};
+  std::string name;
+  std::vector<Row> inputParts;
+  Reg regName =
+      Reg("/lego/(?:[a-zA-Z]+)/([a-zA-Z]+)(?=.jpg\" width=500 height=500)");
+  Reg regParts("(?:brick|plate|flag) (?:[0-9]x[0-9] )?(?:[a-z ]+)");
+  Reg regAmount("[0-9]+(?=</TD>)");
+  Match matchName;
+  Match matchParts;
+  Match matchAmount;
+  std::string::const_iterator searchStart(html.cbegin());
+  std::string::const_iterator searchEnd(html.cend());
+  if (std::regex_search(searchStart, searchEnd, matchName, regName)) {
+    name = matchName[1];
+  }
+  while (std::regex_search(searchStart, searchEnd, matchParts, regParts)) {
+    for (auto x : matchParts) {
+      inputParts.push_back(Row(x, 0));
+    }
+    searchStart = matchParts.suffix().first;
+  }
+  searchStart = html.cbegin();
+  searchEnd = html.cend();
+  int i = 0;
+  while (std::regex_search(searchStart, searchEnd, matchAmount, regAmount)) {
+    for (auto x : matchAmount) {
+      inputParts[i].second = std::stoi(x);
+    }
+    searchStart = matchAmount.suffix().first;
+    i = i + 1;
+  }
+  return Figure(name, inputParts);
 }
 
 std::ostream& operator<<(std::ostream& os, const Figure& figure) {
@@ -45,7 +75,7 @@ std::ostream& operator<<(std::ostream& os, const Figure& figure) {
         asString += "\n";
         totalParts += figure.parts[elem].second;
     }
-    asString = asString + "Total amount of parts for" + figure.name + " is: "
+    asString = asString + "Total amount of parts for " + figure.name + " is: "
       + std::to_string(totalParts); 
     return os << asString;
 }
