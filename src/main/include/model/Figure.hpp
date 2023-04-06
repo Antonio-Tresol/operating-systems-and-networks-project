@@ -44,21 +44,10 @@ Figure Figure::fromHtml(const std::string &html) {
   if (std::regex_search(searchStart, searchEnd, matchName, regName)) {
     name = matchName[1];
   }
-  while (std::regex_search(searchStart, searchEnd, matchParts, regParts)) {
-    for (auto x : matchParts) {
-      inputParts.push_back(Row(x, 0));
-    }
+  while (std::regex_search(searchStart, searchEnd, matchParts, regParts) &&
+         std::regex_search(searchStart, searchEnd, matchAmount, regAmount)) {
+    inputParts.emplace_back(matchParts[0], std::stoi(matchAmount[0]));
     searchStart = matchParts.suffix().first;
-  }
-  searchStart = html.cbegin();
-  searchEnd = html.cend();
-  int i = 0;
-  while (std::regex_search(searchStart, searchEnd, matchAmount, regAmount)) {
-    for (auto x : matchAmount) {
-      inputParts[i].second = std::stoi(x);
-    }
-    searchStart = matchAmount.suffix().first;
-    i = i + 1;
   }
   return Figure(name, inputParts);
 }
