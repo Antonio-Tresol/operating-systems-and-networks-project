@@ -49,7 +49,7 @@ Figure Figure::fromHtml(const std::string &html) {
     inputParts.emplace_back(matchParts[0], std::stoi(matchAmount[0]));
     searchStart = matchParts.suffix().first;
   }
-  return Figure(name, inputParts);
+  return Figure{name, inputParts};
 }
 
 std::ostream& operator<<(std::ostream& os, const Figure& figure) {
