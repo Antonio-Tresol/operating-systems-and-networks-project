@@ -5,7 +5,7 @@ find_package(OpenSSL REQUIRED)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_BUILD_TYPE Debug)
 
-set(MAIN_DIR lego-client/main)
+set(MAIN_DIR main)
 set(SOURCES_DIR ${MAIN_DIR}/src)
 set(INCLUDE_DIR ${MAIN_DIR}/include)
 
