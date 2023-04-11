@@ -9,13 +9,24 @@
 #include <string>
 
 #include "./common/Logger.hpp"
-#include "./model/Figure.hpp"
 #include "./data/FigureRepository.hpp"
+#include "./model/Figure.hpp"
 
+/**
+ * @brief Controller for the Figure class.
+ */
 class FigureController {
-public:
-    void printFigureByName(const std::string &name) const;
+ public:
+  /**
+   * @brief Creates a new FigureController and initializes the 
+   * FigureRepository to print the figure data.
+   * @param name Name of the figure to print.
+   */
+  void printFigureByName(const std::string &name) const;
 
-private:
-    FigureRepository figureRepository{};
+ private:
+  /**
+   * @brief FigureRepository object to print the figure data.
+   */
+  FigureRepository figureRepository{};
 };

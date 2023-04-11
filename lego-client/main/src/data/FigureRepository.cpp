@@ -8,7 +8,7 @@
 using std::string;
 
 Figure FigureRepository::findByName(const string& name) const {
-    const string url{URL_TEMPLATE + name};
-    const string html{httpsClient.get(url, HOST)};
-    return Figure::fromHtml(html);
+  const string url{URL_TEMPLATE + name};
+  const string html{httpsClient.get(url, HOST)};
+  return Figure::fromHtml(html);
 }
