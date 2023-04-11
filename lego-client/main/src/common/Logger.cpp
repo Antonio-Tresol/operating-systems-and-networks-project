@@ -1,4 +1,6 @@
-// Copyright 2022 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
+// Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
+// Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
+// Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
 // Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>
 
 #include "../include/common/Logger.hpp"
@@ -17,7 +19,7 @@ using std::string;
 
 ofstream Logger::file{};
 
-high_resolution_clock::time_point Logger::start{
+high_resolution_clock::time_point Logger::start {
         high_resolution_clock::now()
 };
 
