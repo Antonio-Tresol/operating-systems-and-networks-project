@@ -35,8 +35,8 @@ public:
 
     Figure() = delete;
 
-    const std::string name;
-    const std::vector<Row> parts;
+    const std::string name; // name of the figure
+    const std::vector<Row> parts; // part description and amount
 
 private:
     /**
