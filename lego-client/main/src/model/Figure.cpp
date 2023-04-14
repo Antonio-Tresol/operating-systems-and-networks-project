@@ -1,6 +1,7 @@
 // Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
 // Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
-// Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>
+// Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
+// Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
 
 #include "../include/model/Figure.hpp"
 
@@ -42,17 +43,25 @@ Figure Figure::fromHtml(const string &html) {
 }
 
 ostream &operator<<(ostream &os, const Figure &figure) {
-    string asString{};
+    return os << std::string(figure);
+}
+
+Figure::operator std::string() const {
+    string upperCaseName{name};
+    transform(upperCaseName.begin(), upperCaseName.end(), upperCaseName.begin(), ::toupper);
+
+    string asString{upperCaseName + "\n"};
 
     int totalParts{0};
-    for (vector<Row>::size_type elem{0}; elem < figure.parts.size(); elem++) {
-        asString += to_string(figure.parts[elem].second);
+    for (vector<Row>::size_type elem{0}; elem < parts.size(); elem++) {
+        asString += to_string(parts[elem].second);
         asString += " pieces of ";
-        asString += figure.parts[elem].first;
+        asString += parts[elem].first;
         // 3 pieces of lego
         asString += "\n";
-        totalParts += figure.parts[elem].second;
+        totalParts += parts[elem].second;
     }
-    asString = asString + "Total amount of parts for " + figure.name + " is: " + to_string(totalParts);
-    return os << asString;
+    asString = asString + "Total amount of parts for " + name + " is: " + to_string(totalParts);
+
+    return asString;
 }

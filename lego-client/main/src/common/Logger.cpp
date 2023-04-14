@@ -1,5 +1,4 @@
 // Copyright 2022 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
-// Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>
 
 #include "../include/common/Logger.hpp"
 
@@ -26,11 +25,11 @@ void Logger::print(const string &message) {
 }
 
 void Logger::info(const string &message) {
-    file << "[" << duration() << " ms]" << "[INFO]: " << message << endl;
+    cout << "[" << duration() << " ms]" << "[INFO]: " << message << endl;
 }
 
 void Logger::error(const string &message) {
-    file << "[" << duration() << " ms]" << "[ERROR]: " << message << endl;
+    cout << "[" << duration() << " ms]" << "[ERROR]: " << message << endl;
 }
 
 void Logger::error(const string &message, const exception &e) {
@@ -43,7 +42,7 @@ u_int64_t Logger::duration() {
 }
 
 void Logger::print_exception(const exception &e, int level) {
-    file << "Caused by: " << e.what() << endl;
+    cout << "Caused by: " << e.what() << endl;
     try {
         rethrow_if_nested(e);
     }

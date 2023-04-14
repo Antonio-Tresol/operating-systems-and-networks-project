@@ -1,4 +1,7 @@
-// Copyright 2022 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
+// Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
+// Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
+// Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
+// Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
 
 #pragma once
 
@@ -54,7 +57,8 @@ public:
 
 private:
     static constexpr int TCP_ID{6};
-    static constexpr int64_t MAX_SIZE{4096};
+    static constexpr int ERR_STR_LEN{256};
+    static constexpr int64_t CHUNK_SIZE{512};
     static constexpr struct addrinfo hints{
             0,
             AF_UNSPEC,
@@ -72,6 +76,9 @@ private:
      * @return concatenation of message and error
      */
     static std::string appendErr(const std::string &message);
+
+
+    static std::string appendSslErr(const std::string &message);
 
     /**
       * tcpConnect method
