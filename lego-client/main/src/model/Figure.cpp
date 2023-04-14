@@ -57,7 +57,7 @@ Figure::operator std::string() const {
         asString += to_string(parts[elem].second);
         asString += " pieces of ";
         asString += parts[elem].first;
-        // 3 pieces of lego
+        // 3 pieces of LEGO
         asString += "\n";
         totalParts += parts[elem].second;
     }

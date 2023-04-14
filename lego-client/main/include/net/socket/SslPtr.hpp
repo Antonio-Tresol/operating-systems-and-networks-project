@@ -14,19 +14,19 @@
  * RAII wrapper for SSL*
  */
 class SslPtr {
-public:
-    explicit SslPtr(SSL_CTX* ctx);
+ public:
+  explicit SslPtr(SSL_CTX *ctx);
 
-    ~SslPtr();
+  ~SslPtr();
 
-    /**
-     * Object is meant to be unique.
-     */
-    SslPtr(const SslPtr &) = delete;
-    SslPtr& operator=(const SslPtr&) = delete;
+  /**
+   * Object is meant to be unique.
+   */
+  SslPtr(const SslPtr &) = delete;
+  SslPtr &operator=(const SslPtr &) = delete;
 
-    explicit operator SSL*() const;
+  explicit operator SSL *() const;
 
-private:
-    SSL* ssl;
+ private:
+  SSL *ssl;
 };

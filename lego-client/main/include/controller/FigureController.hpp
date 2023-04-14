@@ -12,20 +12,16 @@
 #include "./model/Figure.hpp"
 
 /**
- * @brief Controller for the Figure class.
+ * @brief Controller for functionality related to Figures.
  */
 class FigureController {
  public:
   /**
-   * @brief Creates a new FigureController and initializes the
-   * FigureRepository to print the figure data.
+   * @brief Prints a Figure obtained from the repository by name.
    * @param name Name of the figure to print.
    */
   void printFigureByName(const std::string &name) const;
 
  private:
-  /**
-   * @brief FigureRepository object to print the figure data.
-   */
   FigureRepository figureRepository{};
 };

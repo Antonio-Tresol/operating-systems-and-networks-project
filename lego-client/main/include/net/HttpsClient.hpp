@@ -10,23 +10,21 @@
 
 #include "./net/socket/Ipv4SslSocket.hpp"
 /**
- * @brief HttpsClient class to make HTTPS requests
- * and get the response.
+ * @brief Makes HTTP requests.
  */
 class HttpsClient {
  public:
   /**
-   * @brief Makes a GET request to the given URL and host.
-   * @param url URL to make the request.
-   * @param host Host to make the request.
-   * @return Response of the request.
+   * @brief Makes a GET request to the given resource and host.
+   * @param resource Resource to request.
+   * @param host Host to request from.
+   * @return Response from host.
    */
   [[nodiscard]] std::string get(const std::string &host, const std::string &resource) const;
 
  private:
-  // request constants
-  static constexpr char GET[]{"GET "};  // Get request
-  static constexpr char CRLF[]{"\r\n"};  // Host header
-  static constexpr char HOST[]{"Host: "};  // End of request (html format)
-  static constexpr char HTTPS[]{"https"};  // HTTPS protocol
+  static constexpr char GET[]{"GET "};
+  static constexpr char CRLF[]{"\r\n"};
+  static constexpr char HOST[]{"Host: "};
+  static constexpr char HTTPS[]{"https"};
 };

@@ -11,16 +11,17 @@
 #include "./net/HttpsClient.hpp"
 
 /**
- * @brief Repository for the Figure class.
+ * @brief Repository of Figure objects.
  */
 class FigureRepository {
  public:
   /**
-   * @brief Finds a figure by its name in the host service.
+   * @brief Finds a figure by its name.
    * @param name Name of the figure to find.
    * @return Figure with the given name.
    */
   [[nodiscard]] Figure findByName(const std::string& name) const;
+
  private:
   static constexpr char HOST[]{"os.ecci.ucr.ac.cr"};
   static constexpr char URL_TEMPLATE[]{"/lego/list.php?figure="};

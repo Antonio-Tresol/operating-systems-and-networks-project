@@ -14,22 +14,21 @@
  * RAII wrapper for SSL_CTX*
  */
 class SslCtxPtr {
-public:
-    SslCtxPtr();
+ public:
+  SslCtxPtr();
 
-    ~SslCtxPtr();
+  ~SslCtxPtr();
 
-    /**
-     * Object is meant to be unique.
-     */
-    SslCtxPtr(const SslCtxPtr &) = delete;
-    SslCtxPtr& operator=(const SslCtxPtr&) = delete;
+  /**
+   * Object is meant to be unique.
+   */
+  SslCtxPtr(const SslCtxPtr &) = delete;
+  SslCtxPtr &operator=(const SslCtxPtr &) = delete;
 
+  explicit operator SSL_CTX *() const {
+    return ctx;
+  }
 
-    explicit operator SSL_CTX*() const {
-        return ctx;
-    }
-
-private:
-    SSL_CTX* ctx{SSL_CTX_new(TLS_client_method())};
+ private:
+  SSL_CTX *ctx{SSL_CTX_new(TLS_client_method())};
 };
