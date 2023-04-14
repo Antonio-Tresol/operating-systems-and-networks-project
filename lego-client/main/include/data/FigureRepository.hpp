@@ -10,8 +10,16 @@
 #include "./model/Figure.hpp"
 #include "./net/HttpsClient.hpp"
 
+/**
+ * @brief Repository for the Figure class.
+ */
 class FigureRepository {
  public:
+  /**
+   * @brief Finds a figure by its name in the host service.
+   * @param name Name of the figure to find.
+   * @return Figure with the given name.
+   */
   [[nodiscard]] Figure findByName(const std::string& name) const;
  private:
   static constexpr char HOST[]{"os.ecci.ucr.ac.cr"};
