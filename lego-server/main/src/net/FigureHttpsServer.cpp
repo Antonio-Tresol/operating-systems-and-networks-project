@@ -3,14 +3,14 @@
 // Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
 // Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
 
-#include "../include/net/HttpsServer.hpp"
+#include "../include/net/FigureHttpsServer.hpp"
 
 using std::exception;
 using std::runtime_error;
 using std::string;
 using ::Handler;
 
-HttpsServer::HttpsServer() {
+FigureHttpsServer::FigureHttpsServer() {
   // alistar el socket (listen)
 }
 
@@ -22,17 +22,10 @@ void accept() {
   // llama handleRequest(path, method)
 }
 
-void addRoute(const std::string& path, const std::string& method, Handler handler) {
-  routes[std::make_tuple(path, method)] = handler;
-}
-
 void handleRequest(const std::string& path, const std::string& method) {
-  auto key = std::make_tuple(path, method);
-  if (routes.find(key) != routes.end()) {
-    routes[key](method + " " + path);
-  } else {
-    std::cout << "404 Not Found" << std::endl;
-  }
+    // Revisa el metodo
+    // Revisa que 'tipo' de path es ("/*")
+    // dado que hay que extraer un parametro, lo hace
 
   // thread nuevo(handler, arg, returnAddr???)
   // {otro metodo}

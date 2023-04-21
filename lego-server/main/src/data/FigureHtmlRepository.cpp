@@ -3,6 +3,8 @@
 // Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
 // Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
 
+#include <stdexcept>
+
 #include "../include/data/FigureHtmlRepository.hpp"
 
 using std::string;

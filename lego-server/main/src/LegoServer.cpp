@@ -5,8 +5,8 @@
 
 #include <string>
 
-#include "./common/Logger.hpp"
-#include "./controller/FigureController.hpp"
+#include "../include/common/Logger.hpp"
+#include "../include/net/FigureHttpsServer.hpp"
 
 using std::exception;
 using std::invalid_argument;
@@ -20,11 +20,10 @@ using std::string;
 int main(int argc, char *argv[]) {
     Logger::initialize();
     try {
-      FigureController().start();
+      FigureHttpsServer().start();
     }
     catch (exception const &e) {
         Logger::error("Server has crashed.", e);
-
         exit(1);
     }
 

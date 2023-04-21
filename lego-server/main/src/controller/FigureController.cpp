@@ -11,14 +11,11 @@ using std::runtime_error;
 using std::string;
 using std::throw_with_nested;
 
-void FigureController::run() const {
-  registerRoutes();
-
-  for(;;) {
-    httpsServer.accept();
-  }
-}
-
+/**
+ * Handler for GET /figureName
+ * @param name
+ * @return
+ */
 string FigureController::getFigureByName(const string &name) const {
   try {
     string figureHtml{figureRepository.findByName(name)};
@@ -27,8 +24,4 @@ string FigureController::getFigureByName(const string &name) const {
   catch(invalid_argument &ia) {
     throw_with_nested(runtime_error("Could not find figure: "));
   }
-}
-
-void registerRoutes() {
-  server.addRoute("/hello", "GET", std::bind(&Controller::handleHelloRequest, this, std::placeholders::_1));
 }

@@ -9,16 +9,17 @@
 #include <string>
 #include <sstream>
 
-#include "./net/socket/Ipv4SslSocket.hpp"
+#include "./socket/Ipv4SslSocket.hpp"
+#include "../controller/FigureController.hpp"
 
 using Handler = std::function<void(const std::string&)>;
 
 /**
  * @brief Makes HTTP requests.
  */
-class HttpsServer {
+class FigureHttpsServer {
  public:
-  HttpsServer();
+  FigureHttpsServer();
   /**
    * @brief Makes a GET request to the given resource and host.
    * @param resource Resource to request.
@@ -35,5 +36,5 @@ class HttpsServer {
 
   Ipv4SslSocket socket{};
 
-  std::map<std::tuple<std::string, std::string>, Handler> routes;
+  FigureController figureController{};
 };

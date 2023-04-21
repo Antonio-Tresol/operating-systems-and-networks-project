@@ -9,21 +9,15 @@
 
 #include "./common/Logger.hpp"
 #include "./data/FigureHtmlRepository.hpp"
-#include "./net/HttpsServer.hpp"
+#include "./net/FigureHttpsServer.hpp"
 
 /**
  * @brief Controller for functionality related to Figures.
  */
 class FigureController {
  public:
-  void run() const;
-
   std::string getFigureByName(const std::string &name) const;
 
  private:
-  void registerRoutes() const;
-
   FigureHtmlRepository figureRepository{};
-
-  HttpsServer httpsServer{};
 };
