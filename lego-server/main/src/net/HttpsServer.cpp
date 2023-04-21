@@ -43,6 +43,27 @@ void handleRequest(const std::string& path, const std::string& method) {
   //    socketNuevo.close
 }
 
+std::map<std::string, std::string> getUrlParams(const std::string& httpRequest) {
+    std::map<std::string, std::string> params;
+    std::regex urlParamRegex("GET\\s.+\\?(.+)\\sHTTP\\/1\\.1");
+    std::smatch urlParamMatch;
+
+    if (std::regex_search(httpRequest, urlParamMatch, urlParamRegex) && urlParamMatch.size() > 1) {
+        std::string paramString = urlParamMatch.str(1);
+        std::regex paramRegex("([^=&]+)=([^&]+)");
+        std::sregex_iterator paramIter(paramString.begin(), paramString.end(), paramRegex);
+        std::sregex_iterator paramEnd;
+
+        while (paramIter != paramEnd) {
+            std::smatch match = *paramIter;
+            params[match.str(1)] = match.str(2);
+            paramIter++;
+        }
+    }
+
+    return params;
+}
+
 std::string generateHttpResponse(int statusCode, const std::map<std::string, std::string>& headers, const std::string& body) {
   std::string statusMessage;
   switch (statusCode) {
