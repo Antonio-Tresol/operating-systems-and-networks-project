@@ -36,6 +36,7 @@ string FigureHtmlRepository::findByName(const string& name) const {
   std::ifstream figureFile(filenameStr);
   std::stringstream buffer;
   buffer << figureFile.rdbuf();
+  figureFile.close();
   return buffer.str();
 
 }
