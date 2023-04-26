@@ -9,36 +9,69 @@ using std::exception;
 using std::runtime_error;
 using std::string;
 using ::Handler;
-
+// TODO: recibir senales de interrupcion para cerrar el server
+// Agregar Cola (reutilizar la de Jeisson)
+// cerrar el server implica un stop mete en la cola un nullptr
+// para que los threads se detengan.
+// hacer un join de los threads
 FigureHttpsServer::FigureHttpsServer() {
-  // create socket ( ipv4SSL socket)
-  // bind to port X port 
-  // listen to declared socket as server (passive socket)
-  // listo
+  /*
+  create socket ( ipv4SSL socket)
+  bind to port X port 
+  listen to declared socket as server (passive socket)
+  # listo
+  accept() server ? # deberiamos ponerlo a correr desde el constructor
+  */
 }
 
+/**
+ * @brief Inicia el servidor, crea los threads y los pone a correr. Ademas acepta
+ * conexiones entrantes y las pone en la cola de clientes.
+*/
 void accept() {
-  // bucle:
-  //  cliente = ssl_accept() // recibir request
-  //  Handler (void handleRequest, Socket Cliente, x, y, z) 
-  // descompone el string del request (get url params)
-  // revisa su validez
-  //!! llama handleRequest(path, method)
+  /*
+  clientQueue 
+  # pone a correr los X threads TODO: 
+  vector<handler> handlers
+  for thread in threads:
+    handlers[thread].start(handleRequest)
+  while (true):
+    clientQueue.enqueue(ssl_accept())  // recibir request
+  */
 }
+/**
+ * @brief Detiene el servidor, cierra el socket y los threads.
+ * @details mandar un nullptr a la cola de clientes para que los threads se detengan
+ * y hacer un join de los threads
+*/
 
-void handleRequest(Ipv4SslSocket* client) {
+void stop() {
+  /*
+  clientQueue.enqueue(nullptr)  # condicion de parada de los threads
+  for thread in threads:
+     handlers[thread].join()
+  */
+}
+void handleRequest() {
     /*lee el request del socket */
-  // string request{}
-  // client->read(request)
-    /* Revisa el metodo (GET, POST, PUT, DELETE) */
-    /* Revisa que 'tipo' de path es ("/*") */
-    /*dado que hay que extraer un parametro, lo hace */
-  // params = getURLParams (request) // devuelve un map
-  // (str figureName = map["figure"])
-  //    res = handler(arg)
-  //    resp = buildResp(res)
-  //    socketNuevo(returnAddr, resp)
-  //    socketNuevo.close
+    /*
+   while (true):
+    client = clientQueue.dequeue()
+     if client == nullptr:
+      break
+     else: 
+       client->read(request)
+       # Revisa el metodo (GET, POST, PUT, DELETE) 
+       # Revisa que 'tipo' de path es ("/*") 
+       # dado que hay que extraer un parametro, lo hace 
+       params = getUrlParams(request)
+       body = figureControler.findByName(map["figure"])
+       if body == "":
+         response = sendHttpResponse(client, 404, params, body)
+       else:
+         response = sendHttpResponse(client, 200, params, body)
+       close(client)
+  */
 }
 
 std::map<std::string, std::string> getUrlParams(const std::string& httpRequest) {
@@ -64,7 +97,7 @@ std::map<std::string, std::string> getUrlParams(const std::string& httpRequest) 
 
 
 std::string generateHttpResponse(int statusCode, const std::map<std::string, std::string>& headers, const std::string& body) {
-  std::string statusMessage;
+  std::string statusMessage;  
   switch (statusCode) {
     case 200:
       statusMessage = "OK";

@@ -16,7 +16,7 @@
 #include "../controller/FigureController.hpp"
 
 // using Handler = std::function<void(const std::string&)>;
-using Handler = std::thread;
+using Handler = std::jthread;
 /**
  * @brief Makes HTTP requests.
  */
@@ -29,7 +29,8 @@ class FigureHttpsServer {
    * @param host Host to request from.
    * @return Response from host.
    */
-  [[nodiscard]] std::string get(const std::string &host, const std::string &resource) const;
+  [[nodiscard]] std::string get(const std::string &host, 
+    const std::string &resource) const;
 
  private:
   static constexpr char GET[]{"GET "};
@@ -39,6 +40,7 @@ class FigureHttpsServer {
   Ipv4SslSocket socket{};
   FigureController figureController{};
 
-  std::string generateHttpResponse(int statusCode, const std::map<std::string, std::string>& headers, const std::string& body)
-  
+  std::string generateHttpResponse(int statusCode, std::string& headers, 
+    const std::string& body);
+
 };
