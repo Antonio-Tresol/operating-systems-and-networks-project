@@ -11,25 +11,30 @@ using std::string;
 using ::Handler;
 
 FigureHttpsServer::FigureHttpsServer() {
-  // alistar el socket (listen)
+  // create socket ( ipv4SSL socket)
+  // bind to port X port 
+  // listen to declared socket as server (passive socket)
+  // listo
 }
 
 void accept() {
   // bucle:
-  // recibe request
-  // descompone el string del request
+  //  cliente = ssl_accept() // recibir request
+  //  Handler (void handleRequest, Socket Cliente, x, y, z) 
+  // descompone el string del request (get url params)
   // revisa su validez
-  // llama handleRequest(path, method)
+  //!! llama handleRequest(path, method)
 }
 
-void handleRequest(const std::string& path, const std::string& method) {
-    // Revisa el metodo
-    // Revisa que 'tipo' de path es ("/*")
-    // dado que hay que extraer un parametro, lo hace
-
-  // thread nuevo(handler, arg, returnAddr???)
-  // {otro metodo}
-  //    socketNuevo
+void handleRequest(Ipv4SslSocket* client) {
+    /*lee el request del socket */
+  // string request{}
+  // client->read(request)
+    /* Revisa el metodo (GET, POST, PUT, DELETE) */
+    /* Revisa que 'tipo' de path es ("/*") */
+    /*dado que hay que extraer un parametro, lo hace */
+  // params = getURLParams (request) // devuelve un map
+  // (str figureName = map["figure"])
   //    res = handler(arg)
   //    resp = buildResp(res)
   //    socketNuevo(returnAddr, resp)
@@ -50,12 +55,13 @@ std::map<std::string, std::string> getUrlParams(const std::string& httpRequest) 
         while (paramIter != paramEnd) {
             std::smatch match = *paramIter;
             params[match.str(1)] = match.str(2);
-            paramIter++;
+            ++paramIter;
         }
     }
 
     return params;
 }
+
 
 std::string generateHttpResponse(int statusCode, const std::map<std::string, std::string>& headers, const std::string& body) {
   std::string statusMessage;

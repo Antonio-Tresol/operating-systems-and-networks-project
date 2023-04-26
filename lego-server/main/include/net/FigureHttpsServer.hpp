@@ -8,12 +8,15 @@
 #include <functional>
 #include <string>
 #include <sstream>
+#include <map>
+#include <regex>
+#include <thread>
 
 #include "./socket/Ipv4SslSocket.hpp"
 #include "../controller/FigureController.hpp"
 
-using Handler = std::function<void(const std::string&)>;
-
+// using Handler = std::function<void(const std::string&)>;
+using Handler = std::thread;
 /**
  * @brief Makes HTTP requests.
  */
@@ -33,8 +36,9 @@ class FigureHttpsServer {
   static constexpr char CRLF[]{"\r\n"};
   static constexpr char HOST[]{"Host: "};
   static constexpr char HTTPS[]{"https"};
-
   Ipv4SslSocket socket{};
-
   FigureController figureController{};
+
+  std::string generateHttpResponse(int statusCode, const std::map<std::string, std::string>& headers, const std::string& body)
+  
 };
