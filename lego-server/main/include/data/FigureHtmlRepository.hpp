@@ -6,7 +6,7 @@
 #pragma once
 
 #include <string>
-
+#include <filesystem>
 /**
  * @brief Repository of Figure objects.
  */
@@ -17,5 +17,6 @@ class FigureHtmlRepository {
   std::string findByName(const std::string& name) const;
 
  private:
+  std::filesystem::path getResourcePath() const;
   static constexpr char RES[]{"res"};
 };
