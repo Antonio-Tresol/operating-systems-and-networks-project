@@ -7,17 +7,15 @@
 
 #include <semaphore.h>
 
-
 // macOS only uses named semaphores
 #if __APPLE__ && __MACH__
-  #define USE_NAMED_SEMAPHORE 1
+#define USE_NAMED_SEMAPHORE 1
 #endif
 
 #ifdef USE_NAMED_SEMAPHORE
-  #define SEM_NAME_PATTERN "/tmp/semXXXXXX"
-  #define SEM_NAME_LEN 15  // strlen(SEM_NAME_PATTERN) + 1
+#define SEM_NAME_PATTERN "/tmp/semXXXXXX"
+#define SEM_NAME_LEN 15  // strlen(SEM_NAME_PATTERN) + 1
 #endif
-
 /// Wrapper class for POSIX semaphores
 class Semaphore {
   // DISABLE COPY
@@ -25,6 +23,7 @@ class Semaphore {
   Semaphore(Semaphore&& other) = delete;
   Semaphore& operator=(const Semaphore& other) = delete;
   Semaphore& operator=(Semaphore&& other) = delete;
+
  private:
 #if USE_NAMED_SEMAPHORE
   /// The file name of the semaphore

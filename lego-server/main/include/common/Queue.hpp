@@ -15,7 +15,7 @@
  *
  * @remark None of the methods of this class can be const because all
  * methods require lock the mutex to avoid race-conditions
-*/
+ */
 template <typename DataType>
 class Queue {
   // DISABLE COPY
@@ -23,6 +23,7 @@ class Queue {
   Queue(Queue&& other) = delete;
   Queue& operator=(const Queue& other) = delete;
   Queue& operator=(Queue&& other) = delete;
+
  protected:
   /// All read or write operations are mutually exclusive
   std::mutex mutex;
@@ -33,14 +34,9 @@ class Queue {
 
  public:
   /// Constructor
-  Queue()
-    : canConsume(0) {
-  }
-
+  Queue() : canConsume(0) {}
   /// Destructor
-  ~Queue() {
-
-  }
+  ~Queue() {}
 
   /// Produces an element that is pushed in the queue
   /// The semaphore is increased to wait potential consumers
