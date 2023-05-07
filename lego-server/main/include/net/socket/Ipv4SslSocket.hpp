@@ -1,31 +1,32 @@
 // Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
 // Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
 // Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
-// Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
+// Copyright 2023 Geancarlo Rivera Hernandez
+// <geancarlo.riverahernandez@ucr.ac.cr>.
 
 #pragma once
 
-#include <unistd.h>
+#include <arpa/inet.h>  // for inet_pton
 #include <netdb.h>
-#include <arpa/inet.h>    // for inet_pton
-#include <sys/types.h>    // for connect
-#include <sys/socket.h>
 #include <openssl/ssl.h>
-#include <cstddef>
-#include <cstdio>    // for perror
-#include <cstdlib>    // for exit
-#include <cstring>    // for memset
+#include <sys/socket.h>
+#include <sys/types.h>  // for connect
+#include <unistd.h>
+
 #include <cerrno>
+#include <cstddef>
+#include <cstdio>   // for perror
+#include <cstdlib>  // for exit
+#include <cstring>  // for memset
 #include <string>
 
-#include "./SslCtxPtr.hpp"
-#include "./SslPtr.hpp"
+#include "SslCtxPtr.hpp"
+#include "SslPtr.hpp"
 
 /**
  * @brief A socket to connect via IPv4 over TCP over SSL.
  */
 class Ipv4SslSocket {
-
  public:
   /**
    * Constructor.
@@ -34,11 +35,12 @@ class Ipv4SslSocket {
    */
   Ipv4SslSocket();
   /**
-  * @brief builds server ssl ipv4 socket
-  * @param
-  */
+   * @brief builds server ssl ipv4 socket
+   * @param
+   */
   Ipv4SslSocket(std::string certFilePath, int port = 7777);
-  Ipv4SslSocket(int socketFd);
+
+  explicit Ipv4SslSocket(int socketFd) { this->socketFd = socketFd; }
   /**
    * Destructor.
    *
@@ -72,7 +74,7 @@ class Ipv4SslSocket {
    */
   void sslWrite(const std::string &text) const;
 
-  //!NEW
+  //! NEW
   /**
    * @brief Wait for a TLS/SSL client to initiate the TLS/SSL handshake.
    * @details Waits for a TLS/SSL client to initiate the TLS/SSL
@@ -87,7 +89,7 @@ class Ipv4SslSocket {
    * @throws SocketException if can't accept connection
    * @returns a new socket (handle) to communicate with the client.
    */
-  Ipv4SslSocket* Accept() noexcept(false);
+  Ipv4SslSocket *Accept() noexcept(false);
   /**
    * @brief listen method uses listen system call to mark a socket as passive
    * @details the socket will be used to accept incoming connection requests.
@@ -97,7 +99,11 @@ class Ipv4SslSocket {
    */
   void sslListen(int backlog) noexcept(false);
 
-    /**
+  void SSLConnect(const char *host, int port);
+
+  void Connect(const char *host, int port);
+
+  /**
    * @private
    * @brief Binds the socket to an IPv4 address and port number.
    *
@@ -105,7 +111,7 @@ class Ipv4SslSocket {
    * @throws SocketException If there is an error binding to the socket.
    */
   void sslBind(int port) noexcept(false);
-  
+
   /**
    * Uses the select() function to monitor the socket file descriptor for
    * reading or writing, depending on the error parameter.
@@ -119,21 +125,14 @@ class Ipv4SslSocket {
    *  the select timed out, or a positive integer if the socket is ready.
    */
   int readyToReadWrite(int error) noexcept(true);
-  void sslCreate(SSL_CTX* parentContext);
-  SslCtxPtr* getContext() const { return &sslContext; }
+  void sslCreate(SSL_CTX *parentContext);
+  SslCtxPtr *getContext() { return &sslContext; }
 
-private:
+ private:
   static constexpr int TCP_ID{6};
   static constexpr int64_t CHUNK_SIZE{512};
-  static constexpr struct addrinfo hints{
-    0,
-    AF_UNSPEC,
-    SOCK_STREAM,
-    0,
-    0,
-    nullptr,
-    nullptr,
-    nullptr
+  static constexpr struct addrinfo hints {
+    0, AF_UNSPEC, SOCK_STREAM, 0, 0, nullptr, nullptr, nullptr
   };
 
   /**
@@ -170,12 +169,13 @@ private:
    * @param certFileName File containing the certificate.
    * @param keyFileName File containing the keys.
    */
-  void SSLLoadCertificates(const char* certFileName, const char* keyFileName);
-
+  void SSLLoadCertificates(const char *certFileName, const char *keyFileName);
 
   int socketFd{};
   fd_set read_fds{};
-  struct timeval timeout{5, 0};
+  struct timeval timeout {
+    5, 0
+  };
   SslCtxPtr sslContext{};
   SslPtr ssl{};
 };
