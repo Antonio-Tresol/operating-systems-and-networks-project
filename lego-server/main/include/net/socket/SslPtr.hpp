@@ -16,9 +16,8 @@
 class SslPtr {
  public:
   explicit SslPtr(SSL_CTX *ctx);
-
+  SslPtr();
   ~SslPtr();
-
   /**
    * Object is meant to be unique.
    */
@@ -26,6 +25,7 @@ class SslPtr {
   SslPtr &operator=(const SslPtr &) = delete;
 
   explicit operator SSL *() const;
+  void startSsl(SSL_CTX *ctx) noexcept(false);
 
  private:
   SSL *ssl;

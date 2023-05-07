@@ -8,9 +8,16 @@
 using std::runtime_error;
 
 SslCtxPtr::SslCtxPtr() {
+    ctx = SSL_CTX_new(TLS_client_method());
     if (!ctx) {
         throw runtime_error("Failed to create SSL_CTX");
     }
+}
+void SslCtxPtr::setCtx(SSL_CTX *ctx){
+    this->ctx = ctx;
+}
+
+SslCtxPtr::SslCtxPtr() noexcept {
 }
 
 SslCtxPtr::~SslCtxPtr() {

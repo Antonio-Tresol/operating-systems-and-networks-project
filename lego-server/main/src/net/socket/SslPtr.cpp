@@ -12,7 +12,12 @@ SslPtr::SslPtr(SSL_CTX* ctx) : ssl(SSL_new(ctx)) {
         throw runtime_error("Failed to create SSL");
     }
 }
-
+void SslPtr::startSsl(SSL_CTX *ctx) {
+    ssl = SSL_new(ctx);
+    if (!ssl) {
+        throw runtime_error("Failed to create SSL from context");
+    }
+}
 SslPtr::~SslPtr() {
     if (ssl) {
         SSL_shutdown(ssl);

@@ -16,6 +16,7 @@
 class SslCtxPtr {
  public:
   SslCtxPtr();
+  SslCtxPtr();
 
   ~SslCtxPtr();
 
@@ -28,7 +29,9 @@ class SslCtxPtr {
   explicit operator SSL_CTX *() const {
     return ctx;
   }
+  
+  void setCtx(SSL_CTX *ctx);
 
  private:
-  SSL_CTX *ctx{SSL_CTX_new(TLS_client_method())};
+  SSL_CTX *ctx{};
 };
