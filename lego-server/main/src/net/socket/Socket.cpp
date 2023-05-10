@@ -77,15 +77,15 @@ Socket::Socket(char socketType, int port, bool isIpv6) noexcept(false) {
                                       "Socket::Socket", false));
   }
 }
-Socket::Socket(char socketType, int port, const char *certFileName,
-               const char *keyFileName, bool isIpv6) {
+Socket::Socket(char socketType, int port, std::string certFileName,
+               std::string keyFileName, bool isIpv6) {
   // check if socket type is valid.
   if (socketType != 's' && socketType != 'd') {
     throw SocketException("Invalid socket type", "Socket::Socket", EINVAL);
   }
   // prepare the ssl context
   try {
-    this->SSLInitServer(certFileName, keyFileName);
+    this->SSLInitServer(certFileName.c_str(), keyFileName.c_str());
   } catch (const SocketException &e) {
     throw_with_nested(SocketException("Error Creating Passive Socket",
                                       "Socket::Socket", false));
@@ -204,19 +204,19 @@ void Socket::connectIPv6(const char *host, int port) {
   }
 }
 
-void Socket::Connect(const char *host, int port) {
+void Socket::Connect(std::string host, int port) {
   try {
     if (this->ipv6) {
-      this->connectIPv6(host, port);
+      this->connectIPv6(host.c_str(), port);
     } else {
-      this->connectIPv4(host, port);
+      this->connectIPv4(host.c_str(), port);
     }
   } catch (SocketException &e) {
     throw;
   }
 }
 
-void Socket::Connect(const char *host, const char *service) {
+void Socket::Connect(std::string host, std::string service) {
   int status = -1;
   struct addrinfo hints, *result, *rp;
   memset(&hints, 0, sizeof(struct addrinfo));
@@ -231,7 +231,7 @@ void Socket::Connect(const char *host, const char *service) {
   // structures containing the corresponding binary IP address(es) and port
   // number. Thats why we use rp and result to iterate over the list of
   // addresses returned by getaddrinfo.
-  status = getaddrinfo(host, service, &hints, &result);
+  status = getaddrinfo(host.c_str(), service.c_str(), &hints, &result);
   if (status != 0) {
     throw SocketException("Error getting address info", "Socket::Connect",
                           status);
@@ -248,33 +248,39 @@ void Socket::Connect(const char *host, const char *service) {
   }
 }
 
-int Socket::Read(void *buffer, int bufferSize) {
+std::string Socket::Read() {
   int nBytesRead = -1;
-  // Read from the socket and store the data in buffer using system call read
-  nBytesRead = read(this->idSocket, buffer, bufferSize);
-  if (-1 == nBytesRead) {
-    throw SocketException("Error reading from socket", "Socket::Read", errno);
-  } else if (0 == nBytesRead) {
-    throw SocketException("Error reading from socket", "Socket::Read",
-                          ECONNRESET);
+  std::string output;
+  int bufferSize = 512;
+  char buffer[512];
+
+  while (isReadyToRead(5)) {
+    // Read from the socket and store the data in buffer using system call read
+    nBytesRead = read(this->idSocket, buffer, bufferSize);
+
+    if (-1 == nBytesRead) {
+      throw SocketException("Error reading from socket", "Socket::Read", errno);
+    } else if (0 == nBytesRead) {
+      // Connection has been closed or reset, break the loop and return the
+      // output
+      break;
+    } else {
+      // Append the data read from the socket to the output string
+      output.append(buffer, nBytesRead);
+    }
   }
-  return nBytesRead;
+
+  return output;
 }
 
-void Socket::Write(const void *buffer, int bufferSize) {
+void Socket::Write(std::string message) {
   int status = -1;
+  const char *buffer = message.c_str();
+  int bufferSize = message.length();
   // Write to the socket using system call write
   status = write(this->idSocket, buffer, bufferSize);
   if (-1 == status) {
     throw SocketException("Error writing to socket", "Socket::Write", errno);
-  }
-}
-
-void Socket::Write(const char *buffer) {
-  try {
-    this->Write(buffer, strlen(buffer));
-  } catch (SocketException &e) {
-    throw;
   }
 }
 
@@ -368,12 +374,12 @@ void Socket::Shutdown(int mode) {
 
 void Socket::SetIDSocket(int newId) noexcept(true) { this->idSocket = newId; }
 
-int Socket::sendTo(const void *message, int length, const void *destAddr) {
+int Socket::sendTo(std::string message, const void *destAddr) {
   int nBytesSent = -1;
   // Determine the size of the sockaddr structure based on the ipv6 attribute
   socklen_t addrSize = this->ipv6 ? sizeof(sockaddr_in6) : sizeof(sockaddr_in);
   // Send the message using the sendto system call
-  nBytesSent = sendto(this->idSocket, message, length, 0,
+  nBytesSent = sendto(this->idSocket, message.c_str(), message.length(), 0,
                       reinterpret_cast<const sockaddr *>(destAddr), addrSize);
   if (-1 == nBytesSent) {
     throw SocketException("Error sending message", "Socket::sendTo", errno);
@@ -381,17 +387,33 @@ int Socket::sendTo(const void *message, int length, const void *destAddr) {
   return nBytesSent;
 }
 
-int Socket::recvFrom(void *buffer, int length, void *srcAddr) {
+std::string Socket::recvFrom(void *srcAddr) {
   int nBytesReceived = -1;
+  std::string output;
+  int bufferSize = 512;
+  char buffer[512];
+
   // Determine the size of the sockaddr structure based on the ipv6 attribute
   socklen_t addrSize = this->ipv6 ? sizeof(sockaddr_in6) : sizeof(sockaddr_in);
-  // Receive data using the recvfrom system call
-  nBytesReceived = recvfrom(this->idSocket, buffer, length, 0,
-                            reinterpret_cast<sockaddr *>(srcAddr), &addrSize);
-  if (-1 == nBytesReceived) {
-    throw SocketException("Error receiving message", "Socket::recvFrom", errno);
+
+  while (isReadyToRead()) {
+    // Receive data using the recvfrom system call
+    nBytesReceived = recvfrom(this->idSocket, buffer, bufferSize, 0,
+                              reinterpret_cast<sockaddr *>(srcAddr), &addrSize);
+
+    if (-1 == nBytesReceived) {
+      throw SocketException("Error receiving message", "Socket::recvFrom",
+                            errno);
+    } else if (0 == nBytesReceived) {
+      // Connection has been closed or reset, break the loop and return the
+      // output
+      break;
+    } else {
+      // Append the data received to the output string
+      output.append(buffer, nBytesReceived);
+    }
   }
-  return nBytesReceived;
+  return output;
 }
 
 void Socket::SSLInitContext() {
@@ -550,7 +572,7 @@ void Socket::SSLAccept() {
   }
 }
 
-void Socket::SSLConnect(const char *host, int port) {
+void Socket::SSLConnect(std::string host, int port) {
   int status = -1;
   try {
     this->Connect(host, port);  // Establish a non SSL connection first
@@ -569,7 +591,7 @@ void Socket::SSLConnect(const char *host, int port) {
   }
 }
 
-void Socket::SSLConnect(const char *host, const char *service) {
+void Socket::SSLConnect(std::string host, std::string service) {
   int status = -1;
   try {
     this->Connect(host, service);  // Establish a non SSL connection first
@@ -588,19 +610,15 @@ void Socket::SSLConnect(const char *host, const char *service) {
   }
 }
 
-int Socket::SSLRead(void *buffer, int bufferSize) {
+std::string Socket::SSLRead() {
   int nBytesRead = -1;
-  try {
-    if (isReadyToRead(this->idSocket, 5) == false) {
-      throw SocketException("Error reading from SSLSocket", "Socket::SSLRead",
-                            errno);
-    }
-  } catch (SocketException &e) {
-    // if there was an error reading in isReadyToRead, throw it again
-    throw;
-  }
-  do {
+  std::string output;
+  int bufferSize = 512;
+  char buffer[512];
+  // Read from the socket until there is no more data to read
+  while (isReadyToRead()) {
     nBytesRead = SSL_read(this->SSLStruct, buffer, bufferSize);
+
     if (nBytesRead < 0) {
       // gets ssl error to see if we should try again.
       int sslError = SSL_get_error(this->SSLStruct, nBytesRead);
@@ -611,15 +629,23 @@ int Socket::SSLRead(void *buffer, int bufferSize) {
         throw SocketException("Error reading from SSLSocket",
                               "Socket::SSLRead");
       }
+    } else if (nBytesRead == 0) {
+      // Connection has been closed or reset, break the loop and return the
+      // output
+      break;
+    } else {
+      // Append the data read from the socket to the output string
+      output.append(buffer, nBytesRead);
     }
-  } while (nBytesRead < 0);
-  return nBytesRead;
+  }
+
+  return output;
 }
 
-int Socket::SSLWrite(const void *buffer, int bufferSize) {
+int Socket::SSLWrite(std::string message) {
   int nBytesWritten = -1;
   // ssl_write returns the number of bytes written or -1 if an error occurs
-  nBytesWritten = SSL_write(this->SSLStruct, buffer, bufferSize);
+  nBytesWritten = SSL_write(this->SSLStruct, message.c_str(), message.length());
   if (nBytesWritten <= 0) {
     // If the error is SSL_ERROR_WANT_READ it means the write operation was
     // not completed and we must try again. If the error is
@@ -627,7 +653,7 @@ int Socket::SSLWrite(const void *buffer, int bufferSize) {
     // we must try again.
     int sslError = SSL_get_error(this->SSLStruct, nBytesWritten);
     if (sslError == SSL_ERROR_WANT_READ || sslError == SSL_ERROR_WANT_WRITE) {
-      SSLWrite(buffer, bufferSize);
+      SSLWrite(message);
     } else {
       throw SocketException("Error writing to SSL socket", "Socket::SSLWrite");
     }

@@ -61,15 +61,15 @@ class Socket {
    * connectionless, message-oriented communication.
    * @param	int port: port number to bind to
    * @param	bool ipv6: if we need a IPv6 socket
-   * @param	const char* certFileName: certificate file name
-   * @param	const char* keyFileName: key file name
+   * @param	std::string certFileName: certificate file name
+   * @param	std::string keyFileName: key file name
    * @throws SocketException if the socket type is invalid.
    * @throws SocketException if the socket can't be created.
    * @throws SocketException if the socket SSL context can't be created.
    * @throws SocketException if the socket SSL structure can't be created.
    */
-  Socket(char socketType, int port, const char* certFileName,
-         const char* keyFileName, bool isIpv6 = false) noexcept(false);
+  Socket(char socketType, int port, std::string certFileName,
+         std::string keyFileName, bool isIpv6 = false) noexcept(false);
   /**
    * @brief constructor for socket, using existing socket descriptor.
    * @param int socketDescriptor
@@ -101,45 +101,36 @@ class Socket {
    *  sockets. Calling connect on a datagram socket causes the kernel to record
    *  a particular address as this socket’s peer. For more details on this see:
    *  The Linux Programming Interface, Michael Kerrisk, Chapter 56 section 6.2
-   * @param	char* host host address in dot notation
+   * @param	std::stringhost host address in dot notation
    * @param	int port port number
    * @throws with nested SocketException if: can't connect to host.
    */
-  void Connect(const char* host, int port) noexcept(false);
+  void Connect(std::string host, int port) noexcept(false);
   /**
    * @brief connects with a pasive socket (TCP). It uses getaddrinfo to get the
    * address of host and then connects to it and hints to specify the type of
    * socket we want to connect to.
-   * @param char* host host address in dot notation, example .
-   * @param char* service service name
+   * @param std::string host host address in dot notation, example .
+   * @param std::string service service name
    * @throws SocketException if can't get address info
    * @throws SocketException if can't connect to host
    */
-  void Connect(const char* host, const char* service) noexcept(false);
+  void Connect(std::string host, std::string service) noexcept(false);
   /**
    * @brief read method uses read system call to read data from a TCP socket
    * (STREAM). Other system like send/recv could be used for this too.
-   * @param void* buffer buffer to store data read from socket
-   * @param int size buffer capacity, number of bytes to read
    * @throws SocketException if can't read from socket
    * @throws SocketException if connection was closed by peer
-   * @return int number of bytes read
+   * @return std::string with the message
    */
-  int Read(void* buffer, int bufferSize) noexcept(false);
+  std::string Read() noexcept(false);
   /**
    * @brief write method uses write system call.
-   * @param const void* buffer to write in.
+   * @param std::string buffer to write in.
    * @param int bufferSize the capacity of the buffer.
    * @throws SocketException if can't write to socket
    */
-  void Write(const void* buffer, int bufferSize) noexcept(false);
-  /**
-   * @brief write method uses write sys call to perform a write operation in a
-   *  TCP socket (STREAM). Calls like send/recv could be used for this too.
-   * @param const char* buffer to write in.
-   * @throws SocketException if can't write to socket
-   */
-  void Write(const char* buffer) noexcept(false);
+  void Write(std::string message) noexcept(false);
   /**
    * @brief listen method uses listen system call to mark a socket as passive
    * @details the socket will be used to accept incoming connection requests.
@@ -177,59 +168,52 @@ class Socket {
   /**
    * @brief sendTo method uses sendto system call to send a message to a
    *  UDP Socket (datagram)
-   * @param const void* message message to send
-   * @param int length length of the message
+   * @param std::string message message to send
    * @param const void* destAddr socket to send the message to
    * @return int number of bytes sent
    * @throws SocketException if can't send message
    */
-  int sendTo(const void* message, int length,
-             const void* destAddr) noexcept(false);
+  int sendTo(std::string message, const void* destAddr) noexcept(false);
   /**
    * @brief recvFrom method uses recvfrom sys call to receive a message from a
    *  UDP Socket (datagram)
-   * @param void* buffer buffer to store the message
-   * @param int length length of the message
    * @param void* srcAddr socket to receive the message from
-   * @return int number of bytes received
+   * @return std::string message received
    * @throws SocketException if can't receive message
    */
-  int recvFrom(void* buffer, int length, void* srcAddr) noexcept(false);
+  std::string recvFrom(void* srcAddr) noexcept(false);
   /**
    * @brief SSLConnect method uses SSL_connect sys call to connect to a server
-   * @param const char* host host name
+   * @param std::string  host host name
    * @param int port port number
    * @throws SocketException if can't connect to host
    * @throws SocketException if can't set SSL file descriptor
    * @throws SocketException if can't connect to SSL host
    */
-  void SSLConnect(const char* host, int port) noexcept(false);
+  void SSLConnect(std::string host, int port) noexcept(false);
   /**
    * @brief SSLConnect method uses SSL_connect sys call to connect to a server
-   * @param const char* host host name
-   * @param const char* service service name
+   * @param std::string host host name
+   * @param std::string  service service name
    * @details service name can be a port number or a service name
    * @throws SocketException if can't connect to host
    * @throws SocketException if can't set SSL file descriptor
    * @throws SocketException if can't connect to SSL host
    */
-  void SSLConnect(const char* host, const char* service) noexcept(false);
+  void SSLConnect(std::string host, std::string service) noexcept(false);
   /**
    * @brief: SSLRead method uses SSL_read system call to read from a socket
-   * @param: void* buffer buffer to store the message
-   * @param: int bufferSize size of the buffer
-   * @return: int number of bytes read
+   * @return: std::string message read
    * @throws SocketException if can't read from SSL socket
    */
-  int SSLRead(void* buffer, int bufferSize) noexcept(false);
+  std::string SSLRead() noexcept(false);
   /**
    * @brief SSLWrite method uses SSL_write system call to write to a socket
-   * @param const void* buffer buffer to store the message
-   * @param int bufferSize size of the buffer
+   * @param std::string buffer buffer to store the message
    * @return int number of bytes written
    * @throws SocketException if can't write to SSL socket
    */
-  int SSLWrite(const void* buffer, int bufferSize) noexcept(false);
+  int SSLWrite(std::string message) noexcept(false);
   /**
    * @brief Construct a new SSL * variable from a previously created context.
    * Constructs a new SSL * variable from a previously created context using the
@@ -326,7 +310,8 @@ class Socket {
    * @return true if the file descriptor is ready to read from, 0 if the file
    *  descriptor is not ready to read from, and -1 if there is an error.
    */
-  bool isReadyToRead(int timeoutSec, int timeoutMicroSec = 0) noexcept(false);
+  bool isReadyToRead(int timeoutSec = 0,
+                     int timeoutMicroSec = 1) noexcept(false);
   /**
    * Uses the select() function to monitor the socket file descriptor for
    * reading or writing, depending on the error parameter.
