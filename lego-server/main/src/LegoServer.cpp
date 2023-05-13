@@ -32,7 +32,6 @@ int main(int argc, char *argv[]) {
     Logger::error("Server has crashed.", e);
     exit(1);
   }
-
   Logger::info("Exiting.");
 
   exit(0);

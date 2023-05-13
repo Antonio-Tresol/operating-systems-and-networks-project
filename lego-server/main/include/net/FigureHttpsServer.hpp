@@ -17,6 +17,7 @@
 #include "../common/Queue.hpp"
 #include "../controller/FigureController.hpp"
 #include "./socket/Ipv4SslSocket.hpp"
+#include "./socket/Socket.hpp"
 
 // using Handler = std::function<void(const std::string&)>;
 using Handler = std::thread;
@@ -43,17 +44,19 @@ class FigureHttpsServer {
   static constexpr char CRLF[]{"\r\n"};
   static constexpr char HOST[]{"Host: "};
   static constexpr char HTTPS[]{"https"};
-  Ipv4SslSocket server{};
+  Socket* server;
   FigureController figureController{};
-  Queue<Ipv4SslSocket*> clientQueue{};
-  std::vector<Handler*> handlers{};
+  /// producing queue of client sockets
+  Queue<Socket*> clientQueue{};
+  /// vector of handler threads
+  std::vector<Handler> handlers{};
   void handleRequests();
   std::map<std::string, std::string> getUrlParams(
       const std::string& httpRequest);
   std::string FigureHttpsServer::generateHttpResponse(
       int statusCode, const std::map<std::string, std::string>& headers,
       const std::string& body);
-  void sendHttpResponse(Ipv4SslSocket* client, int statusCode,
+  void sendHttpResponse(Socket* client, int statusCode,
                         const std::map<std::string, std::string>& headers,
                         const std::string& body);
 };
