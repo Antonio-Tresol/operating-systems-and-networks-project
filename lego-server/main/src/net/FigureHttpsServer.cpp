@@ -10,71 +10,70 @@ using ::Handler;
 using std::exception;
 using std::runtime_error;
 using std::string;
-// TODO: recibir senales de interrupcion para cerrar el server
-// Agregar Cola (reutilizar la de Jeisson)
-// cerrar el server implica un stop mete en la cola un nullptr
-// para que los threads se detengan.
-// hacer un join de los threads
+
 FigureHttpsServer::FigureHttpsServer(std::string certificatesFilePath,
-                                     int port = 7777) {
-  /*
-  Server = socket(certs, port)  # constructor debe recibir certificados,
-                                # cargarlos, iniciar el contexto, llaves,
-                                # hacer bind y hacer listen.
-  */
+  int port = 7777) {
+  this->server = new Socket('s', port, certificatesFilePath, certificatesFilePath); 
 }
 
 /**
- * @brief Inicia el servidor, crea los threads y los pone a correr. Ademas
- * acepta conexiones entrantes y las pone en la cola de clientes.
+ * @brief Starts the server, creates the threads and starts them running. Besides
+ * accepts incoming connections and puts them in the client queue.
  */
 void FigureHttpsServer::start() {
-  /*
-  # pone a correr los X threads TODO:
-  for thread in threads:
-    handlers[thread].push_back(handler(handleRequest))
 
-  while (true):
-    socket *client = server.accept()
-    clientQueue.enqueue(client)  // recibir request
-  */
+  for (auto& handler : handlers) {
+    this->handlers.push_back(Handler(&FigureHttpsServer::handleRequests, this));
+  }
+
+  while (true) {
+    // add new client to queue
+    this->clientQueue.enqueue(server->Accept());
+  }
 }
-/**
- * @brief Detiene el servidor, cierra el socket y los threads.
- * @details mandar un nullptr a la cola de clientes para que los threads se
- * detengan y hacer un join de los threads
- */
 
+/**
+ * @brief Stops the server, closes the socket and threads.
+ * @details send a nullptr to the client queue so that the threads are
+ * stop and join the threads
+ */
 void FigureHttpsServer::stop() {
-  /*
-  clientQueue.enqueue(nullptr)  # condicion de parada de los threads
-  for thread in threads:
-     handlers[thread].join()
-  */
+  for (auto& handler : handlers) { // for each handler thread
+    clientQueue.enqueue(nullptr); // send nullptr to stop them
+  }
+  for (auto& handler : handlers) {
+    handler.join(); // wait for them to finish
+  }
 }
 
 void FigureHttpsServer::handleRequests() {
-  /*lee el request del socket */
-  /*
- while (true):
-  client = clientQueue.dequeue()
-   if client == nullptr:
-    break
-   else:
-     client->SSLCreate(this->server)
-     client->SSLAccept()
-     client->SSLRead(request)
-     # Revisa el metodo (GET, POST, PUT, DELETE)
-     # Revisa que 'tipo' de path es ("/*")
-     # dado que hay que extraer un parametro, lo hace
-     params = getUrlParams(request)
-     body = figureControler.findByName(map["figure"])
-     if body == "":
-       response = sendHttpResponse(client, 404, params, body)
-     else:
-       response = sendHttpResponse(client, 200, params, body)
-     close(client)
-*/
+
+  while (true) {
+    Socket* client = clientQueue.dequeue();
+    if (client == nullptr) {
+      break;
+    } else {
+      client->SSLCreate(this->server);
+      client->SSLAccept();
+      string request = client->SSLRead();
+      
+      /*
+      # Revisa el metodo (GET, POST, PUT, DELETE)
+      # Revisa que 'tipo' de path es ("/*")
+      # dado que hay que extraer un parametro, lo hace
+      */
+      std::map<string, string> params = getUrlParams(request);
+
+      string body = figureController.getFigureByName(params["figure"]);
+      
+      if (body.empty()) {
+        sendHttpResponse(client, 404, params, body);
+      } else {
+        sendHttpResponse(client, 200, params, body); 
+      }
+      client->Close();
+    }
+  }
 }
 
 std::map<std::string, std::string> FigureHttpsServer::getUrlParams(
@@ -129,10 +128,10 @@ std::string FigureHttpsServer::generateHttpResponse(
 }
 
 void FigureHttpsServer::sendHttpResponse(
-    Ipv4SslSocket* client, int statusCode,
+    Socket* client, int statusCode,
     const std::map<std::string, std::string>& headers,
     const std::string& body) {
   std::string response =
       FigureHttpsServer::generateHttpResponse(statusCode, headers, body);
-  // client->SSLWrite(response);
+  client->SSLWrite(response);
 }
