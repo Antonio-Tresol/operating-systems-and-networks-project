@@ -1,63 +1,108 @@
 // Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
 // Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
 // Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
-// Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
+// Copyright 2023 Geancarlo Rivera Hernandez
+// <geancarlo.riverahernandez@ucr.ac.cr>.
 
 #include "../include/net/FigureHttpsServer.hpp"
 
+using ::Handler;
 using std::exception;
 using std::runtime_error;
 using std::string;
-using ::Handler;
 
-FigureHttpsServer::FigureHttpsServer() {
-  // alistar el socket (listen)
+FigureHttpsServer::FigureHttpsServer(std::string certificatesFilePath,
+  int port = 7777) {
+  this->server = new Socket('s', port, certificatesFilePath, certificatesFilePath); 
 }
 
-void accept() {
-  // bucle:
-  // recibe request
-  // descompone el string del request
-  // revisa su validez
-  // llama handleRequest(path, method)
+/**
+ * @brief Starts the server, creates the threads and starts them running. Besides
+ * accepts incoming connections and puts them in the client queue.
+ */
+void FigureHttpsServer::start() {
+
+  for (auto& handler : handlers) {
+    this->handlers.push_back(Handler(&FigureHttpsServer::handleRequests, this));
+  }
+
+  while (true) {
+    // add new client to queue
+    this->clientQueue.enqueue(server->Accept());
+  }
 }
 
-void handleRequest(const std::string& path, const std::string& method) {
-    // Revisa el metodo
-    // Revisa que 'tipo' de path es ("/*")
-    // dado que hay que extraer un parametro, lo hace
-
-  // thread nuevo(handler, arg, returnAddr???)
-  // {otro metodo}
-  //    socketNuevo
-  //    res = handler(arg)
-  //    resp = buildResp(res)
-  //    socketNuevo(returnAddr, resp)
-  //    socketNuevo.close
+/**
+ * @brief Stops the server, closes the socket and threads.
+ * @details send a nullptr to the client queue so that the threads are
+ * stop and join the threads
+ */
+void FigureHttpsServer::stop() {
+  for (auto& handler : handlers) { // for each handler thread
+    clientQueue.enqueue(nullptr); // send nullptr to stop them
+  }
+  for (auto& handler : handlers) {
+    handler.join(); // wait for them to finish
+  }
 }
 
-std::map<std::string, std::string> getUrlParams(const std::string& httpRequest) {
-    std::map<std::string, std::string> params;
-    std::regex urlParamRegex("GET\\s.+\\?(.+)\\sHTTP\\/1\\.1");
-    std::smatch urlParamMatch;
+void FigureHttpsServer::handleRequests() {
 
-    if (std::regex_search(httpRequest, urlParamMatch, urlParamRegex) && urlParamMatch.size() > 1) {
-        std::string paramString = urlParamMatch.str(1);
-        std::regex paramRegex("([^=&]+)=([^&]+)");
-        std::sregex_iterator paramIter(paramString.begin(), paramString.end(), paramRegex);
-        std::sregex_iterator paramEnd;
+  while (true) {
+    Socket* client = clientQueue.dequeue();
+    if (client == nullptr) {
+      break;
+    } else {
+      client->SSLCreate(this->server);
+      client->SSLAccept();
+      string request = client->SSLRead();
+      
+      /*
+      # Revisa el metodo (GET, POST, PUT, DELETE)
+      # Revisa que 'tipo' de path es ("/*")
+      # dado que hay que extraer un parametro, lo hace
+      */
+      std::map<string, string> params = getUrlParams(request);
 
-        while (paramIter != paramEnd) {
-            std::smatch match = *paramIter;
-            params[match.str(1)] = match.str(2);
-            paramIter++;
-        }
+      string body = figureController.getFigureByName(params["figure"]);
+      
+      if (body.empty()) {
+        sendHttpResponse(client, 404, params, body);
+      } else {
+        sendHttpResponse(client, 200, params, body); 
+      }
+      client->Close();
     }
-
-    return params;
+  }
 }
 
-std::string generateHttpResponse(int statusCode, const std::map<std::string, std::string>& headers, const std::string& body) {
+std::map<std::string, std::string> FigureHttpsServer::getUrlParams(
+    const std::string& httpRequest) {
+  std::map<std::string, std::string> params;
+  std::regex urlParamRegex("GET\\s.+\\?(.+)\\sHTTP\\/1\\.1");
+  std::smatch urlParamMatch;
+
+  if (std::regex_search(httpRequest, urlParamMatch, urlParamRegex) &&
+      urlParamMatch.size() > 1) {
+    std::string paramString = urlParamMatch.str(1);
+    std::regex paramRegex("([^=&]+)=([^&]+)");
+    std::sregex_iterator paramIter(paramString.begin(), paramString.end(),
+                                   paramRegex);
+    std::sregex_iterator paramEnd;
+
+    while (paramIter != paramEnd) {
+      std::smatch match = *paramIter;
+      params[match.str(1)] = match.str(2);
+      ++paramIter;
+    }
+  }
+
+  return params;
+}
+
+std::string FigureHttpsServer::generateHttpResponse(
+    int statusCode, const std::map<std::string, std::string>& headers,
+    const std::string& body) {
   std::string statusMessage;
   switch (statusCode) {
     case 200:
@@ -71,7 +116,8 @@ std::string generateHttpResponse(int statusCode, const std::map<std::string, std
       statusMessage = "Unknown";
   }
 
-  std::string response = "HTTP/1.1 " + std::to_string(statusCode) + " " + statusMessage + "\r\n";
+  std::string response =
+      "HTTP/1.1 " + std::to_string(statusCode) + " " + statusMessage + "\r\n";
   for (const auto& header : headers) {
     response += header.first + ": " + header.second + "\r\n";
   }
@@ -81,7 +127,11 @@ std::string generateHttpResponse(int statusCode, const std::map<std::string, std
   return response;
 }
 
-void sendHttpResponse(SSL* ssl, int statusCode, const std::map<std::string, std::string>& headers, const std::string& body) {
-  std::string response = generateHttpResponse(statusCode, headers, body);
-  SSL_write(ssl, response.c_str(), response.size());
+void FigureHttpsServer::sendHttpResponse(
+    Socket* client, int statusCode,
+    const std::map<std::string, std::string>& headers,
+    const std::string& body) {
+  std::string response =
+      FigureHttpsServer::generateHttpResponse(statusCode, headers, body);
+  client->SSLWrite(response);
 }
