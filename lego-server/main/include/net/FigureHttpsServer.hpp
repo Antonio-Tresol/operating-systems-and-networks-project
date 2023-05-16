@@ -34,11 +34,10 @@ public:
 private:
     static constexpr int PORT{7777};
     static constexpr int QUEUE{10};
-    static constexpr char CERT_NAME[]{"ci0123.pem"};
-    static constexpr char CERT_DIR[]{"."};
+    static constexpr char CERT_PATH[]{"./ci0123.pem"};
     static constexpr char FIGURE[]{"figure"};
 
-    IPv4SslSocket listener{CERT_DIR, CERT_NAME};
+    IPv4SslSocket listener{CERT_PATH, CERT_PATH};
 
     FigureController figureController{};
 

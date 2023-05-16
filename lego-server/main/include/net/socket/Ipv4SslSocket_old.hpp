@@ -40,7 +40,7 @@ class Ipv4SslSocket_old {
    */
   explicit Ipv4SslSocket_old(std::string certFilePath, int port = 7777);
 
-  explicit Ipv4SslSocket_old(int socketFD) : sslContext(std::string(), std::string()) { this->socketFD = socketFD; }
+  explicit Ipv4SslSocket_old(int socketFD) { this->socketFD = socketFD; }
   /**
    * Destructor.
    *
@@ -171,11 +171,11 @@ class Ipv4SslSocket_old {
    */
   void SSLLoadCertificates(const char *certFileName, const char *keyFileName);
 
-  int socketFD{std::string(), std::string()};
-  fd_set read_fds{std::string(), std::string()};
+  int socketFD{};
+  fd_set read_fds{};
   struct timeval timeout {
     5, 0
   };
-  SslCtxPtr sslContext{std::string(), std::string()};
-  SslPtr ssl{std::string(), std::string()};
+  SslCtxPtr sslContext{};
+  SslPtr ssl{sslContext};
 };

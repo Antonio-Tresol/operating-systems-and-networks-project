@@ -27,7 +27,7 @@ Ipv4SslSocket_old::Ipv4SslSocket_old() : sslContext(std::string(), std::string()
         appendErr("Ipv4SslSocket_old::Ipv4SslSocket_old: Failed to create socket: "));
   }
   this->sslContext.setCtx(SSL_CTX_new(TLS_client_method()));
-  this->ssl.startSsl(static_cast<SSL_CTX *>(this->sslContext));
+  //this->ssl.startSsl(static_cast<SSL_CTX *>(this->sslContext));
   this->socketFD = socket(AF_INET, SOCK_STREAM, 0);
 }
 
@@ -52,7 +52,7 @@ Ipv4SslSocket_old::~Ipv4SslSocket_old() { close(socketFD); }
 void Ipv4SslSocket_old::sslCreate(SSL_CTX *parentContext) {
   this->sslContext.setCtx(parentContext);
   try {
-    this->ssl.startSsl(static_cast<SSL_CTX *>(this->sslContext));
+    //this->ssl.startSsl(static_cast<SSL_CTX *>(this->sslContext));
   } catch (const std::exception &e) {
     throw e;
   }
