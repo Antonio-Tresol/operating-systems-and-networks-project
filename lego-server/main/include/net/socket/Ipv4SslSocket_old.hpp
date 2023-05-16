@@ -1,8 +1,7 @@
 // Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
 // Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
 // Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
-// Copyright 2023 Geancarlo Rivera Hernandez
-// <geancarlo.riverahernandez@ucr.ac.cr>.
+// Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
 
 #pragma once
 
@@ -20,40 +19,41 @@
 #include <cstring>  // for memset
 #include <string>
 
-#include "SslCtxPtr.hpp"
-#include "SslPtr.hpp"
+#include "../include/net/socket/SslCtxPtr.hpp"
+#include "../include/net/socket/SslPtr.hpp"
 
 /**
  * @brief A socket to connect via IPv4 over TCP over SSL.
  */
-class Ipv4SslSocket {
+class Ipv4SslSocket_old {
  public:
   /**
    * Constructor.
    *
    * Checks initialized socket is valid.
    */
-  Ipv4SslSocket();
+  Ipv4SslSocket_old();
+
   /**
-   * @brief builds server ssl ipv4 socket
+   * @brief builds listener ssl ipv4 socket
    * @param
    */
-  Ipv4SslSocket(std::string certFilePath, int port = 7777);
+  explicit Ipv4SslSocket_old(std::string certFilePath, int port = 7777);
 
-  explicit Ipv4SslSocket(int socketFd) { this->socketFd = socketFd; }
+  explicit Ipv4SslSocket_old(int socketFD) : sslContext(std::string(), std::string()) { this->socketFD = socketFD; }
   /**
    * Destructor.
    *
    * Closes object socket.
    */
-  ~Ipv4SslSocket();
+  ~Ipv4SslSocket_old();
 
   /**
    * Object is meant to be unique.
    */
-  Ipv4SslSocket(const Ipv4SslSocket &) = delete;
+  Ipv4SslSocket_old(const Ipv4SslSocket_old &) = delete;
 
-  Ipv4SslSocket &operator=(const Ipv4SslSocket &) = delete;
+  Ipv4SslSocket_old &operator=(const Ipv4SslSocket_old &) = delete;
 
   /**
    * @brief Establishes a TCP connection over SSL.
@@ -89,7 +89,7 @@ class Ipv4SslSocket {
    * @throws SocketException if can't accept connection
    * @returns a new socket (handle) to communicate with the client.
    */
-  Ipv4SslSocket *Accept() noexcept(false);
+  Ipv4SslSocket_old *Accept() noexcept(false);
   /**
    * @brief listen method uses listen system call to mark a socket as passive
    * @details the socket will be used to accept incoming connection requests.
@@ -171,11 +171,11 @@ class Ipv4SslSocket {
    */
   void SSLLoadCertificates(const char *certFileName, const char *keyFileName);
 
-  int socketFd{};
-  fd_set read_fds{};
+  int socketFD{std::string(), std::string()};
+  fd_set read_fds{std::string(), std::string()};
   struct timeval timeout {
     5, 0
   };
-  SslCtxPtr sslContext{};
-  SslPtr ssl{};
+  SslCtxPtr sslContext{std::string(), std::string()};
+  SslPtr ssl{std::string(), std::string()};
 };

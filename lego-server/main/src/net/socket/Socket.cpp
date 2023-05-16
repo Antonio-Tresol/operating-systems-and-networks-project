@@ -2,7 +2,7 @@
 // based on the code from Francisco Arroyo Mora, 2023, modified based on
 // book "The Linux Programming Interface" by Michael Kerrisk, 2010
 // chapters 59-61.
-#include "Socket.hpp"
+#include "../include/net/socket/Socket.hpp"
 
 int Socket::fdIsValid(int fd) {
   // checks if the file descriptor is valid
@@ -346,19 +346,19 @@ void Socket::Bind(int port) {
 }
 
 Socket *Socket::Accept() {
-  int newSocketFd = -1;
+  int newSocketFD = -1;
   // sockaddr_storage is large enough to hold both IPv4 and IPv6 structures
   struct sockaddr_storage clientAddr;
   memset(&clientAddr, 0, sizeof(clientAddr));
   struct sockaddr *clientAddrPtr = reinterpret_cast<sockaddr *>(&clientAddr);
   socklen_t clientAddrLen = sizeof(clientAddr);
   // accept a connection on a socket
-  newSocketFd = accept(this->idSocket, clientAddrPtr, &clientAddrLen);
-  if (newSocketFd < 0) {
+  newSocketFD = accept(this->idSocket, clientAddrPtr, &clientAddrLen);
+  if (newSocketFD < 0) {
     throw SocketException("Error accepting connection", "Socket::Accept",
                           errno);
   }
-  Socket *newSocket = new Socket(newSocketFd);
+  Socket *newSocket = new Socket(newSocketFD);
   return newSocket;
 }
 
@@ -524,6 +524,7 @@ void Socket::SSLShowCerts() noexcept(true) {
     std::cout << "No certificates." << std::endl;
   }
 }
+
 void Socket::SSLCreate(Socket *parent) {
   SSL *ssl = SSL_new(parent->SSLContext);
   if (ssl == nullptr) {

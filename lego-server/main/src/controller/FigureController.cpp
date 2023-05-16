@@ -12,7 +12,7 @@ using std::string;
 using std::throw_with_nested;
 
 /**
- * Handler for GET /figureName
+ * Worker for GET /figureName
  * @param name
  * @return
  */

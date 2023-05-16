@@ -183,7 +183,7 @@ class Socket {
    */
   std::string recvFrom(void* srcAddr) noexcept(false);
   /**
-   * @brief SSLConnect method uses SSL_connect sys call to connect to a server
+   * @brief SSLConnect method uses SSL_connect sys call to connect to a listener
    * @param std::string  host host name
    * @param int port port number
    * @throws SocketException if can't connect to host
@@ -192,7 +192,7 @@ class Socket {
    */
   void SSLConnect(std::string host, int port) noexcept(false);
   /**
-   * @brief SSLConnect method uses SSL_connect sys call to connect to a server
+   * @brief SSLConnect method uses SSL_connect sys call to connect to a listener
    * @param std::string host host name
    * @param std::string  service service name
    * @details service name can be a port number or a service name
@@ -218,7 +218,7 @@ class Socket {
    * @brief Construct a new SSL * variable from a previously created context.
    * Constructs a new SSL * variable from a previously created context using the
    * original socket.
-   * @param parent is the server socket with a previously created context.
+   * @param parent is the listener socket with a previously created context.
    * @return SSL* A new SSL * variable.
    */
   void SSLCreate(Socket* parent) noexcept(false);
@@ -327,16 +327,16 @@ class Socket {
   int readyToReadWrite(int error) noexcept(true);
   /**
    * @private
-   * @brief Initialize SSL server context.
+   * @brief Initialize SSL listener context.
    * @details Uses SSL_library_init, OpenSSL_add_all_algorithms,
    *  SSL_load_error_strings, TLS_server_method, and SSL_CTX_new
-   *  to create a new SSL server context
+   *  to create a new SSL listener context
    *  for encrypted communications. This context is stored in class instance.
    */
   void SSLInitServerContext() noexcept(false);
   /**
-   * @brief Initialize server SSL object.
-   * @details Uses SSL_CTX_new and SSL_new to create a new SSL object for server
+   * @brief Initialize listener SSL object.
+   * @details Uses SSL_CTX_new and SSL_new to create a new SSL object for listener
    *  connections with the defined context.
    * @param certFileName File containing the certificate.
    * @param keyFileName File containing the keys.

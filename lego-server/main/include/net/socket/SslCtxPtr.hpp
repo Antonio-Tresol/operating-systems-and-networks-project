@@ -9,29 +9,39 @@
 #include <openssl/err.h>
 #include <iostream>
 #include <stdexcept>
+#include <string>
 
 /**
- * RAII wrapper for SSL_CTX*
+ * RAII wrapper for server SSL_CTX*
  */
 class SslCtxPtr {
- public:
-  SslCtxPtr();
-  SslCtxPtr();
+public:
+    SslCtxPtr();
 
-  ~SslCtxPtr();
+    SslCtxPtr(const std::string &certFileName, const std::string &keyFileName);
 
-  /**
-   * Object is meant to be unique.
-   */
-  SslCtxPtr(const SslCtxPtr &) = delete;
-  SslCtxPtr &operator=(const SslCtxPtr &) = delete;
+    ~SslCtxPtr();
 
-  explicit operator SSL_CTX *() const {
-    return ctx;
-  }
-  
-  void setCtx(SSL_CTX *ctx);
+    /**
+     * Object is meant to be unique.
+     */
+    SslCtxPtr(const SslCtxPtr &) = delete;
 
- private:
-  SSL_CTX *ctx{};
+    SslCtxPtr &operator=(const SslCtxPtr &) = delete;
+
+    explicit operator SSL_CTX *() const {
+        return ctx;
+    }
+
+    void setCtx(SSL_CTX *ctx);
+
+private:
+    /**
+     * Appends the current SSL error to the input message.
+     * @param message Message to append the error.
+     * @return Concatenation of message and error
+     */
+    static std::string appendSslErr(const std::string &message);
+
+    SSL_CTX *ctx{};
 };

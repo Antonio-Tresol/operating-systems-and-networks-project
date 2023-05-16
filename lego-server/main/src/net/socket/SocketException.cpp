@@ -1,5 +1,5 @@
 // Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
-#include "SocketException.hpp"
+#include "../include/net/socket/SocketException.hpp"
 
 SocketException::SocketException(const std::string& message,
                                  const std::string& function, int errorCode,

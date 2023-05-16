@@ -1,14 +1,14 @@
 // Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
 // Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
 // Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
-// Copyright 2023 Geancarlo Rivera Hernandez
-// <geancarlo.riverahernandez@ucr.ac.cr>.
+// Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
 
 #pragma once
 
 #include <functional>
 #include <map>
 #include <regex>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <thread>
@@ -16,47 +16,46 @@
 
 #include "../common/Queue.hpp"
 #include "../controller/FigureController.hpp"
-#include "./socket/Ipv4SslSocket.hpp"
-#include "./socket/Socket.hpp"
+#include "./socket/IPv4SslSocket.hpp"
 
-// using Handler = std::function<void(const std::string&)>;
-using Handler = std::thread;
+using Worker = std::thread;
+
 /**
  * @brief Makes HTTP requests.
  */
 class FigureHttpsServer {
- public:
-  FigureHttpsServer(std::string certificatesFilePath, int port = 7777);
-  /**
-   * @brief Makes a GET request to the given resource and host.
-   * @param resource Resource to request.
-   * @param host Host to request from.
-   * @return Response from host.
-   */
-  [[nodiscard]] std::string get(const std::string& host,
-                                const std::string& resource) const;
+public:
+    ~FigureHttpsServer();
 
-  void start();
-  void stop();
+    [[noreturn]] void start();
 
- private:
-  static constexpr char GET[]{"GET "};
-  static constexpr char CRLF[]{"\r\n"};
-  static constexpr char HOST[]{"Host: "};
-  static constexpr char HTTPS[]{"https"};
-  Socket* server;
-  FigureController figureController{};
-  /// producing queue of client sockets
-  Queue<Socket*> clientQueue{};
-  /// vector of handler threads
-  std::vector<Handler> handlers{};
-  void handleRequests();
-  std::map<std::string, std::string> getUrlParams(
-      const std::string& httpRequest);
-  std::string FigureHttpsServer::generateHttpResponse(
-      int statusCode, const std::map<std::string, std::string>& headers,
-      const std::string& body);
-  void sendHttpResponse(Socket* client, int statusCode,
-                        const std::map<std::string, std::string>& headers,
-                        const std::string& body);
+    void stop();
+
+private:
+    static constexpr int PORT{7777};
+    static constexpr int QUEUE{10};
+    static constexpr char CERT_NAME[]{"ci0123.pem"};
+    static constexpr char CERT_DIR[]{"."};
+    static constexpr char FIGURE[]{"figure"};
+
+    IPv4SslSocket listener{CERT_DIR, CERT_NAME};
+
+    FigureController figureController{};
+
+    Queue<std::shared_ptr<IPv4SslSocket>> clientQueue{};
+
+    std::vector<Worker> workers{};
+
+    void handleRequests();
+
+    static std::map<std::string, std::string> getUrlParams(
+            const std::string &httpRequest);
+
+    static std::string generateHttpResponse(
+            int statusCode, const std::map<std::string, std::string> &headers,
+            const std::string &body);
+
+    static void sendHttpResponse(const std::shared_ptr<IPv4SslSocket>& client, int statusCode,
+                                 const std::map<std::string, std::string> &headers,
+                                 const std::string &body);
 };

@@ -1,12 +1,11 @@
 // Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
 // Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
 // Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
-// Copyright 2023 Geancarlo Rivera Hernandez
-// <geancarlo.riverahernandez@ucr.ac.cr>.
+// Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
 
-#include "Ipv4SslSocket.hpp"
+#include "../include/net/socket/Ipv4SslSocket_old.hpp"
 
-#include "Logger.hpp"
+#include "../include/common/Logger.hpp"
 
 using ::SSL_connect;
 using ::SSL_CTX_new;
@@ -17,27 +16,26 @@ using ::SSL_set_fd;
 using ::SSL_shutdown;
 using ::SSL_write;
 using ::TLS_client_method;
-#include <stdio.h>
 
 using std::runtime_error;
 using std::string;
 
-Ipv4SslSocket::Ipv4SslSocket() {
-  this->socketFd = socket(AF_INET, SOCK_STREAM, 0);
-  if (-1 == socketFd) {
+Ipv4SslSocket_old::Ipv4SslSocket_old() : sslContext(std::string(), std::string()) {
+  this->socketFD = socket(AF_INET, SOCK_STREAM, 0);
+  if (-1 == socketFD) {
     throw runtime_error(
-        appendErr("Ipv4SslSocket::Ipv4SslSocket: Failed to create socket: "));
+        appendErr("Ipv4SslSocket_old::Ipv4SslSocket_old: Failed to create socket: "));
   }
   this->sslContext.setCtx(SSL_CTX_new(TLS_client_method()));
   this->ssl.startSsl(static_cast<SSL_CTX *>(this->sslContext));
-  this->socketFd = socket(AF_INET, SOCK_STREAM, 0);
+  this->socketFD = socket(AF_INET, SOCK_STREAM, 0);
 }
 
-Ipv4SslSocket::Ipv4SslSocket(std::string certFilePath, int port) {
-  this->socketFd = socket(AF_INET, SOCK_STREAM, 0);
-  if (-1 == socketFd) {
+Ipv4SslSocket_old::Ipv4SslSocket_old(std::string certFilePath, int port) : sslContext(std::string(), std::string()) {
+  this->socketFD = socket(AF_INET, SOCK_STREAM, 0);
+  if (-1 == socketFD) {
     throw runtime_error(
-        appendErr("Ipv4SslSocket::Ipv4SslSocket: Failed to create socket: "));
+        appendErr("Ipv4SslSocket_old::Ipv4SslSocket_old: Failed to create socket: "));
   }
   try {
     this->sslContext.setCtx(SSL_CTX_new(TLS_client_method()));
@@ -49,9 +47,9 @@ Ipv4SslSocket::Ipv4SslSocket(std::string certFilePath, int port) {
   }
 }
 
-Ipv4SslSocket::~Ipv4SslSocket() { close(socketFd); }
+Ipv4SslSocket_old::~Ipv4SslSocket_old() { close(socketFD); }
 
-void Ipv4SslSocket::sslCreate(SSL_CTX *parentContext) {
+void Ipv4SslSocket_old::sslCreate(SSL_CTX *parentContext) {
   this->sslContext.setCtx(parentContext);
   try {
     this->ssl.startSsl(static_cast<SSL_CTX *>(this->sslContext));
@@ -60,44 +58,44 @@ void Ipv4SslSocket::sslCreate(SSL_CTX *parentContext) {
   }
 }
 
-void Ipv4SslSocket::SSLConnect(const char *host, int port) {
+void Ipv4SslSocket_old::SSLConnect(const char *host, int port) {
   int status = -1;
   try {
     Connect(host, port);  // Establish a non SSL connection first
   } catch (error_t &e) {
     throw runtime_error(
-        appendSslErr("Ipv4SslSocket::sslConnect: Error conecting host: "));
+        appendSslErr("Ipv4SslSocket_old::sslConnect: Error conecting host: "));
   }
-  status = SSL_set_fd(static_cast<SSL *>(this->ssl), this->socketFd);
+  status = SSL_set_fd(static_cast<SSL *>(this->ssl), this->socketFD);
   if (-1 == status) {
     throw runtime_error(appendSslErr(
-        "Ipv4SslSocket::sslConnect: Failed to set socket descriptor: "));
+        "Ipv4SslSocket_old::sslConnect: Failed to set socket descriptor: "));
   }
   status = SSL_connect(static_cast<SSL *>(this->ssl));
   if (-1 == status) {
     throw runtime_error(
-        appendSslErr("Ipv4SslSocket::sslConnect: Failed conecting host 2: "));
+        appendSslErr("Ipv4SslSocket_old::sslConnect: Failed conecting host 2: "));
   }
 }
 
-void Ipv4SslSocket::sslConnect(const string &host,
-                               const string &service) const {
+void Ipv4SslSocket_old::sslConnect(const string &host,
+                                   const string &service) const {
   tcpConnect(host, service);
 
-  int st{SSL_set_fd(static_cast<SSL *>(this->ssl), this->socketFd)};
+  int st{SSL_set_fd(static_cast<SSL *>(this->ssl), this->socketFD)};
   if (!st) {
     throw runtime_error(
-        appendSslErr("Ipv4SslSocket::sslConnect: Failed to set SSL socket: "));
+        appendSslErr("Ipv4SslSocket_old::sslConnect: Failed to set SSL socket: "));
   }
 
   st = SSL_connect(static_cast<SSL *>(this->ssl));
   if (0 >= st) {
     throw runtime_error(
-        appendSslErr("Ipv4SslSocket::sslConnect: Failed to connect socket: "));
+        appendSslErr("Ipv4SslSocket_old::sslConnect: Failed to connect socket: "));
   }
 }
 
-void Ipv4SslSocket::Connect(const char *host, int port) {
+void Ipv4SslSocket_old::Connect(const char *host, int port) {
   int status = -1;
   // sockaddr_in is a struct containing an information about internet sockets.
   // sockaddr_in6 is used for IPv6. they contain ip address and port number.
@@ -121,13 +119,13 @@ void Ipv4SslSocket::Connect(const char *host, int port) {
   socklen_t hostIpv4Len = sizeof(hostIpv4);
   // connect() system call connects this active socket to a listening socket
   // pasive socket. usually used for TCP sockets.
-  status = connect(this->socketFd, hostIpv4Ptr, hostIpv4Len);
+  status = connect(this->socketFD, hostIpv4Ptr, hostIpv4Len);
   if (status == -1) {
-    throw runtime_error(appendSslErr("Ipv4SslSocket::sslRead: Connect: "));
+    throw runtime_error(appendSslErr("Ipv4SslSocket_old::sslRead: Connect: "));
   }
 }
 
-string Ipv4SslSocket::sslRead() {
+string Ipv4SslSocket_old::sslRead() {
   string output{};
 
   if (isReadReady()) {
@@ -145,7 +143,7 @@ string Ipv4SslSocket::sslRead() {
           continue;
         } else {
           throw runtime_error(appendSslErr(
-              "Ipv4SslSocket::sslRead: Failed to read from socket: "));
+              "Ipv4SslSocket_old::sslRead: Failed to read from socket: "));
         }
       }
 
@@ -156,7 +154,7 @@ string Ipv4SslSocket::sslRead() {
   return output;
 }
 
-void Ipv4SslSocket::sslWrite(const string &text) const {
+void Ipv4SslSocket_old::sslWrite(const string &text) const {
   int st{SSL_write(static_cast<SSL *>(this->ssl),
                    static_cast<const void *>(text.c_str()),
                    static_cast<int>(text.size()))};
@@ -166,16 +164,16 @@ void Ipv4SslSocket::sslWrite(const string &text) const {
       sslWrite(text);
     } else {
       throw runtime_error(
-          appendSslErr("Ipv4SslSocket::sslWrite: Failed to write to socket: "));
+          appendSslErr("Ipv4SslSocket_old::sslWrite: Failed to write to socket: "));
     }
   }
 }
 
-string Ipv4SslSocket::appendErr(const string &message) {
+string Ipv4SslSocket_old::appendErr(const string &message) {
   return message + string(strerror(errno));
 }
 
-string Ipv4SslSocket::appendSslErr(const string &message) {
+string Ipv4SslSocket_old::appendSslErr(const string &message) {
   uint64_t err{ERR_get_error()};
 
   const char *buf{ERR_reason_error_string(err)};
@@ -191,46 +189,46 @@ string Ipv4SslSocket::appendSslErr(const string &message) {
   return output;
 }
 
-void Ipv4SslSocket::tcpConnect(const string &host,
-                               const string &service) const {
+void Ipv4SslSocket_old::tcpConnect(const string &host,
+                                   const string &service) const {
   struct addrinfo *result;
 
   int st = getaddrinfo(host.c_str(), service.c_str(), &hints, &result);
   if (0 != st) {
     throw runtime_error(
-        "Ipv4SslSocket::tcpConnect: Failed to get address info: " +
+        "Ipv4SslSocket_old::connect: Failed to get address info: " +
         string(gai_strerror(st)));
   }
 
   for (struct addrinfo *rp{result}; rp; rp = rp->ai_next) {
-    if (0 == connect(socketFd, rp->ai_addr, rp->ai_addrlen)) break;
+    if (0 == connect(socketFD, rp->ai_addr, rp->ai_addrlen)) break;
   }
 
   freeaddrinfo(result);
 }
 
-bool Ipv4SslSocket::isReadReady() {
+bool Ipv4SslSocket_old::isReadReady() {
   // Clear the fd_set
   FD_ZERO(&read_fds);
 
   // Add the socket file descriptor to the set
-  FD_SET(socketFd, &read_fds);
+  FD_SET(socketFD, &read_fds);
 
   // Set a timeout (optional)
   timeout.tv_sec = 5;  // 5 seconds
   timeout.tv_usec = 0;
 
   int select_result{
-      select(socketFd + 1, &read_fds, nullptr, nullptr, &timeout)};
+      select(socketFD + 1, &read_fds, nullptr, nullptr, &timeout)};
   if (0 > select_result) {
     throw runtime_error(
-        appendErr("Ipv4SslSocket::isReadReady: Failed to select read_fds: "));
+        appendErr("Ipv4SslSocket_old::isReadReady: Failed to select read_fds: "));
   }
 
-  return select_result > 0 && FD_ISSET(socketFd, &read_fds);
+  return select_result > 0 && FD_ISSET(socketFD, &read_fds);
 }
 
-void Ipv4SslSocket::sslAccept() noexcept(false) {
+void Ipv4SslSocket_old::sslAccept() noexcept(false) {
   while (true) {
     // Call SSL_accept() to initiate TLS/SSL handshake
     int result = SSL_accept(static_cast<SSL *>(this->ssl));
@@ -252,7 +250,7 @@ void Ipv4SslSocket::sslAccept() noexcept(false) {
         int readyToReadOrWrite = readyToReadWrite(error);
         if (readyToReadOrWrite < 0) {
           throw runtime_error(
-              appendSslErr("Ipv4SslSocket::sslAccept: Error while waiting to "
+              appendSslErr("Ipv4SslSocket_old::sslAccept: Error while waiting to "
                            "read/write socket"));
         }
         // The socket is now ready, retry SSL_accept()
@@ -261,30 +259,30 @@ void Ipv4SslSocket::sslAccept() noexcept(false) {
       case SSL_ERROR_ZERO_RETURN:
         // The TLS/SSL connection has been closed
         throw runtime_error(appendSslErr(
-            "Ipv4SslSocket::sslAccept: connection has been closed"));
+            "Ipv4SslSocket_old::sslAccept: connection has been closed"));
       case SSL_ERROR_SYSCALL:
         // I/O error occurred; check errno for the specific error
         throw runtime_error(
-            appendSslErr("Ipv4SslSocket::sslAccept: I/O error occurred"));
+            appendSslErr("Ipv4SslSocket_old::sslAccept: I/O error occurred"));
       default:
         // Other SSL errors
         throw runtime_error(
-            appendSslErr("Ipv4SslSocket::sslAccept: Other SSL errors "));
+            appendSslErr("Ipv4SslSocket_old::sslAccept: Other SSL errors "));
     }
   }
 }
 
-void Ipv4SslSocket::sslListen(int backlog) noexcept(false) {
+void Ipv4SslSocket_old::sslListen(int backlog) noexcept(false) {
   int status = -1;
   // mark the socket as passive using system call listen
-  status = listen(this->socketFd, backlog);
+  status = listen(this->socketFD, backlog);
   if (-1 == status) {
     throw runtime_error(
-        appendSslErr("Ipv4SslSocket::sslListen: Error listening to socket"));
+        appendSslErr("Ipv4SslSocket_old::sslListen: Error listening to socket"));
   }
 }
 
-void Ipv4SslSocket::sslBind(int port) noexcept(false) {
+void Ipv4SslSocket_old::sslBind(int port) noexcept(false) {
   int status = -1;
   // prepare the address structure for the bind system call
   struct sockaddr_in hostIpv4;
@@ -299,14 +297,14 @@ void Ipv4SslSocket::sslBind(int port) noexcept(false) {
   struct sockaddr *hostIpv4Ptr = reinterpret_cast<sockaddr *>(&hostIpv4);
   socklen_t hostIpv4Len = sizeof(hostIpv4);
   // bind the socket to the address and port number
-  status = bind(socketFd, hostIpv4Ptr, hostIpv4Len);
+  status = bind(socketFD, hostIpv4Ptr, hostIpv4Len);
   if (-1 == status) {
     throw runtime_error(
-        appendSslErr("Ipv4SslSocket::sslBind: Error binding to socket IPV4"));
+        appendSslErr("Ipv4SslSocket_old::sslBind: Error binding to socket IPV4"));
   }
 }
 
-int Ipv4SslSocket::readyToReadWrite(int error) noexcept(true) {
+int Ipv4SslSocket_old::readyToReadWrite(int error) noexcept(true) {
   fd_set read_fds, write_fds;
   FD_ZERO(&read_fds);
   FD_ZERO(&write_fds);
@@ -316,19 +314,19 @@ int Ipv4SslSocket::readyToReadWrite(int error) noexcept(true) {
   // while write_fds is used to represent the set of file descriptors
   // that should be monitored for writing.
   if (error == SSL_ERROR_WANT_READ) {
-    FD_SET(this->socketFd, &read_fds);
+    FD_SET(this->socketFD, &read_fds);
   } else {
-    FD_SET(this->socketFd, &write_fds);
+    FD_SET(this->socketFD, &write_fds);
   }
   // Wait for the socket to become ready (you can also set a timeout if
   // needed)
   int select_result =
-      select(this->socketFd + 1, &read_fds, &write_fds, nullptr, nullptr);
+      select(this->socketFD + 1, &read_fds, &write_fds, nullptr, nullptr);
   return select_result;
 }
 
-void Ipv4SslSocket::SSLLoadCertificates(const char *certFileName,
-                                        const char *keyFileName) {
+void Ipv4SslSocket_old::SSLLoadCertificates(const char *certFileName,
+                                            const char *keyFileName) {
   // set the local certificate from CertFileName
   int status = -1;
   status = SSL_CTX_use_certificate_file(
@@ -336,7 +334,7 @@ void Ipv4SslSocket::SSLLoadCertificates(const char *certFileName,
   std::cout << "SSL_CTX_use_certificate_file status: " << status << std::endl;
   if (status <= 0) {
     throw runtime_error(appendSslErr(
-        "Ipv4SslSocket::SSLoadCertificates: Error loading certificates"));
+        "Ipv4SslSocket_old::SSLoadCertificates: Error loading certificates"));
   } else {
     // set the private key from KeyFileName (may be the same as CertFile)
     status =
@@ -345,31 +343,31 @@ void Ipv4SslSocket::SSLLoadCertificates(const char *certFileName,
     std::cout << "SSL_CTX_use_PrivateKey_file status: " << status << std::endl;
     if (status <= 0) {
       throw runtime_error(appendSslErr(
-          "Ipv4SslSocket::SSLoadCertificates: Error loading private key"));
+          "Ipv4SslSocket_old::SSLoadCertificates: Error loading private key"));
     }
     // verify private key
     status =
         SSL_CTX_check_private_key(static_cast<SSL_CTX *>(this->sslContext));
     if (!status) {
       throw runtime_error(appendSslErr(
-          "Ipv4SslSocket::SSLoadCertificates: Error verifying private key"));
+          "Ipv4SslSocket_old::SSLoadCertificates: Error verifying private key"));
     }
   }
 }
 
-Ipv4SslSocket *Ipv4SslSocket::Accept() {
-  int newSocketFd = -1;
+Ipv4SslSocket_old *Ipv4SslSocket_old::Accept() {
+  int newSocketFD = -1;
   // sockaddr_storage is large enough to hold both IPv4 and IPv6 structures
   struct sockaddr_storage clientAddr;
   memset(&clientAddr, 0, sizeof(clientAddr));
   struct sockaddr *clientAddrPtr = reinterpret_cast<sockaddr *>(&clientAddr);
   socklen_t clientAddrLen = sizeof(clientAddr);
   // accept a connection on a socket
-  newSocketFd = accept(this->socketFd, clientAddrPtr, &clientAddrLen);
-  if (newSocketFd < 0) {
+  newSocketFD = accept(this->socketFD, clientAddrPtr, &clientAddrLen);
+  if (newSocketFD < 0) {
     throw runtime_error(
-        appendSslErr("Ipv4SslSocket::Accept: Error accepting connection"));
+        appendSslErr("Ipv4SslSocket_old::Accept: Error accepting connection"));
   }
-  Ipv4SslSocket *newSocket = new Ipv4SslSocket(newSocketFd);
+  Ipv4SslSocket_old *newSocket = new Ipv4SslSocket_old(newSocketFD);
   return newSocket;
 }

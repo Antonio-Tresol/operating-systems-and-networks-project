@@ -9,7 +9,6 @@
 
 #include "./common/Logger.hpp"
 #include "./data/FigureHtmlRepository.hpp"
-#include "./net/FigureHttpsServer.hpp"
 
 /**
  * @brief Controller for functionality related to Figures.
