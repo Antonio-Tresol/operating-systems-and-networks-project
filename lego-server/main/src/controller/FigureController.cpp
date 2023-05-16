@@ -22,6 +22,6 @@ string FigureController::getFigureByName(const string &name) const {
     return figureHtml;
   }
   catch(invalid_argument &ia) {
-    throw_with_nested(runtime_error("Could not find figure: "));
+    return "";
   }
 }

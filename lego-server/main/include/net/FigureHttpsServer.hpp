@@ -33,7 +33,7 @@ public:
 
 private:
     static constexpr int PORT{7777};
-    static constexpr int QUEUE{10};
+    static constexpr int QUEUE{128};
     static constexpr char CERT_PATH[]{"./ci0123.pem"};
     static constexpr char FIGURE[]{"figure"};
 
@@ -47,8 +47,11 @@ private:
 
     void handleRequests();
 
-    static std::map<std::string, std::string> getUrlParams(
-            const std::string &httpRequest);
+    std::map<std::string, std::map<std::string, std::string>> parseHttpRequest(const std::string& request);
+
+    std::map<std::string, std::string> parseHeaders(std::istringstream& stream);
+
+    static std::string getLastPath(const std::string &url);
 
     static std::string generateHttpResponse(
             int statusCode, const std::map<std::string, std::string> &headers,

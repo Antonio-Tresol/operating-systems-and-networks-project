@@ -1,6 +1,6 @@
 // Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
 // based on the code from Francisco Arroyo Mora, 2023, modified based on
-// book "The Linux Programming Interface" by Michael Kerrisk, 2010
+// book "The Sys Programming Interface" by Michael Kerrisk, 2010
 // chapters 59-61.
 #include "../include/net/socket/Socket.hpp"
 

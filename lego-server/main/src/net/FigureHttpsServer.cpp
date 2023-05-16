@@ -14,6 +14,7 @@ using std::runtime_error;
 using std::smatch;
 using std::sregex_iterator;
 using std::string;
+using std::istringstream;
 using std::to_string;
 
 
@@ -30,9 +31,13 @@ void FigureHttpsServer::start() {
 
     listener.listen(QUEUE);
 
-    for (auto &worker: workers) {
+    for (int i{0}; i < 4; ++i) {
         this->workers.emplace_back(&FigureHttpsServer::handleRequests, this);
     }
+
+    Logger::info("Listener certificates: \n" + listener.getCerts());
+
+    Logger::info("Listening...");
 
     while (true) {
         this->clientQueue.enqueue(listener.accept());
@@ -66,14 +71,13 @@ void FigureHttpsServer::handleRequests() {
 
             string request{client->sslRead()};
 
-            /*
-            # Revisa el metodo (GET, POST, PUT, DELETE)
-            # Revisa que 'tipo' de path es ("/*")
-            # dado que hay que extraer un parametro, lo hace
-            */
-            map<string, string> params = getUrlParams(request);
+            // parseHttpRequest for all bits of request
 
-            string body = figureController.getFigureByName(params[FIGURE]);
+            // isolate url, getLastPath, pass to getFigureByName
+
+            // isolate headers, pass to sendHttpResponse
+
+            string body{figureController.getFigureByName(params[FIGURE])};
 
             if (body.empty()) {
                 sendHttpResponse(client, 404, params, body);
@@ -84,27 +88,39 @@ void FigureHttpsServer::handleRequests() {
     }
 }
 
-map<string, string> FigureHttpsServer::getUrlParams(const string &httpRequest) {
-    map<string, string> params;
-    regex urlParamRegex(R"(GET\s.+\?(.+)\sHTTP\/1\.1)");
-    smatch urlParamMatch;
+map<string, map<string, string>> parseHttpRequest(const string& request) {
+    istringstream requestStream(request);
+    string method, url, version;
+    requestStream >> method >> url >> version;
 
-    if (regex_search(httpRequest, urlParamMatch, urlParamRegex) &&
-        urlParamMatch.size() > 1) {
-        string paramString = urlParamMatch.str(1);
-        regex paramRegex("([^=&]+)=([^&]+)");
-        sregex_iterator paramIter(paramString.begin(), paramString.end(),
-                                  paramRegex);
-        sregex_iterator paramEnd;
+    map<string, map<string, string>> result{
+            {"Request-Line", {{"Method", method}, {"URL", url}, {"Version", version}}},
+            {"Headers", parseHeaders(requestStream)}
+    };
 
-        while (paramIter != paramEnd) {
-            smatch match = *paramIter;
-            params[match.str(1)] = match.str(2);
-            ++paramIter;
+    return result;
+}
+
+map<string, string> parseHeaders(istringstream& stream) {
+    map<string, string> headers;
+    string line;
+    while (getline(stream, line) && line != "\r") {
+        auto colonPos = line.find(':');
+        if (colonPos != string::npos) {
+            string name = line.substr(0, colonPos);
+            string value = line.substr(colonPos + 2); // Skip the colon and the space after it
+            headers[name] = value.substr(0, value.size() - 1); // Remove the trailing '\r'
         }
     }
+    return headers;
+}
 
-    return params;
+string FigureHttpsServer::getLastPath(const string &url) {
+    size_t pos = url.find_last_of('/');
+    if (pos != string::npos) {
+        return url.substr(pos + 1); // Return the part after the last '/'
+    }
+    return url; // Return the whole URL if there is no '/'
 }
 
 string FigureHttpsServer::generateHttpResponse(int statusCode, const map<string, string> &headers,

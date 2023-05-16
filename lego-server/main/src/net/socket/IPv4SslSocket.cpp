@@ -6,7 +6,7 @@
 #include "../include/net/socket/IPv4SslSocket.hpp"
 #include "common/Logger.hpp"
 
-namespace Linux {
+namespace Sys {
     using ::connect;
     using ::bind;
     using ::listen;
@@ -28,11 +28,10 @@ using std::ostringstream;
 using std::shared_ptr;
 using std::string;
 
-IPv4SslSocket::IPv4SslSocket(const string &certFileName, const string &keyFileName) : socketFD(
-        socket(AF_INET, SOCK_STREAM, TCP_ID)),
-                                                                                      sslContext(certFileName,
-                                                                                                 keyFileName),
-                                                                                      ssl(sslContext) {
+IPv4SslSocket::IPv4SslSocket(const string &certFileName, const string &keyFileName) :
+        socketFD(socket(AF_INET, SOCK_STREAM, TCP_ID)),
+        sslContext(certFileName, keyFileName),
+        ssl(sslContext) {
     if (-1 == socketFD) {
         throw runtime_error(appendErr("IPv4SslSocket::IPv4SslSocket: Failed to create listener socket: "));
     }
@@ -59,7 +58,7 @@ void IPv4SslSocket::connect(const string &host, const string &service) const {
     }
 
     for (struct addrinfo *rp{result}; rp; rp = rp->ai_next) {
-        if (0 == Linux::connect(socketFD, rp->ai_addr, rp->ai_addrlen))
+        if (0 == Sys::connect(socketFD, rp->ai_addr, rp->ai_addrlen))
             break;
     }
 
@@ -73,19 +72,19 @@ void IPv4SslSocket::bind(int port) const {
             INADDR_ANY
     };
 
-    if (-1 == Linux::bind(socketFD, reinterpret_cast<sockaddr *>(&host4), sizeof(host4))) {
+    if (-1 == Sys::bind(socketFD, reinterpret_cast<sockaddr *>(&host4), sizeof(host4))) {
         throw runtime_error(appendErr("IPv4SslSocket::bind: "));
     }
 }
 
 void IPv4SslSocket::listen(int queue) const {
-    if (-1 == Linux::listen(socketFD, queue)) {
+    if (-1 == Sys::listen(socketFD, queue)) {
         throw runtime_error(appendErr("IPv4SslSocket::listen: "));
     }
 }
 
 std::shared_ptr<IPv4SslSocket> IPv4SslSocket::accept() const {
-    int newFD{Linux::accept(socketFD, nullptr, nullptr)};
+    int newFD{Sys::accept(socketFD, nullptr, nullptr)};
     if (-1 == newFD) {
         throw runtime_error(appendErr("IPv4SslSocket::accept: "));
     }
@@ -114,11 +113,12 @@ void IPv4SslSocket::sslAccept() const {
 string IPv4SslSocket::sslRead() {
     string output{};
 
-    if (isReadReady()) {
-        char buf[CHUNK_SIZE]{};
-        int bytesRead;
 
-        do {
+    char buf[CHUNK_SIZE]{};
+    int bytesRead;
+
+    do {
+        if (isReadReady()) {
             bytesRead = SSL_read(static_cast<SSL *>(this->ssl),
                                  static_cast<void *>(buf),
                                  CHUNK_SIZE);
@@ -134,8 +134,10 @@ string IPv4SslSocket::sslRead() {
             }
 
             output.append(buf, bytesRead);
-        } while (bytesRead > 0);
-    }
+        } else {
+            bytesRead = 0;
+        }
+    }while (bytesRead > 0);
 
     return output;
 }
@@ -155,7 +157,7 @@ void IPv4SslSocket::sslWrite(const string &text) const {
 }
 
 string IPv4SslSocket::getCerts() const {
-    X509 *peerCertificates{SSL_get_peer_certificate(static_cast<SSL *>(ssl))};
+    X509 *peerCertificates{SSL_get_certificate(static_cast<SSL *>(ssl))};
 
     if (!peerCertificates) {
         return "No certificates";
@@ -174,7 +176,6 @@ string IPv4SslSocket::getCerts() const {
 
     OPENSSL_free(subject);
     OPENSSL_free(issuer);
-    X509_free(peerCertificates);
 
     return out.str();
 }
