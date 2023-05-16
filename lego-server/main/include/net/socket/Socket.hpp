@@ -1,6 +1,6 @@
 // Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
 // based on the code from Francisco Arroyo Mora, 2023, modified based on
-// book "The Linux Programming Interface" by Michael Kerrisk, 2010
+// book "The Sys Programming Interface" by Michael Kerrisk, 2010
 // chapeters 59-61.
 /**
  * @file Socket.hpp
@@ -100,7 +100,7 @@ class Socket {
    * @details the connect() syscall serves a purpose when applied to datagram
    *  sockets. Calling connect on a datagram socket causes the kernel to record
    *  a particular address as this socket’s peer. For more details on this see:
-   *  The Linux Programming Interface, Michael Kerrisk, Chapter 56 section 6.2
+   *  The Sys Programming Interface, Michael Kerrisk, Chapter 56 section 6.2
    * @param	std::stringhost host address in dot notation
    * @param	int port port number
    * @throws with nested SocketException if: can't connect to host.
