@@ -75,7 +75,14 @@ void FigureHttpsServer::handleRequests() {
       // isolate url, getLastPath, pass to getFigureByName
       string url{parsedRequest["Request-Line"]["URL"]};
       // isolate headers, pass to sendHttpResponse
-      string body{figureController.getFigureByName(getLastPath(url))};
+      string last = getLastPath(url);
+      string figure{};
+      std::regex pattern("figure=([^&]+)");
+      std::smatch match;
+      if (std::regex_search(last, match, pattern)) {
+        figure = match[1];
+      }
+      string body{figureController.getFigureByName(figure)};
 
       if (body.empty()) {
         sendHttpResponse(client, 404, headers, body);
