@@ -12,7 +12,7 @@ set(INCLUDE_DIR ${MAIN_DIR}/include)
 file(GLOB_RECURSE TARGET_SOURCES "${SOURCES_DIR}/*.cpp")
 
 include_directories(${INCLUDE_DIR})
-link_libraries(OpenSSL::SSL OpenSSL::Crypto)
+link_libraries(OpenSSL::SSL OpenSSL::Crypto pthread)
 
 set(DEFAULT_TARGET ${CMAKE_PROJECT_NAME})
 set(ASAN_TARGET ${DEFAULT_TARGET}_asan)
