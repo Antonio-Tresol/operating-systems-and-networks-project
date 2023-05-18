@@ -23,8 +23,8 @@ class FigureRepository {
   [[nodiscard]] Figure findByName(const std::string& name) const;
 
  private:
-  static constexpr char HOST[]{"os.ecci.ucr.ac.cr"};
-  static constexpr char URL_TEMPLATE[]{"/lego/list.php?figure="};
+  static constexpr char HOST[]{"127.0.0.1"};
+  static constexpr char URL_TEMPLATE[]{"/figure/"};
 
   HttpsClient httpsClient{};
 };
