@@ -26,8 +26,15 @@ void signalHandle();
 int main(int argc, char *argv[]) {
     Logger::initialize();
 
+    if(argc < 2) {
+      Logger::error("Missing certificate path.");
+      exit(1);
+    }
+
+    string certPath{argv[1]};
+
     try {
-        FigureHttpsServer server;
+        FigureHttpsServer server{certPath};
 
         signalHandle();
 

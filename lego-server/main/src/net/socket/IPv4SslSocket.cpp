@@ -78,8 +78,8 @@ void IPv4SslSocket::bind(int port) const {
   }
 }
 
-void IPv4SslSocket::listen(int queue) const {
-  if (-1 == Sys::listen(socketFD, queue)) {
+void IPv4SslSocket::listen(int queueSize) const {
+  if (-1 == Sys::listen(socketFD, queueSize)) {
     throw runtime_error(appendErr("IPv4SslSocket::listen: "));
   }
 }

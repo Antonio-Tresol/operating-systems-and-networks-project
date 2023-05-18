@@ -1,7 +1,6 @@
 # LEGO Server
 
-Este programa ejecuta a un servidor que provee a clientes con figuras
-de lego.
+Este programa ejecuta a un servidor que provee a clientes con figuras de lego.
 
 ## Tabla de Contenidos
 
@@ -34,7 +33,9 @@ Después de generar el Makefile, compile el programa:
 
 El programa se ejecuta de la siguiente manera:
 
-    ./lego-server
+    ./lego-server [certPath]
+
+Donde `certPath` es la ubicación relativa del archivo de certificado.
 
 El programa anterior pone a correr al servidor que provee las figuras.
 
@@ -47,8 +48,7 @@ El programa está organizado en varias clases y módulos que trabajan juntos par
 - `Semaphore`: Clase encapsuladora que funciona como interfaz para el uso de los semáforos de POSIX.
 - `FigureController`: Controlador encargado de gestionar la búsqueda y visualización de las figuras.
 - `FigureHtmlRepository`: Repositorio encargado de buscar y procesar la información de las figuras desde la web.
-- `FigureHttpsServer`: Clase encargada del manejo de las peticiones
-entrantes que llegan al servidor.
+- `FigureHttpsServer`: Clase encargada del manejo de las peticiones entrantes que llegan al servidor.
 - `Ipv4SslSocket`: Clase que maneja conexiones SSL sobre IPv4.
 
 Es de suma importancia destacar que tanto la clase `Queue` como la clase `Semaphore` fueron tomadas de cursos anteriores y fueron realizadas por el profesor Jeisson Hidalgo.

@@ -19,6 +19,8 @@ using std::sregex_iterator;
 using std::string;
 using std::to_string;
 
+FigureHttpsServer::FigureHttpsServer(const string &certPath) : listener(certPath, certPath) {}
+
 FigureHttpsServer::~FigureHttpsServer() { stop(); }
 
 /**
@@ -79,7 +81,7 @@ void FigureHttpsServer::handleRequests() {
         map<string, map<string, string>> parsedRequest{parseHttpRequest(request)};
         string url{parsedRequest["Request-Line"]["URL"]};
 
-        if(!validateUrlFormat(url)) {
+        if (!validateUrlFormat(url)) {
           sendHttpsResponse(client, 404, "");
         }
 
@@ -158,8 +160,7 @@ string FigureHttpsServer::generateHttpResponse(int statusCode, const string &bod
       break;
     case 500: statusMessage = "Internal Error";
       break;
-    default:
-      throw invalid_argument("Unknown HTTP status code");
+    default:throw invalid_argument("Unknown HTTP status code");
   }
 
   string response =

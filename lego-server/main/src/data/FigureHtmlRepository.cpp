@@ -12,10 +12,7 @@
 using std::string;
  
 FigureHtmlRepository::FigureHtmlRepository() {
-  // NOTA: Usar <filesystem> para manejar directiorios
-  // Revisar si existe figurePath, si no construirlo
-  // Revisar si se encuentran algo
-  // Si se encuentran ahi, copiarlas al figurePath
+
   struct stat sb;
   if (stat(getResourcePath().c_str(), &sb) == -1) {
     throw std::runtime_error("Resource directory not found");
@@ -23,16 +20,15 @@ FigureHtmlRepository::FigureHtmlRepository() {
 }
 
 string FigureHtmlRepository::findByName(const string& name) const {
- // matchear name al nombre de algun archivo html y retornar
+
   string filenameStr{getResourcePath().c_str()};
   filenameStr += "/" + name + ".html";
+
   struct stat sb;
-  // if (stat(filenameStr.c_str(), &sb) == 0 && !(sb.st_mode & S_IFDIR)){
-  //   throw std::invalid_argument("Resource file not found");
-  // }
   if (!std::filesystem::exists(filenameStr)) {
     throw std::invalid_argument("Resource file not found");
   }
+
   std::ifstream figureFile(filenameStr);
   std::stringstream buffer;
   buffer << figureFile.rdbuf();

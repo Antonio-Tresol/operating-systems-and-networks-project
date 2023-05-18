@@ -20,7 +20,7 @@ SslCtxPtr::SslCtxPtr() { // TODO(aarevalo): Risky shit. Split IPv4SslSocket into
     }
 }
 
-SslCtxPtr::SslCtxPtr(const std::string &certFileName, const std::string &keyFileName) {
+SslCtxPtr::SslCtxPtr(const std::string &certPath, const std::string &keyPath) {
 
     SSL_library_init();
 
@@ -38,11 +38,11 @@ SslCtxPtr::SslCtxPtr(const std::string &certFileName, const std::string &keyFile
         throw runtime_error(appendSslErr("SslCtxPtr::SslCtxPtr(): Failed to create SSL_CTX: "));
     }
 
-    if (0 >= SSL_CTX_use_certificate_file(ctx, certFileName.c_str(), SSL_FILETYPE_PEM)) {
+    if (0 >= SSL_CTX_use_certificate_file(ctx, certPath.c_str(), SSL_FILETYPE_PEM)) {
         throw runtime_error(appendSslErr("SslCtxPtr::SslCtxPtr(): Failed to set certificate: "));
     }
 
-    if (0 >= SSL_CTX_use_PrivateKey_file(ctx, keyFileName.c_str(), SSL_FILETYPE_PEM)) {
+    if (0 >= SSL_CTX_use_PrivateKey_file(ctx, keyPath.c_str(), SSL_FILETYPE_PEM)) {
         throw runtime_error(appendSslErr("SslCtxPtr::SslCtxPtr(): Failed to set private key: "));
     }
 

@@ -16,9 +16,17 @@
  */
 class SslCtxPtr {
 public:
+    /**
+     * @brief Constructs a new context.
+     */
     SslCtxPtr();
 
-    SslCtxPtr(const std::string &certFileName, const std::string &keyFileName);
+    /**
+     * @brief Constructs a context for a given certificate and key.
+     * @param certPath Path to certificate to use.
+     * @param keyPath Path to key to use.
+     */
+    SslCtxPtr(const std::string &certPath, const std::string &keyPath);
 
     ~SslCtxPtr();
 

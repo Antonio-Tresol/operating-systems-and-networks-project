@@ -64,12 +64,28 @@ class IPv4SslSocket {
    */
   void connect(const std::string &host, const std::string &service) const;
 
+  /**
+   * @brief Binds socket to given port.
+   * @param port Port to bind to.
+   */
   void bind(int port) const;
 
-  void listen(int queue) const;
+  /**
+   * @brief Sets socket to listen with a given queue size.
+   * @param queueSize Size of listen queue.
+   */
+  void listen(int queueSize) const;
 
+  /**
+   * @brief Writes input text to socket.
+   * @param text Text to write out.
+   */
   void write(const std::string &text) const;
 
+  /**
+   * @brief Accepts a connection and hands it to a new socket.
+   * @return Socket to new connection.
+   */
   [[nodiscard]] std::shared_ptr<IPv4SslSocket> accept() const;
 
   /**
@@ -79,6 +95,9 @@ class IPv4SslSocket {
    */
   void sslConnect(const std::string &host, const std::string &service) const;
 
+  /**
+   * @brief Performs an SSL handshake to confirm connection.
+   */
   void sslAccept() const;
 
   /**

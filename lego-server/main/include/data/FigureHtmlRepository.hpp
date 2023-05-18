@@ -7,16 +7,31 @@
 
 #include <string>
 #include <filesystem>
+
 /**
- * @brief Repository of Figure objects.
+ * @brief Repository of Figure HTML.
  */
 class FigureHtmlRepository {
  public:
+
+  /**
+   * @brief Constructor. Searches for resource directory with HTML files.
+   */
   FigureHtmlRepository();
 
+  /**
+   * @brief Finds and returns a given HTML string by figure name.
+   * @param name Figure name to search for.
+   * @return HTML string for given figure.
+   */
   std::string findByName(const std::string& name) const;
 
  private:
-  std::filesystem::path getResourcePath() const;
   static constexpr char RES[]{"res"};
+
+  /**
+   * @brief Locates the resource folder.
+   * @return Resource folder path.
+   */
+  std::filesystem::path getResourcePath() const;
 };

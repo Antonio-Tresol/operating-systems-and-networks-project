@@ -26,6 +26,12 @@ using Worker = std::thread;
  */
 class FigureHttpsServer {
  public:
+  /**
+   * @brief Constructs a server based on a given certificate with key.
+   * @param certPath Keyed certificate to use for SSL.
+   */
+  explicit FigureHttpsServer(const std::string &certPath);
+
   ~FigureHttpsServer();
 
   [[noreturn]] void start();
@@ -36,12 +42,10 @@ class FigureHttpsServer {
   static constexpr int NUM_WORKERS{8};
   static constexpr int PORT{7777};
   static constexpr int QUEUE{128};
-  static constexpr char CERT_PATH[]{"./ci0123.pem"};
-  static constexpr char FIGURE[]{"figure"};
 
   static const std::map<std::string, std::string> errorHeaders;
 
-  IPv4SslSocket listener{CERT_PATH, CERT_PATH};
+  IPv4SslSocket listener;
 
   FigureController figureController{};
 
@@ -49,23 +53,64 @@ class FigureHttpsServer {
 
   std::vector<Worker> workers{};
 
+  /**
+   * @brief Worker method to process individual requests.
+   */
   void handleRequests();
 
+  /**
+   * @brief Returns map of headers for a given HTTP request.
+   * @param stream Remainder of HTTP stream.
+   * @return Map of headers.
+   */
   static std::map<std::string, std::string> parseHeaders(std::istringstream &stream);
 
+  /**
+   * @brief Returns a map of parts for an HTTP request.
+   * @param request HTTP request to build map for.
+   * @return Map of HTTP request.
+   */
   static std::map<std::string, std::map<std::string, std::string>> parseHttpRequest(
       const std::string &request);
 
+  /**
+   * @brief Parses last part of a URL for resource.
+   * @param url URL to parse.
+   * @return Last portion of URL.
+   */
   static std::string getLastPath(const std::string &url);
 
+  /**
+   * @brief Confirms whether passed URL is pointing to desired section.
+   * @param url URL to confirm.
+   * @return Whether URL points to section or not.
+   */
   static bool validateUrlFormat(const std::string &url);
 
+  /**
+   * @brief Builds an HTTP response.
+   * @param statusCode Status code for response.
+   * @param body Body for response.
+   * @return Response.
+   */
   static std::string generateHttpResponse(int statusCode, const std::string &body);
 
+  /**
+   * @brief Builds and sends an HTTP response over a socket.
+   * @param client Socket to send response through.
+   * @param statusCode Status code for response.
+   * @param body Body for response.
+   */
   static void sendHttpResponse(const std::shared_ptr<IPv4SslSocket> &client,
                                int statusCode,
                                const std::string &body);
 
+  /**
+    * @brief Builds and sends an HTTPS response over a socket.
+    * @param client Socket to send response through.
+    * @param statusCode Status code for response.
+    * @param body Body for response.
+    */
   static void sendHttpsResponse(const std::shared_ptr<IPv4SslSocket> &client,
                                 int statusCode,
                                 const std::string &body);
