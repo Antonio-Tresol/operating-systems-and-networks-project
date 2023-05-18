@@ -9,6 +9,7 @@
 using ::Worker;
 
 using std::exception;
+using std::invalid_argument;
 using std::istringstream;
 using std::map;
 using std::regex;
@@ -29,16 +30,22 @@ void FigureHttpsServer::start() {
 
   listener.listen(QUEUE);
 
-  for (int i{0}; i < 4; ++i) {
+  for (int i{0}; i < NUM_WORKERS; ++i) {
     this->workers.emplace_back(&FigureHttpsServer::handleRequests, this);
   }
 
   Logger::info("Listener certificates: \n" + listener.getCerts());
 
-  Logger::info("Listening...");
+  Logger::info("Listening.");
 
   while (true) {
-    this->clientQueue.enqueue(listener.accept());
+    try {
+      auto client{listener.accept()};
+      Logger::info("Accepted connection with socket: " + to_string(client->getSocketFD()));
+      this->clientQueue.enqueue(client);
+    } catch (exception &e) {
+      Logger::error("Listener error: ", e);
+    }
   }
 }
 
@@ -60,28 +67,37 @@ void FigureHttpsServer::stop() {
 void FigureHttpsServer::handleRequests() {
   while (true) {
     auto client{clientQueue.dequeue()};
+
     if (!client) {
       break;
     } else {
-      client->sslAccept();
+      try {
+        client->sslAccept();
 
-      Logger::info(client->getCerts());
+        string request{client->sslRead()};
 
-      string request{client->sslRead()};
+        map<string, map<string, string>> parsedRequest{parseHttpRequest(request)};
+        string url{parsedRequest["Request-Line"]["URL"]};
 
-      // parseHttpRequest for all bits of request
-      map<string, map<string, string>> parsedRequest{parseHttpRequest(request)};
-      map<string, string> headers{parsedRequest["Headers"]};
-      // isolate url, getLastPath, pass to getFigureByName
-      string url{parsedRequest["Request-Line"]["URL"]};
-      // isolate headers, pass to sendHttpResponse
-      string body{figureController.getFigureByName(getLastPath(url))};
+        if(!validateUrlFormat(url)) {
+          sendHttpsResponse(client, 404, "");
+        }
 
-      if (body.empty()) {
-        sendHttpResponse(client, 404, headers, body);
-      } else {
-        sendHttpResponse(client, 200, headers, body);
+        string body{figureController.getFigureByName(getLastPath(url))};
+
+        map<string, string> headers{parsedRequest["Headers"]};
+        if (body.empty()) {
+          sendHttpsResponse(client, 404, body);
+        } else {
+          sendHttpsResponse(client, 200, body);
+        }
+      } catch (exception &e) {
+        Logger::error("Client error: ", e);
+
+        sendHttpResponse(client, 500, "");
       }
+
+      Logger::info("Handled connection with socket: " + to_string(client->getSocketFD()));
     }
   }
 }
@@ -93,8 +109,7 @@ map<string, map<string, string>> FigureHttpsServer::parseHttpRequest(
   requestStream >> method >> url >> version;
 
   map<string, map<string, string>> result{
-      {"Request-Line",
-       {{"Method", method}, {"URL", url}, {"Version", version}}},
+      {"Request-Line", {{"Method", method}, {"URL", url}, {"Version", version}}},
       {"Headers", parseHeaders(requestStream)}};
 
   return result;
@@ -103,17 +118,27 @@ map<string, map<string, string>> FigureHttpsServer::parseHttpRequest(
 map<string, string> FigureHttpsServer::parseHeaders(istringstream &stream) {
   map<string, string> headers;
   string line;
-  while (getline(stream, line) && line != "\r") {
-    auto colonPos = line.find(':');
-    if (colonPos != string::npos) {
-      string name = line.substr(0, colonPos);
-      string value =
-          line.substr(colonPos + 2);  // Skip the colon and the space after it
-      headers[name] =
-          value.substr(0, value.size() - 1);  // Remove the trailing '\r'
+  while (getline(stream, line, '\n')) { // Specify '\n' as the delimiter
+    // Check if line is not just '\r'
+    if (line.size() > 1) {
+      // Remove the trailing '\r' if it exists
+      if (line.back() == '\r') {
+        line.pop_back();
+      }
+      auto colonPos = line.find(':');
+      if (colonPos != string::npos) {
+        string name = line.substr(0, colonPos);
+        string value = line.substr(colonPos + 2);  // Skip the colon and the space after it
+        headers[name] = value;
+      }
     }
   }
   return headers;
+}
+
+bool FigureHttpsServer::validateUrlFormat(const string &url) {
+  std::regex pathFormat{R"(/lego/\w+$)"};
+  return std::regex_match(url, pathFormat);
 }
 
 string FigureHttpsServer::getLastPath(const string &url) {
@@ -124,37 +149,41 @@ string FigureHttpsServer::getLastPath(const string &url) {
   return url;  // Return the whole URL if there is no '/'
 }
 
-string FigureHttpsServer::generateHttpResponse(
-    int statusCode, const map<string, string> &headers, const string &body) {
+string FigureHttpsServer::generateHttpResponse(int statusCode, const string &body) {
   string statusMessage;
   switch (statusCode) {
-    case 200:
-      statusMessage = "OK";
+    case 200: statusMessage = "OK";
       break;
-    case 404:
-      statusMessage = "Not Found";
+    case 404: statusMessage = "Not Found";
+      break;
+    case 500: statusMessage = "Internal Error";
       break;
     default:
-      statusMessage = "Unknown";
-      break;
+      throw invalid_argument("Unknown HTTP status code");
   }
 
   string response =
       "HTTP/1.1 " + to_string(statusCode) + " " + statusMessage + "\r\n";
-  for (const auto &header : headers) {
-    response += header.first + ": " + header.second + "\r\n";
-  }
+  response += "Content-Type: text/html\r\n";
   response += "Content-Length: " + to_string(body.size()) + "\r\n";
+  response += "Connection: close\r\n";
   response += "\r\n" + body;
 
   return response;
 }
 
-void FigureHttpsServer::sendHttpResponse(
-    const std::shared_ptr<IPv4SslSocket> &client, int statusCode,
-    const std::map<std::string, std::string> &headers,
-    const std::string &body) {
+void FigureHttpsServer::sendHttpResponse(const std::shared_ptr<IPv4SslSocket> &client,
+                                         int statusCode,
+                                         const std::string &body) {
   string response =
-      FigureHttpsServer::generateHttpResponse(statusCode, headers, body);
+      FigureHttpsServer::generateHttpResponse(statusCode, body);
+  client->write(response);
+}
+
+void FigureHttpsServer::sendHttpsResponse(const std::shared_ptr<IPv4SslSocket> &client,
+                                          int statusCode,
+                                          const std::string &body) {
+  string response =
+      FigureHttpsServer::generateHttpResponse(statusCode, body);
   client->sslWrite(response);
 }

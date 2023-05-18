@@ -17,53 +17,63 @@ using std::string;
 ofstream Logger::file{};
 
 high_resolution_clock::time_point Logger::start{
-        high_resolution_clock::now()
+    high_resolution_clock::now()
 };
 
+std::mutex Logger::stdout_mutex{};
+
 void Logger::print(const string &message) {
-    cout << "[" << duration() << " ms]" << "[INFO]: " << message << endl;
+  stdout_mutex.lock();
+  cout << "[" << duration() << " ms]" << "[INFO]: " << message << endl;
+  stdout_mutex.unlock();
 }
 
 void Logger::info(const string &message) {
-    cout << "[" << duration() << " ms]" << "[INFO]: " << message << endl;
+  stdout_mutex.lock();
+  cout << "[" << duration() << " ms]" << "[INFO]: " << message << endl;
+  stdout_mutex.unlock();
 }
 
 void Logger::error(const string &message) {
-    cout << "[" << duration() << " ms]" << "[ERROR]: " << message << endl;
+  stdout_mutex.lock();
+  cout << "[" << duration() << " ms]" << "[ERROR]: " << message << endl;
+  stdout_mutex.unlock();
 }
 
 void Logger::error(const string &message, const exception &e) {
-    error(message);
-    print_exception(e);
+  error(message);
+  print_exception(e);
 }
 
 u_int64_t Logger::duration() {
-    return duration_cast<milliseconds>(high_resolution_clock::now() - start).count();
+  return duration_cast<milliseconds>(high_resolution_clock::now() - start).count();
 }
 
 void Logger::print_exception(const exception &e, int level) {
-    cout << "Caused by: " << e.what() << endl;
-    try {
-        rethrow_if_nested(e);
-    }
-    catch (const exception &ne) {
-        print_exception(ne, level + 1);
-    }
+  stdout_mutex.lock();
+  cout << "Caused by: " << e.what() << endl;
+  stdout_mutex.unlock();
+  try {
+    rethrow_if_nested(e);
+  }
+  catch (const exception &ne) {
+    print_exception(ne, level + 1);
+  }
 }
 
 string Logger::deduce_exception_what(const exception &e) {
-    try {
-        rethrow_if_nested(e);
-    }
-    catch (const exception &ne) {
-        return deduce_exception_what(ne);
-    }
-    return e.what();
+  try {
+    rethrow_if_nested(e);
+  }
+  catch (const exception &ne) {
+    return deduce_exception_what(ne);
+  }
+  return e.what();
 }
 
 void Logger::initialize() {
-    remove_all(LOG_DIR);
-    create_directory(LOG_DIR);
+  remove_all(LOG_DIR);
+  create_directory(LOG_DIR);
 
-    file.open(string(LOG_DIR) + LOG_FILE);
+  file.open(string(LOG_DIR) + LOG_FILE);
 }

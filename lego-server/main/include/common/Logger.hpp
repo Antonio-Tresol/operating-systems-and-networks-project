@@ -7,6 +7,7 @@
 #include <fstream>
 #include <filesystem>
 #include <iostream>
+#include <mutex>
 #include <string>
 
 /**
@@ -71,4 +72,6 @@ class Logger {
   static std::ofstream file;
 
   static std::chrono::high_resolution_clock::time_point start;
+
+  static std::mutex stdout_mutex;
 };

@@ -33,10 +33,13 @@ class FigureHttpsServer {
   void stop();
 
  private:
+  static constexpr int NUM_WORKERS{8};
   static constexpr int PORT{7777};
   static constexpr int QUEUE{128};
   static constexpr char CERT_PATH[]{"./ci0123.pem"};
   static constexpr char FIGURE[]{"figure"};
+
+  static const std::map<std::string, std::string> errorHeaders;
 
   IPv4SslSocket listener{CERT_PATH, CERT_PATH};
 
@@ -48,19 +51,22 @@ class FigureHttpsServer {
 
   void handleRequests();
 
-  std::map<std::string, std::string> parseHeaders(std::istringstream &stream);
+  static std::map<std::string, std::string> parseHeaders(std::istringstream &stream);
 
-  std::map<std::string, std::map<std::string, std::string>> parseHttpRequest(
+  static std::map<std::string, std::map<std::string, std::string>> parseHttpRequest(
       const std::string &request);
 
   static std::string getLastPath(const std::string &url);
 
-  static std::string generateHttpResponse(
-      int statusCode, const std::map<std::string, std::string> &headers,
-      const std::string &body);
+  static bool validateUrlFormat(const std::string &url);
 
-  static void sendHttpResponse(
-      const std::shared_ptr<IPv4SslSocket> &client, int statusCode,
-      const std::map<std::string, std::string> &headers,
-      const std::string &body);
+  static std::string generateHttpResponse(int statusCode, const std::string &body);
+
+  static void sendHttpResponse(const std::shared_ptr<IPv4SslSocket> &client,
+                               int statusCode,
+                               const std::string &body);
+
+  static void sendHttpsResponse(const std::shared_ptr<IPv4SslSocket> &client,
+                                int statusCode,
+                                const std::string &body);
 };
