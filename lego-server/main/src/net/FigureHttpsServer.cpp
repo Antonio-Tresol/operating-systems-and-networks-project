@@ -19,7 +19,8 @@ using std::sregex_iterator;
 using std::string;
 using std::to_string;
 
-FigureHttpsServer::FigureHttpsServer(const string &certPath) : listener(certPath, certPath) {}
+FigureHttpsServer::FigureHttpsServer(const string &certPath)
+    : listener(certPath, certPath) {}
 
 FigureHttpsServer::~FigureHttpsServer() { stop(); }
 
@@ -43,7 +44,8 @@ void FigureHttpsServer::start() {
   while (true) {
     try {
       auto client{listener.accept()};
-      Logger::info("Accepted connection with socket: " + to_string(client->getSocketFD()));
+      Logger::info("Accepted connection with socket: " +
+                   to_string(client->getSocketFD()));
       this->clientQueue.enqueue(client);
     } catch (exception &e) {
       Logger::error("Listener error: ", e);
@@ -78,19 +80,33 @@ void FigureHttpsServer::handleRequests() {
 
         string request{client->sslRead()};
 
-        map<string, map<string, string>> parsedRequest{parseHttpRequest(request)};
+        map<string, map<string, string>> parsedRequest{
+            parseHttpRequest(request)};
         string url{parsedRequest["Request-Line"]["URL"]};
 
         if (!validateUrlFormat(url)) {
+          Logger::info("Client request: \n" + request);
+          Logger::info(
+              "Sending 404 response to client (caused by invalid URL "
+              "Format): " +
+              to_string(client->getSocketFD()));
           sendHttpsResponse(client, 404, "");
+          continue;
         }
 
         string body{figureController.getFigureByName(getLastPath(url))};
 
         map<string, string> headers{parsedRequest["Headers"]};
         if (body.empty()) {
+          Logger::info("Client request: \n" + request);
+          Logger::info(
+              "Sending 404 response to client (caused by FigureNotFound): " +
+              to_string(client->getSocketFD()));
           sendHttpsResponse(client, 404, body);
         } else {
+          Logger::info("Client request: \n" + request);
+          Logger::info("Sending response to client: " +
+                       to_string(client->getSocketFD()));
           sendHttpsResponse(client, 200, body);
         }
       } catch (exception &e) {
@@ -99,7 +115,8 @@ void FigureHttpsServer::handleRequests() {
         sendHttpResponse(client, 500, "");
       }
 
-      Logger::info("Handled connection with socket: " + to_string(client->getSocketFD()));
+      Logger::info("Handled connection with socket: " +
+                   to_string(client->getSocketFD()));
     }
   }
 }
@@ -111,7 +128,8 @@ map<string, map<string, string>> FigureHttpsServer::parseHttpRequest(
   requestStream >> method >> url >> version;
 
   map<string, map<string, string>> result{
-      {"Request-Line", {{"Method", method}, {"URL", url}, {"Version", version}}},
+      {"Request-Line",
+       {{"Method", method}, {"URL", url}, {"Version", version}}},
       {"Headers", parseHeaders(requestStream)}};
 
   return result;
@@ -120,7 +138,7 @@ map<string, map<string, string>> FigureHttpsServer::parseHttpRequest(
 map<string, string> FigureHttpsServer::parseHeaders(istringstream &stream) {
   map<string, string> headers;
   string line;
-  while (getline(stream, line, '\n')) { // Specify '\n' as the delimiter
+  while (getline(stream, line, '\n')) {  // Specify '\n' as the delimiter
     // Check if line is not just '\r'
     if (line.size() > 1) {
       // Remove the trailing '\r' if it exists
@@ -130,7 +148,8 @@ map<string, string> FigureHttpsServer::parseHeaders(istringstream &stream) {
       auto colonPos = line.find(':');
       if (colonPos != string::npos) {
         string name = line.substr(0, colonPos);
-        string value = line.substr(colonPos + 2);  // Skip the colon and the space after it
+        string value =
+            line.substr(colonPos + 2);  // Skip the colon and the space after it
         headers[name] = value;
       }
     }
@@ -151,16 +170,21 @@ string FigureHttpsServer::getLastPath(const string &url) {
   return url;  // Return the whole URL if there is no '/'
 }
 
-string FigureHttpsServer::generateHttpResponse(int statusCode, const string &body) {
+string FigureHttpsServer::generateHttpResponse(int statusCode,
+                                               const string &body) {
   string statusMessage;
   switch (statusCode) {
-    case 200: statusMessage = "OK";
+    case 200:
+      statusMessage = "OK";
       break;
-    case 404: statusMessage = "Not Found";
+    case 404:
+      statusMessage = "Not Found";
       break;
-    case 500: statusMessage = "Internal Error";
+    case 500:
+      statusMessage = "Internal Error";
       break;
-    default:throw invalid_argument("Unknown HTTP status code");
+    default:
+      throw invalid_argument("Unknown HTTP status code");
   }
 
   string response =
@@ -173,18 +197,16 @@ string FigureHttpsServer::generateHttpResponse(int statusCode, const string &bod
   return response;
 }
 
-void FigureHttpsServer::sendHttpResponse(const std::shared_ptr<IPv4SslSocket> &client,
-                                         int statusCode,
-                                         const std::string &body) {
-  string response =
-      FigureHttpsServer::generateHttpResponse(statusCode, body);
+void FigureHttpsServer::sendHttpResponse(
+    const std::shared_ptr<IPv4SslSocket> &client, int statusCode,
+    const std::string &body) {
+  string response = FigureHttpsServer::generateHttpResponse(statusCode, body);
   client->write(response);
 }
 
-void FigureHttpsServer::sendHttpsResponse(const std::shared_ptr<IPv4SslSocket> &client,
-                                          int statusCode,
-                                          const std::string &body) {
-  string response =
-      FigureHttpsServer::generateHttpResponse(statusCode, body);
+void FigureHttpsServer::sendHttpsResponse(
+    const std::shared_ptr<IPv4SslSocket> &client, int statusCode,
+    const std::string &body) {
+  string response = FigureHttpsServer::generateHttpResponse(statusCode, body);
   client->sslWrite(response);
 }

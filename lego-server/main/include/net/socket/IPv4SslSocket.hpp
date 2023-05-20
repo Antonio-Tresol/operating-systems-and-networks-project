@@ -1,21 +1,23 @@
 // Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
 // Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
 // Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
-// Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
+// Copyright 2023 Geancarlo Rivera Hernandez
+// <geancarlo.riverahernandez@ucr.ac.cr>.
 
 #pragma once
 
-#include <unistd.h>
+#include <arpa/inet.h>  // for inet_pton
 #include <netdb.h>
-#include <arpa/inet.h>    // for inet_pton
-#include <sys/types.h>    // for connect
-#include <sys/socket.h>
 #include <openssl/ssl.h>
-#include <cstddef>
-#include <cstdio>    // for perror
-#include <cstdlib>    // for exit
-#include <cstring>    // for memset
+#include <sys/socket.h>
+#include <sys/types.h>  // for connect
+#include <unistd.h>
+
 #include <cerrno>
+#include <cstddef>
+#include <cstdio>   // for perror
+#include <cstdlib>  // for exit
+#include <cstring>  // for memset
 #include <memory>
 #include <sstream>
 #include <string>
@@ -27,14 +29,14 @@
  * @brief A socket to connect via IPv4 over TCP over SSL.
  */
 class IPv4SslSocket {
-
  public:
   /**
    * Listener Constructor.
    *
    * Checks initialized socket is valid.
    */
-  IPv4SslSocket(const std::string &certFileName, const std::string &keyFileName);
+  IPv4SslSocket(const std::string &certFileName,
+                const std::string &keyFileName);
 
   /**
    * Client Constructor.
@@ -119,15 +121,8 @@ class IPv4SslSocket {
  private:
   static constexpr int TCP_ID{6};
   static constexpr int64_t CHUNK_SIZE{512};
-  static constexpr struct addrinfo hints{
-      0,
-      AF_UNSPEC,
-      SOCK_STREAM,
-      0,
-      0,
-      nullptr,
-      nullptr,
-      nullptr
+  static constexpr struct addrinfo hints {
+    0, AF_UNSPEC, SOCK_STREAM, 0, 0, nullptr, nullptr, nullptr
   };
 
   /**
@@ -152,7 +147,9 @@ class IPv4SslSocket {
 
   int socketFD;
   fd_set read_fds{};
-  struct timeval timeout{5, 0};
+  struct timeval timeout {
+    5, 0
+  };
   SslCtxPtr sslContext;
   SslPtr ssl;
 };
