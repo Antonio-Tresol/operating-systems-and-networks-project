@@ -4,7 +4,10 @@
 
 # CMake
 cmake-build-*/
-
+lego-client/CMakeFiles/*
+lego-client/build/*
+lego-server/CMakeFiles/*
+lego-server/build/*
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
 
