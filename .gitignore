@@ -42,3 +42,13 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 .vscode/c_cpp_properties.json
 .vscode/settings.json
+lego-client/logs/log.txt
+lego-client/Makefile
+lego-client/lego-client
+lego-server/cmake_install.cmake
+lego-server/CMakeCache.txt
+lego-client/CMakeCache.txt
+lego-client/cmake_install.cmake
+lego-server/lego-server
+lego-server/Makefile
+lego-server/logs/log.txt
