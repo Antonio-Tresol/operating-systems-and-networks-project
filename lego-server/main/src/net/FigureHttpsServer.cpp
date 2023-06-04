@@ -99,14 +99,11 @@ void FigureHttpsServer::handleRequests() {
         map<string, string> headers{parsedRequest["Headers"]};
         if (body.empty()) {
           Logger::info("Client request: \n" + request);
-          Logger::info(
-              "Sending 404 response to client (caused by FigureNotFound): " +
-              to_string(client->getSocketFD()));
+          Logger::info("Sending 404 response to client (caused by FigureNotFound): " + to_string(client->getSocketFD()));
           sendHttpsResponse(client, 404, body);
         } else {
           Logger::info("Client request: \n" + request);
-          Logger::info("Sending response to client: " +
-                       to_string(client->getSocketFD()));
+          Logger::info("Sending response to client: " + to_string(client->getSocketFD()));
           sendHttpsResponse(client, 200, body);
         }
       } catch (exception &e) {

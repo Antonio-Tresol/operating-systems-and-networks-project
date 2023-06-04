@@ -28,6 +28,6 @@ add_executable(${UBSAN_TARGET} ${TARGET_SOURCES})
 
 target_link_options(${ASAN_TARGET} PRIVATE
         -fsanitize=address -fno-omit-frame-pointer)
-target_link_options(${MSAN_TARGET} PRIVATE -fsanitize=memory)
+#target_link_options(${MSAN_TARGET} PRIVATE -fsanitize=memory)
 target_link_options(${TSAN_TARGET} PRIVATE -fsanitize=thread)
 target_link_options(${UBSAN_TARGET} PRIVATE -fsanitize=undefined)
