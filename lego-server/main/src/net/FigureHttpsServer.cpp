@@ -6,6 +6,8 @@
 
 #include "../include/net/FigureHttpsServer.hpp"
 
+#include <string>
+
 using ::Worker;
 
 using std::exception;
@@ -23,6 +25,8 @@ FigureHttpsServer::FigureHttpsServer(const string &certPath)
     : listener(certPath, certPath) {}
 
 FigureHttpsServer::~FigureHttpsServer() { stop(); }
+
+using Row = std::pair<std::string, int>;  // description, amount
 
 /**
  * @brief Starts the listener, creates the threads and starts them running.
@@ -206,4 +210,53 @@ void FigureHttpsServer::sendHttpsResponse(
     const std::string &body) {
   string response = FigureHttpsServer::generateHttpResponse(statusCode, body);
   client->sslWrite(response);
+}
+
+
+std::string formatNachos(const string &html) {
+  string::const_iterator searchStart(html.cbegin());
+  string::const_iterator searchEnd(html.cend());
+
+  smatch matchName;
+  regex regName{"Nombre: ([A-Za-z]+)"};
+
+  string name;
+  if (regex_search(searchStart, searchEnd, matchName, regName)) {
+    name = matchName[1];
+  }
+
+  smatch matchParts;
+  regex regParts{
+      "(?:brick|plate|flag|eyes|bracket|cone|slopes) "
+      "(?:[0-9]x[0-9]|[0-9]x[0-9]-[0-9]x[0-9] )?(?:[a-z ]+)"};
+
+  smatch matchAmount;
+  regex regAmount{"[0-9]+(?=</TD>)"};
+
+  std::vector<Row> inputParts;
+  while (regex_search(searchStart, searchEnd, matchParts, regParts) &&
+         regex_search(searchStart, searchEnd, matchAmount, regAmount)) {
+    inputParts.emplace_back(matchParts[0], stoi(matchAmount[0]));
+    searchStart = matchParts.suffix().first;
+  }
+
+  string upperCaseName{name};
+  transform(upperCaseName.begin(), upperCaseName.end(), upperCaseName.begin(),
+            ::toupper);
+
+  string asString{upperCaseName + "\n"};
+
+  int totalParts{0};
+  for (std::vector<Row>::size_type elem{0}; elem < inputParts.size(); elem++) {
+    asString += to_string(inputParts[elem].second);
+    asString += " pieces of ";
+    asString += inputParts[elem].first;
+    // 3 pieces of LEGO
+    asString += "\n";
+    totalParts += inputParts[elem].second;
+  }
+  asString = asString + "Total amount of parts for " + name +
+             " is: " + to_string(totalParts);
+
+  return asString;
 }
