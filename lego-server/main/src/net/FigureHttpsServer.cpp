@@ -235,7 +235,7 @@ string FigureHttpsServer::formatToNachos(const string &html) {
 }
 
 bool FigureHttpsServer::isNachos(const string &request) {
-  regex nachos{"Nachos - ([A-Za-z]+)"};
+  regex nachos{"N-([A-Za-z]+)"};
   string::const_iterator searchStart(request.cbegin());
   string::const_iterator searchEnd(request.cend());
   smatch matchName;
@@ -248,7 +248,7 @@ void FigureHttpsServer::serveNachos(const shared_ptr<IPv4SslSocket> &client,
     string::const_iterator searchStart(request.cbegin());
     string::const_iterator searchEnd(request.cend());
     smatch matchName;
-    regex nachos{"Nachos - ([A-Za-z]+)"};
+    regex nachos{"N-([A-Za-z]+)"};
     if (regex_search(searchStart, searchEnd, matchName, nachos)) {
       string name{matchName[1]};
       string nachosBody{formatToNachos(figureController.getFigureByName(name))};
