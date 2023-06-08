@@ -13,6 +13,7 @@
 #include <sstream>
 #include <string>
 #include <thread>
+#include <utility>
 #include <vector>
 
 #include "../common/Queue.hpp"
@@ -63,15 +64,16 @@ class FigureHttpsServer {
    * @param stream Remainder of HTTP stream.
    * @return Map of headers.
    */
-  static std::map<std::string, std::string> parseHeaders(std::istringstream &stream);
+  static std::map<std::string, std::string> parseHeaders(
+      std::istringstream &stream);
 
   /**
    * @brief Returns a map of parts for an HTTP request.
    * @param request HTTP request to build map for.
    * @return Map of HTTP request.
    */
-  static std::map<std::string, std::map<std::string, std::string>> parseHttpRequest(
-      const std::string &request);
+  static std::map<std::string, std::map<std::string, std::string>>
+  parseHttpRequest(const std::string &request);
 
   /**
    * @brief Parses last part of a URL for resource.
@@ -93,7 +95,8 @@ class FigureHttpsServer {
    * @param body Body for response.
    * @return Response.
    */
-  static std::string generateHttpResponse(int statusCode, const std::string &body);
+  static std::string generateHttpResponse(int statusCode,
+                                          const std::string &body);
 
   /**
    * @brief Builds and sends an HTTP response over a socket.
@@ -102,16 +105,40 @@ class FigureHttpsServer {
    * @param body Body for response.
    */
   static void sendHttpResponse(const std::shared_ptr<IPv4SslSocket> &client,
-                               int statusCode,
-                               const std::string &body);
+                               int statusCode, const std::string &body);
 
   /**
-    * @brief Builds and sends an HTTPS response over a socket.
-    * @param client Socket to send response through.
-    * @param statusCode Status code for response.
-    * @param body Body for response.
-    */
+   * @brief Builds and sends an HTTPS response over a socket.
+   * @param client Socket to send response through.
+   * @param statusCode Status code for response.
+   * @param body Body for response.
+   */
   static void sendHttpsResponse(const std::shared_ptr<IPv4SslSocket> &client,
-                                int statusCode,
-                                const std::string &body);
+                                int statusCode, const std::string &body);
+  /**
+   * @brief builds the body of the response for the figures send to nachos
+   * client
+   * @param string with the html code of the figures
+   * @return string with the body of the response
+   */
+  std::string formatToNachos(const std::string &html);
+  /**
+   * @brief checks if the request comes from a nachos client
+   */
+  bool isNachos(const std::string &request);
+  /**
+   * @brief serves the response for the nachos client
+   * @param client socket to send the response
+   * @param request request from the client
+   */
+  void serveNachos(const std::shared_ptr<IPv4SslSocket> &client,
+                   const std::string &request);
+  /**
+   * @brief serves the response for the usual clients (web browser and lego
+   * clients)
+   * @param client socket to send the response
+   * @param request request from the client
+   */
+  void serveFigures(const std::shared_ptr<IPv4SslSocket> &client,
+                    const std::string &request);
 };

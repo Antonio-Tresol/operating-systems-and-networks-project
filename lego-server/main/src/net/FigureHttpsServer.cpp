@@ -15,19 +15,21 @@ using std::invalid_argument;
 using std::istringstream;
 using std::map;
 using std::regex;
+using std::regex_match;
+using std::regex_search;
 using std::runtime_error;
+using std::shared_ptr;
 using std::smatch;
 using std::sregex_iterator;
 using std::string;
 using std::to_string;
+using std::vector;
+using Row = std::pair<std::string, int>;  // description, amount
 
 FigureHttpsServer::FigureHttpsServer(const string &certPath)
     : listener(certPath, certPath) {}
 
 FigureHttpsServer::~FigureHttpsServer() { stop(); }
-
-using Row = std::pair<std::string, int>;  // description, amount
-
 /**
  * @brief Starts the listener, creates the threads and starts them running.
  * Besides accepts incoming connections and puts them in the client queue.
@@ -75,49 +77,26 @@ void FigureHttpsServer::stop() {
 void FigureHttpsServer::handleRequests() {
   while (true) {
     auto client{clientQueue.dequeue()};
-
     if (!client) {
       break;
-    } else {
-      try {
-        client->sslAccept();
-
-        string request{client->sslRead()};
-
-        map<string, map<string, string>> parsedRequest{
-            parseHttpRequest(request)};
-        string url{parsedRequest["Request-Line"]["URL"]};
-
-        if (!validateUrlFormat(url)) {
-          Logger::info("Client request: \n" + request);
-          Logger::info(
-              "Sending 404 response to client (caused by invalid URL "
-              "Format): " +
-              to_string(client->getSocketFD()));
-          sendHttpsResponse(client, 404, "");
-          continue;
-        }
-
-        string body{figureController.getFigureByName(getLastPath(url))};
-
-        map<string, string> headers{parsedRequest["Headers"]};
-        if (body.empty()) {
-          Logger::info("Client request: \n" + request);
-          Logger::info("Sending 404 response to client (caused by FigureNotFound): " + to_string(client->getSocketFD()));
-          sendHttpsResponse(client, 404, body);
-        } else {
-          Logger::info("Client request: \n" + request);
-          Logger::info("Sending response to client: " + to_string(client->getSocketFD()));
-          sendHttpsResponse(client, 200, body);
-        }
-      } catch (exception &e) {
-        Logger::error("Client error: ", e);
-
-        sendHttpResponse(client, 500, "");
-      }
-
-      Logger::info("Handled connection with socket: " +
+    }
+    try {
+      client->sslAccept();
+    } catch (exception &e) {
+      Logger::error("Client error: ", e);
+      Logger::error("Dropping client");
+      continue;
+    }
+    string request{client->sslRead()};
+    // check if the request is a nachos request
+    if (isNachos(request)) {
+      Logger::info("Nachos Client request: \n" + request);
+      Logger::info("Sending response to client: " +
                    to_string(client->getSocketFD()));
+      serveNachos(client, request);
+    } else {
+      // if the request is not a nachos request, serve the figure as usual
+      serveFigures(client, request);
     }
   }
 }
@@ -159,7 +138,7 @@ map<string, string> FigureHttpsServer::parseHeaders(istringstream &stream) {
 }
 
 bool FigureHttpsServer::validateUrlFormat(const string &url) {
-  std::regex pathFormat{R"(/lego/\w+$)"};
+  regex pathFormat{R"(/lego/\w+$)"};
   return std::regex_match(url, pathFormat);
 }
 
@@ -199,41 +178,35 @@ string FigureHttpsServer::generateHttpResponse(int statusCode,
 }
 
 void FigureHttpsServer::sendHttpResponse(
-    const std::shared_ptr<IPv4SslSocket> &client, int statusCode,
-    const std::string &body) {
+    const shared_ptr<IPv4SslSocket> &client, int statusCode,
+    const string &body) {
   string response = FigureHttpsServer::generateHttpResponse(statusCode, body);
   client->write(response);
 }
 
 void FigureHttpsServer::sendHttpsResponse(
-    const std::shared_ptr<IPv4SslSocket> &client, int statusCode,
-    const std::string &body) {
+    const shared_ptr<IPv4SslSocket> &client, int statusCode,
+    const string &body) {
   string response = FigureHttpsServer::generateHttpResponse(statusCode, body);
   client->sslWrite(response);
 }
 
-
-std::string formatNachos(const string &html) {
+string FigureHttpsServer::formatToNachos(const string &html) {
   string::const_iterator searchStart(html.cbegin());
   string::const_iterator searchEnd(html.cend());
-
   smatch matchName;
   regex regName{"Nombre: ([A-Za-z]+)"};
-
   string name;
   if (regex_search(searchStart, searchEnd, matchName, regName)) {
     name = matchName[1];
   }
-
   smatch matchParts;
   regex regParts{
       "(?:brick|plate|flag|eyes|bracket|cone|slopes) "
       "(?:[0-9]x[0-9]|[0-9]x[0-9]-[0-9]x[0-9] )?(?:[a-z ]+)"};
-
   smatch matchAmount;
   regex regAmount{"[0-9]+(?=</TD>)"};
-
-  std::vector<Row> inputParts;
+  vector<Row> inputParts;
   while (regex_search(searchStart, searchEnd, matchParts, regParts) &&
          regex_search(searchStart, searchEnd, matchAmount, regAmount)) {
     inputParts.emplace_back(matchParts[0], stoi(matchAmount[0]));
@@ -247,7 +220,7 @@ std::string formatNachos(const string &html) {
   string asString{upperCaseName + "\n"};
 
   int totalParts{0};
-  for (std::vector<Row>::size_type elem{0}; elem < inputParts.size(); elem++) {
+  for (vector<Row>::size_type elem{0}; elem < inputParts.size(); elem++) {
     asString += to_string(inputParts[elem].second);
     asString += " pieces of ";
     asString += inputParts[elem].first;
@@ -259,4 +232,73 @@ std::string formatNachos(const string &html) {
              " is: " + to_string(totalParts);
 
   return asString;
+}
+
+bool FigureHttpsServer::isNachos(const string &request) {
+  regex nachos{"Nachos - ([A-Za-z]+)"};
+  string::const_iterator searchStart(request.cbegin());
+  string::const_iterator searchEnd(request.cend());
+  smatch matchName;
+  return regex_search(searchStart, searchEnd, matchName, nachos);
+}
+
+void FigureHttpsServer::serveNachos(const shared_ptr<IPv4SslSocket> &client,
+                                    const string &request) {
+  try {
+    string::const_iterator searchStart(request.cbegin());
+    string::const_iterator searchEnd(request.cend());
+    smatch matchName;
+    regex nachos{"Nachos - ([A-Za-z]+)"};
+    if (regex_search(searchStart, searchEnd, matchName, nachos)) {
+      string name{matchName[1]};
+      string nachosBody{formatToNachos(figureController.getFigureByName(name))};
+      sendHttpsResponse(client, 200, nachosBody);
+    } else {
+      sendHttpsResponse(client, 404, "");
+    }
+  } catch (exception &e) {
+    Logger::error("Client error: ", e);
+    Logger::error("Dropping client");
+  }
+}
+
+void FigureHttpsServer::serveFigures(const shared_ptr<IPv4SslSocket> &client,
+                                     const string &request) {
+  try {
+    // for a normal request: parse the request
+    map<string, map<string, string>> parsedRequest{parseHttpRequest(request)};
+    string url{parsedRequest["Request-Line"]["URL"]};
+    // check if the url is valid
+    if (!validateUrlFormat(url)) {
+      Logger::info("Client request: \n" + request);
+      Logger::info(
+          "Sending 404 response to client (caused by invalid URL "
+          "Format): " +
+          to_string(client->getSocketFD()));
+      sendHttpsResponse(client, 404, "");
+      return;
+    }
+    // get the body of the figure
+    string body{figureController.getFigureByName(getLastPath(url))};
+    // prepare the headers
+    map<string, string> headers{parsedRequest["Headers"]};
+    if (body.empty()) {  // if the body is empty, send a 404 response
+      Logger::info("Client request: \n" + request);
+      Logger::info(
+          "Sending 404 response to client (caused by FigureNotFound): " +
+          to_string(client->getSocketFD()));
+      sendHttpsResponse(client, 404, body);
+    } else {  // if the body is not empty, send the figure and 200 response
+      Logger::info("Client request: \n" + request);
+      Logger::info("Sending response to client: " +
+                   to_string(client->getSocketFD()));
+      sendHttpsResponse(client, 200, body);
+    }
+  } catch (exception &e) {
+    Logger::error("Client error: ", e);
+    Logger::error("Dropping client");
+  }
+  Logger::info("Handled connection with socket: " +
+               to_string(client->getSocketFD()));
+  return;
 }
