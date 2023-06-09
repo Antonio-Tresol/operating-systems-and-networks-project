@@ -191,7 +191,7 @@ void FigureHttpsServer::sendHttpsResponse(
   client->sslWrite(response);
 }
 
-string FigureHttpsServer::formatToNachos(const string &html) {
+string FigureHttpsServer::formatForNachos(const string &html) {
   string::const_iterator searchStart(html.cbegin());
   string::const_iterator searchEnd(html.cend());
   smatch matchName;
@@ -251,10 +251,10 @@ void FigureHttpsServer::serveNachos(const shared_ptr<IPv4SslSocket> &client,
     regex nachos{"N-([A-Za-z]+)"};
     if (regex_search(searchStart, searchEnd, matchName, nachos)) {
       string name{matchName[1]};
-      string nachosBody{formatToNachos(figureController.getFigureByName(name))};
+      string nachosBody{formatForNachos(figureController.getFigureByName(name))};
       sendHttpsResponse(client, 200, nachosBody);
     } else {
-      sendHttpsResponse(client, 404, "");
+      sendHttpsResponse(client, 404, "Could not find requested figure");
     }
   } catch (exception &e) {
     Logger::error("Client error: ", e);
