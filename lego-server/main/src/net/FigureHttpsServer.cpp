@@ -249,29 +249,34 @@ void FigureHttpsServer::serveNachos(const shared_ptr<IPv4SslSocket> &client,
     string::const_iterator searchEnd(request.cend());
     smatch matchName;
     regex nachos{"N-([A-Za-z]+)"};
-    if (regex_search(searchStart, searchEnd, matchName, nachos)) {
-      string name{matchName[1]};
-      string nachosBody{formatForNachos(figureController.getFigureByName(name))};
-      if (nachosBody.empty()) {
+
+    if (!regex_search(searchStart, searchEnd, matchName, nachos)) {
         Logger::info("Client request: \n" + request);
         Logger::info(
-            "Sending 404 response to Nachos client (figure not found): " +
-            to_string(client->getSocketFD()));
-        sendHttpsResponse(client, 404, "");
-      } else {
-        Logger::info("Client request: \n" + request);
-        Logger::info("Sending 200 response to client: " +
-                     to_string(client->getSocketFD()));
-        sendHttpsResponse(client, 200, nachosBody);
-      }
-    } else {
-      Logger::info("Client request: \n" + request);
-      Logger::info(
-          "Sending 404 response to Nachos client (caused by invalid URL "
-          "Format): " +
-          to_string(client->getSocketFD()));
-      sendHttpsResponse(client, 404, "");
+                "Sending 404 response to Nachos client (caused by invalid URL "
+                "Format): " +
+                to_string(client->getSocketFD()));
+        sendHttpsResponse(client, 404, "Invalid URL format");
+        return;
     }
+
+    string name{matchName[1]};
+    string nachosBody{formatForNachos(figureController.getFigureByName(name))};
+
+    if (nachosBody.empty()) {
+        Logger::info("Client request: \n" + request);
+        Logger::info(
+                "Sending 404 response to Nachos client (figure not found): " +
+                to_string(client->getSocketFD()));
+        sendHttpsResponse(client, 404, "Could not find requested figure");
+        return;
+    }
+
+    Logger::info("Client request: \n" + request);
+    Logger::info("Sending 200 response to client: " +
+                 to_string(client->getSocketFD()));
+    sendHttpsResponse(client, 200, nachosBody);
+
   } catch (exception &e) {
     Logger::error("Client error: ", e);
     Logger::error("Dropping client");

@@ -121,7 +121,7 @@ class FigureHttpsServer {
    * @param string with the html code of the figures
    * @return string with the body of the response
    */
-  std::string formatForNachos(const string &html);
+  std::string formatForNachos(const std::string &html);
   /**
    * @brief checks if the request comes from a nachos client
    */
