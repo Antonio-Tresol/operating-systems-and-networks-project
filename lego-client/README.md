@@ -49,7 +49,7 @@ El programa está organizado en varias clases y módulos que trabajan juntos par
 
 ## Licencia
 
-Copyright © 2023 Ariel Arevalo Alvarado. Todos los derechos reservados.
-Copyright © 2023 Antonio Badilla Olivas. Todos los derechos reservados.
-Copyright © 2023 Jean Paul Chacon Gonzalez. Todos los derechos reservados.
-Copyright © 2023 Geancarlo Rivera Hernandez. Todos los derechos reservados.
+Copyright © 2023 Ariel Arevalo Alvarado. Todos los derechos reservados.  
+Copyright © 2023 Antonio Badilla Olivas. Todos los derechos reservados.  
+Copyright © 2023 Jean Paul Chacon Gonzalez. Todos los derechos reservados.  
+Copyright © 2023 Geancarlo Rivera Hernandez. Todos los derechos reservados.  
