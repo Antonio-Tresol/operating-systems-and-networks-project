@@ -255,8 +255,7 @@ void FigureHttpsServer::serveNachos(const shared_ptr<IPv4SslSocket> &client,
       if (nachosBody.empty()) {
         Logger::info("Client request: \n" + request);
         Logger::info(
-            "Sending 404 response to client (caused by invalid URL "
-            "Format): " +
+            "Sending 404 response to Nachos client (figure not found): " +
             to_string(client->getSocketFD()));
         sendHttpsResponse(client, 404, "");
       } else {
@@ -266,6 +265,11 @@ void FigureHttpsServer::serveNachos(const shared_ptr<IPv4SslSocket> &client,
         sendHttpsResponse(client, 200, nachosBody);
       }
     } else {
+      Logger::info("Client request: \n" + request);
+      Logger::info(
+          "Sending 404 response to Nachos client (caused by invalid URL "
+          "Format): " +
+          to_string(client->getSocketFD()));
       sendHttpsResponse(client, 404, "");
     }
   } catch (exception &e) {
