@@ -252,9 +252,25 @@ void FigureHttpsServer::serveNachos(const shared_ptr<IPv4SslSocket> &client,
     if (regex_search(searchStart, searchEnd, matchName, nachos)) {
       string name{matchName[1]};
       string nachosBody{formatForNachos(figureController.getFigureByName(name))};
-      sendHttpsResponse(client, 200, nachosBody);
+      if (nachosBody.empty()) {
+        Logger::info("Client request: \n" + request);
+        Logger::info(
+            "Sending 404 response to Nachos client (figure not found): " +
+            to_string(client->getSocketFD()));
+        sendHttpsResponse(client, 404, "");
+      } else {
+        Logger::info("Client request: \n" + request);
+        Logger::info("Sending 200 response to client: " +
+                     to_string(client->getSocketFD()));
+        sendHttpsResponse(client, 200, nachosBody);
+      }
     } else {
-      sendHttpsResponse(client, 404, "Could not find requested figure");
+      Logger::info("Client request: \n" + request);
+      Logger::info(
+          "Sending 404 response to Nachos client (caused by invalid URL "
+          "Format): " +
+          to_string(client->getSocketFD()));
+      sendHttpsResponse(client, 404, "");
     }
   } catch (exception &e) {
     Logger::error("Client error: ", e);
