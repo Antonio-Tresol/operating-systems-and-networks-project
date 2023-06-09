@@ -259,7 +259,6 @@ void FigureHttpsServer::serveNachos(const shared_ptr<IPv4SslSocket> &client,
             "Format): " +
             to_string(client->getSocketFD()));
         sendHttpsResponse(client, 404, "");
-        return;
       } else {
         Logger::info("Client request: \n" + request);
         Logger::info("Sending 200 response to client: " +
