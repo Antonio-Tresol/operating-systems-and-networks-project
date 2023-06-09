@@ -20,10 +20,10 @@ include ../Makefile.dep
 # DEPENDENCIES MUST END AT END OF FILE
 main.o: ../threads/main.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/utility.h ../machine/sysdep.h \
- ../threads/copyright.h /usr/include/c++/11/stdlib.h \
- /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ ../threads/copyright.h /usr/include/c++/12/stdlib.h \
+ /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -31,10 +31,10 @@ main.o: ../threads/main.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
@@ -67,8 +67,8 @@ main.o: ../threads/main.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -83,57 +83,57 @@ main.o: ../threads/main.cc /usr/include/stdc-predef.h \
  ../threads/utility.h ../threads/../userprog/memorymanager.h \
  ../threads/../userprog/processtable.h ../threads/../userprog/bitmap.h \
  ../threads/../userprog/../filesys/openfile.h ../threads/synch.h \
- ../threads/../userprog/semtable.h /usr/include/c++/11/unordered_map \
- /usr/include/c++/11/type_traits /usr/include/c++/11/initializer_list \
- /usr/include/c++/11/bits/allocator.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
- /usr/include/c++/11/ext/new_allocator.h /usr/include/c++/11/new \
- /usr/include/c++/11/bits/exception.h \
- /usr/include/c++/11/bits/functexcept.h \
- /usr/include/c++/11/bits/exception_defines.h \
- /usr/include/c++/11/bits/move.h /usr/include/c++/11/bits/memoryfwd.h \
- /usr/include/c++/11/ext/alloc_traits.h \
- /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_construct.h \
- /usr/include/c++/11/bits/stl_iterator_base_types.h \
- /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
- /usr/include/c++/11/bits/concept_check.h \
- /usr/include/c++/11/debug/assertions.h \
- /usr/include/c++/11/bits/ptr_traits.h \
- /usr/include/c++/11/ext/numeric_traits.h \
- /usr/include/c++/11/bits/cpp_type_traits.h \
- /usr/include/c++/11/ext/type_traits.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/stl_pair.h \
- /usr/include/c++/11/bits/stl_function.h \
- /usr/include/c++/11/backward/binders.h \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
- /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/array /usr/include/c++/11/bits/stl_algobase.h \
- /usr/include/c++/11/bits/stl_iterator.h \
- /usr/include/c++/11/debug/debug.h \
- /usr/include/c++/11/bits/predefined_ops.h \
- /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
- /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/node_handle.h \
- /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/queue \
- /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/stl_queue.h ../threads/../userprog/socket.h \
+ ../threads/../userprog/semtable.h /usr/include/c++/12/unordered_map \
+ /usr/include/c++/12/type_traits /usr/include/c++/12/initializer_list \
+ /usr/include/c++/12/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++allocator.h \
+ /usr/include/c++/12/bits/new_allocator.h /usr/include/c++/12/new \
+ /usr/include/c++/12/bits/exception.h \
+ /usr/include/c++/12/bits/functexcept.h \
+ /usr/include/c++/12/bits/exception_defines.h \
+ /usr/include/c++/12/bits/move.h /usr/include/c++/12/bits/memoryfwd.h \
+ /usr/include/c++/12/ext/alloc_traits.h \
+ /usr/include/c++/12/bits/alloc_traits.h \
+ /usr/include/c++/12/bits/stl_construct.h \
+ /usr/include/c++/12/bits/stl_iterator_base_types.h \
+ /usr/include/c++/12/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/12/bits/concept_check.h \
+ /usr/include/c++/12/debug/assertions.h \
+ /usr/include/c++/12/bits/ptr_traits.h \
+ /usr/include/c++/12/ext/numeric_traits.h \
+ /usr/include/c++/12/bits/cpp_type_traits.h \
+ /usr/include/c++/12/ext/type_traits.h \
+ /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/bits/stl_pair.h /usr/include/c++/12/bits/utility.h \
+ /usr/include/c++/12/bits/stl_function.h \
+ /usr/include/c++/12/backward/binders.h \
+ /usr/include/c++/12/bits/functional_hash.h \
+ /usr/include/c++/12/bits/hash_bytes.h \
+ /usr/include/c++/12/bits/hashtable.h \
+ /usr/include/c++/12/bits/hashtable_policy.h /usr/include/c++/12/tuple \
+ /usr/include/c++/12/bits/uses_allocator.h \
+ /usr/include/c++/12/bits/invoke.h \
+ /usr/include/c++/12/bits/stl_algobase.h \
+ /usr/include/c++/12/bits/stl_iterator.h \
+ /usr/include/c++/12/debug/debug.h \
+ /usr/include/c++/12/bits/predefined_ops.h \
+ /usr/include/c++/12/bits/enable_special_members.h \
+ /usr/include/c++/12/bits/node_handle.h \
+ /usr/include/c++/12/bits/unordered_map.h \
+ /usr/include/c++/12/bits/range_access.h \
+ /usr/include/c++/12/bits/erase_if.h /usr/include/c++/12/queue \
+ /usr/include/c++/12/deque /usr/include/c++/12/bits/stl_uninitialized.h \
+ /usr/include/c++/12/bits/stl_deque.h /usr/include/c++/12/bits/refwrap.h \
+ /usr/include/c++/12/bits/deque.tcc /usr/include/c++/12/vector \
+ /usr/include/c++/12/bits/stl_vector.h \
+ /usr/include/c++/12/bits/stl_bvector.h \
+ /usr/include/c++/12/bits/vector.tcc /usr/include/c++/12/bits/stl_heap.h \
+ /usr/include/c++/12/bits/stl_queue.h ../threads/../userprog/socket.h \
  /usr/include/openssl/ssl.h /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
  /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/openssl/comp.h /usr/include/openssl/crypto.h \
@@ -143,8 +143,8 @@ main.o: ../threads/main.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /usr/include/openssl/safestack.h /usr/include/openssl/stack.h \
  /usr/include/openssl/types.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
@@ -175,11 +175,9 @@ main.o: ../threads/main.cc /usr/include/stdc-predef.h \
  /usr/include/openssl/dsaerr.h /usr/include/openssl/sha.h \
  /usr/include/openssl/x509err.h /usr/include/openssl/x509_vfy.h \
  /usr/include/openssl/lhash.h /usr/include/openssl/pkcs7.h \
- /usr/include/openssl/pkcs7err.h /usr/include/openssl/ocsp.h \
- /usr/include/openssl/http.h /usr/include/openssl/conf.h \
- /usr/include/openssl/conferr.h /usr/include/openssl/conftypes.h \
- /usr/include/openssl/x509v3.h /usr/include/openssl/x509v3err.h \
- /usr/include/openssl/ocsperr.h /usr/include/openssl/pem.h \
+ /usr/include/openssl/pkcs7err.h /usr/include/openssl/http.h \
+ /usr/include/openssl/conf.h /usr/include/openssl/conferr.h \
+ /usr/include/openssl/conftypes.h /usr/include/openssl/pem.h \
  /usr/include/openssl/pemerr.h /usr/include/openssl/hmac.h \
  /usr/include/openssl/async.h /usr/include/openssl/asyncerr.h \
  /usr/include/openssl/ct.h /usr/include/openssl/cterr.h \
@@ -195,9 +193,9 @@ main.o: ../threads/main.cc /usr/include/stdc-predef.h \
 scheduler.o: ../threads/scheduler.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/scheduler.h ../threads/list.h \
  ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
- /usr/include/c++/11/stdlib.h /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ /usr/include/c++/12/stdlib.h /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -205,10 +203,10 @@ scheduler.o: ../threads/scheduler.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
@@ -241,8 +239,8 @@ scheduler.o: ../threads/scheduler.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -257,57 +255,57 @@ scheduler.o: ../threads/scheduler.cc /usr/include/stdc-predef.h \
  ../threads/../userprog/memorymanager.h \
  ../threads/../userprog/processtable.h ../threads/../userprog/bitmap.h \
  ../threads/../userprog/../filesys/openfile.h ../threads/synch.h \
- ../threads/../userprog/semtable.h /usr/include/c++/11/unordered_map \
- /usr/include/c++/11/type_traits /usr/include/c++/11/initializer_list \
- /usr/include/c++/11/bits/allocator.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
- /usr/include/c++/11/ext/new_allocator.h /usr/include/c++/11/new \
- /usr/include/c++/11/bits/exception.h \
- /usr/include/c++/11/bits/functexcept.h \
- /usr/include/c++/11/bits/exception_defines.h \
- /usr/include/c++/11/bits/move.h /usr/include/c++/11/bits/memoryfwd.h \
- /usr/include/c++/11/ext/alloc_traits.h \
- /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_construct.h \
- /usr/include/c++/11/bits/stl_iterator_base_types.h \
- /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
- /usr/include/c++/11/bits/concept_check.h \
- /usr/include/c++/11/debug/assertions.h \
- /usr/include/c++/11/bits/ptr_traits.h \
- /usr/include/c++/11/ext/numeric_traits.h \
- /usr/include/c++/11/bits/cpp_type_traits.h \
- /usr/include/c++/11/ext/type_traits.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/stl_pair.h \
- /usr/include/c++/11/bits/stl_function.h \
- /usr/include/c++/11/backward/binders.h \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
- /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/array /usr/include/c++/11/bits/stl_algobase.h \
- /usr/include/c++/11/bits/stl_iterator.h \
- /usr/include/c++/11/debug/debug.h \
- /usr/include/c++/11/bits/predefined_ops.h \
- /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
- /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/node_handle.h \
- /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/queue \
- /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/stl_queue.h ../threads/../userprog/socket.h \
+ ../threads/../userprog/semtable.h /usr/include/c++/12/unordered_map \
+ /usr/include/c++/12/type_traits /usr/include/c++/12/initializer_list \
+ /usr/include/c++/12/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++allocator.h \
+ /usr/include/c++/12/bits/new_allocator.h /usr/include/c++/12/new \
+ /usr/include/c++/12/bits/exception.h \
+ /usr/include/c++/12/bits/functexcept.h \
+ /usr/include/c++/12/bits/exception_defines.h \
+ /usr/include/c++/12/bits/move.h /usr/include/c++/12/bits/memoryfwd.h \
+ /usr/include/c++/12/ext/alloc_traits.h \
+ /usr/include/c++/12/bits/alloc_traits.h \
+ /usr/include/c++/12/bits/stl_construct.h \
+ /usr/include/c++/12/bits/stl_iterator_base_types.h \
+ /usr/include/c++/12/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/12/bits/concept_check.h \
+ /usr/include/c++/12/debug/assertions.h \
+ /usr/include/c++/12/bits/ptr_traits.h \
+ /usr/include/c++/12/ext/numeric_traits.h \
+ /usr/include/c++/12/bits/cpp_type_traits.h \
+ /usr/include/c++/12/ext/type_traits.h \
+ /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/bits/stl_pair.h /usr/include/c++/12/bits/utility.h \
+ /usr/include/c++/12/bits/stl_function.h \
+ /usr/include/c++/12/backward/binders.h \
+ /usr/include/c++/12/bits/functional_hash.h \
+ /usr/include/c++/12/bits/hash_bytes.h \
+ /usr/include/c++/12/bits/hashtable.h \
+ /usr/include/c++/12/bits/hashtable_policy.h /usr/include/c++/12/tuple \
+ /usr/include/c++/12/bits/uses_allocator.h \
+ /usr/include/c++/12/bits/invoke.h \
+ /usr/include/c++/12/bits/stl_algobase.h \
+ /usr/include/c++/12/bits/stl_iterator.h \
+ /usr/include/c++/12/debug/debug.h \
+ /usr/include/c++/12/bits/predefined_ops.h \
+ /usr/include/c++/12/bits/enable_special_members.h \
+ /usr/include/c++/12/bits/node_handle.h \
+ /usr/include/c++/12/bits/unordered_map.h \
+ /usr/include/c++/12/bits/range_access.h \
+ /usr/include/c++/12/bits/erase_if.h /usr/include/c++/12/queue \
+ /usr/include/c++/12/deque /usr/include/c++/12/bits/stl_uninitialized.h \
+ /usr/include/c++/12/bits/stl_deque.h /usr/include/c++/12/bits/refwrap.h \
+ /usr/include/c++/12/bits/deque.tcc /usr/include/c++/12/vector \
+ /usr/include/c++/12/bits/stl_vector.h \
+ /usr/include/c++/12/bits/stl_bvector.h \
+ /usr/include/c++/12/bits/vector.tcc /usr/include/c++/12/bits/stl_heap.h \
+ /usr/include/c++/12/bits/stl_queue.h ../threads/../userprog/socket.h \
  /usr/include/openssl/ssl.h /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
  /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/openssl/comp.h /usr/include/openssl/crypto.h \
@@ -317,8 +315,8 @@ scheduler.o: ../threads/scheduler.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /usr/include/openssl/safestack.h /usr/include/openssl/stack.h \
  /usr/include/openssl/types.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
@@ -349,11 +347,9 @@ scheduler.o: ../threads/scheduler.cc /usr/include/stdc-predef.h \
  /usr/include/openssl/dsaerr.h /usr/include/openssl/sha.h \
  /usr/include/openssl/x509err.h /usr/include/openssl/x509_vfy.h \
  /usr/include/openssl/lhash.h /usr/include/openssl/pkcs7.h \
- /usr/include/openssl/pkcs7err.h /usr/include/openssl/ocsp.h \
- /usr/include/openssl/http.h /usr/include/openssl/conf.h \
- /usr/include/openssl/conferr.h /usr/include/openssl/conftypes.h \
- /usr/include/openssl/x509v3.h /usr/include/openssl/x509v3err.h \
- /usr/include/openssl/ocsperr.h /usr/include/openssl/pem.h \
+ /usr/include/openssl/pkcs7err.h /usr/include/openssl/http.h \
+ /usr/include/openssl/conf.h /usr/include/openssl/conferr.h \
+ /usr/include/openssl/conftypes.h /usr/include/openssl/pem.h \
  /usr/include/openssl/pemerr.h /usr/include/openssl/hmac.h \
  /usr/include/openssl/async.h /usr/include/openssl/asyncerr.h \
  /usr/include/openssl/ct.h /usr/include/openssl/cterr.h \
@@ -369,9 +365,9 @@ scheduler.o: ../threads/scheduler.cc /usr/include/stdc-predef.h \
 synch.o: ../threads/synch.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/synch.h ../threads/thread.h \
  ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
- /usr/include/c++/11/stdlib.h /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ /usr/include/c++/12/stdlib.h /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -379,10 +375,10 @@ synch.o: ../threads/synch.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
@@ -415,8 +411,8 @@ synch.o: ../threads/synch.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -431,58 +427,58 @@ synch.o: ../threads/synch.cc /usr/include/stdc-predef.h \
  ../threads/../userprog/memorymanager.h \
  ../threads/../userprog/processtable.h ../threads/../userprog/bitmap.h \
  ../threads/../userprog/../filesys/openfile.h \
- ../threads/../userprog/semtable.h /usr/include/c++/11/unordered_map \
- /usr/include/c++/11/type_traits /usr/include/c++/11/initializer_list \
- /usr/include/c++/11/bits/allocator.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
- /usr/include/c++/11/ext/new_allocator.h /usr/include/c++/11/new \
- /usr/include/c++/11/bits/exception.h \
- /usr/include/c++/11/bits/functexcept.h \
- /usr/include/c++/11/bits/exception_defines.h \
- /usr/include/c++/11/bits/move.h /usr/include/c++/11/bits/memoryfwd.h \
- /usr/include/c++/11/ext/alloc_traits.h \
- /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_construct.h \
- /usr/include/c++/11/bits/stl_iterator_base_types.h \
- /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
- /usr/include/c++/11/bits/concept_check.h \
- /usr/include/c++/11/debug/assertions.h \
- /usr/include/c++/11/bits/ptr_traits.h \
- /usr/include/c++/11/ext/numeric_traits.h \
- /usr/include/c++/11/bits/cpp_type_traits.h \
- /usr/include/c++/11/ext/type_traits.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/stl_pair.h \
- /usr/include/c++/11/bits/stl_function.h \
- /usr/include/c++/11/backward/binders.h \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
- /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/array /usr/include/c++/11/bits/stl_algobase.h \
- /usr/include/c++/11/bits/stl_iterator.h \
- /usr/include/c++/11/debug/debug.h \
- /usr/include/c++/11/bits/predefined_ops.h \
- /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
- /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/node_handle.h \
- /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/queue \
- /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/stl_queue.h ../threads/synch.h \
+ ../threads/../userprog/semtable.h /usr/include/c++/12/unordered_map \
+ /usr/include/c++/12/type_traits /usr/include/c++/12/initializer_list \
+ /usr/include/c++/12/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++allocator.h \
+ /usr/include/c++/12/bits/new_allocator.h /usr/include/c++/12/new \
+ /usr/include/c++/12/bits/exception.h \
+ /usr/include/c++/12/bits/functexcept.h \
+ /usr/include/c++/12/bits/exception_defines.h \
+ /usr/include/c++/12/bits/move.h /usr/include/c++/12/bits/memoryfwd.h \
+ /usr/include/c++/12/ext/alloc_traits.h \
+ /usr/include/c++/12/bits/alloc_traits.h \
+ /usr/include/c++/12/bits/stl_construct.h \
+ /usr/include/c++/12/bits/stl_iterator_base_types.h \
+ /usr/include/c++/12/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/12/bits/concept_check.h \
+ /usr/include/c++/12/debug/assertions.h \
+ /usr/include/c++/12/bits/ptr_traits.h \
+ /usr/include/c++/12/ext/numeric_traits.h \
+ /usr/include/c++/12/bits/cpp_type_traits.h \
+ /usr/include/c++/12/ext/type_traits.h \
+ /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/bits/stl_pair.h /usr/include/c++/12/bits/utility.h \
+ /usr/include/c++/12/bits/stl_function.h \
+ /usr/include/c++/12/backward/binders.h \
+ /usr/include/c++/12/bits/functional_hash.h \
+ /usr/include/c++/12/bits/hash_bytes.h \
+ /usr/include/c++/12/bits/hashtable.h \
+ /usr/include/c++/12/bits/hashtable_policy.h /usr/include/c++/12/tuple \
+ /usr/include/c++/12/bits/uses_allocator.h \
+ /usr/include/c++/12/bits/invoke.h \
+ /usr/include/c++/12/bits/stl_algobase.h \
+ /usr/include/c++/12/bits/stl_iterator.h \
+ /usr/include/c++/12/debug/debug.h \
+ /usr/include/c++/12/bits/predefined_ops.h \
+ /usr/include/c++/12/bits/enable_special_members.h \
+ /usr/include/c++/12/bits/node_handle.h \
+ /usr/include/c++/12/bits/unordered_map.h \
+ /usr/include/c++/12/bits/range_access.h \
+ /usr/include/c++/12/bits/erase_if.h /usr/include/c++/12/queue \
+ /usr/include/c++/12/deque /usr/include/c++/12/bits/stl_uninitialized.h \
+ /usr/include/c++/12/bits/stl_deque.h /usr/include/c++/12/bits/refwrap.h \
+ /usr/include/c++/12/bits/deque.tcc /usr/include/c++/12/vector \
+ /usr/include/c++/12/bits/stl_vector.h \
+ /usr/include/c++/12/bits/stl_bvector.h \
+ /usr/include/c++/12/bits/vector.tcc /usr/include/c++/12/bits/stl_heap.h \
+ /usr/include/c++/12/bits/stl_queue.h ../threads/synch.h \
  ../threads/../userprog/socket.h /usr/include/openssl/ssl.h \
  /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
  /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/openssl/comp.h /usr/include/openssl/crypto.h \
@@ -492,8 +488,8 @@ synch.o: ../threads/synch.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /usr/include/openssl/safestack.h /usr/include/openssl/stack.h \
  /usr/include/openssl/types.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
@@ -524,11 +520,9 @@ synch.o: ../threads/synch.cc /usr/include/stdc-predef.h \
  /usr/include/openssl/dsaerr.h /usr/include/openssl/sha.h \
  /usr/include/openssl/x509err.h /usr/include/openssl/x509_vfy.h \
  /usr/include/openssl/lhash.h /usr/include/openssl/pkcs7.h \
- /usr/include/openssl/pkcs7err.h /usr/include/openssl/ocsp.h \
- /usr/include/openssl/http.h /usr/include/openssl/conf.h \
- /usr/include/openssl/conferr.h /usr/include/openssl/conftypes.h \
- /usr/include/openssl/x509v3.h /usr/include/openssl/x509v3err.h \
- /usr/include/openssl/ocsperr.h /usr/include/openssl/pem.h \
+ /usr/include/openssl/pkcs7err.h /usr/include/openssl/http.h \
+ /usr/include/openssl/conf.h /usr/include/openssl/conferr.h \
+ /usr/include/openssl/conftypes.h /usr/include/openssl/pem.h \
  /usr/include/openssl/pemerr.h /usr/include/openssl/hmac.h \
  /usr/include/openssl/async.h /usr/include/openssl/asyncerr.h \
  /usr/include/openssl/ct.h /usr/include/openssl/cterr.h \
@@ -543,10 +537,10 @@ synch.o: ../threads/synch.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h
 system.o: ../threads/system.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/system.h ../threads/utility.h \
- ../machine/sysdep.h ../threads/copyright.h /usr/include/c++/11/stdlib.h \
- /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ ../machine/sysdep.h ../threads/copyright.h /usr/include/c++/12/stdlib.h \
+ /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -554,10 +548,10 @@ system.o: ../threads/system.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
@@ -590,8 +584,8 @@ system.o: ../threads/system.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -606,57 +600,57 @@ system.o: ../threads/system.cc /usr/include/stdc-predef.h \
  ../threads/../userprog/memorymanager.h \
  ../threads/../userprog/processtable.h ../threads/../userprog/bitmap.h \
  ../threads/../userprog/../filesys/openfile.h ../threads/synch.h \
- ../threads/../userprog/semtable.h /usr/include/c++/11/unordered_map \
- /usr/include/c++/11/type_traits /usr/include/c++/11/initializer_list \
- /usr/include/c++/11/bits/allocator.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
- /usr/include/c++/11/ext/new_allocator.h /usr/include/c++/11/new \
- /usr/include/c++/11/bits/exception.h \
- /usr/include/c++/11/bits/functexcept.h \
- /usr/include/c++/11/bits/exception_defines.h \
- /usr/include/c++/11/bits/move.h /usr/include/c++/11/bits/memoryfwd.h \
- /usr/include/c++/11/ext/alloc_traits.h \
- /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_construct.h \
- /usr/include/c++/11/bits/stl_iterator_base_types.h \
- /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
- /usr/include/c++/11/bits/concept_check.h \
- /usr/include/c++/11/debug/assertions.h \
- /usr/include/c++/11/bits/ptr_traits.h \
- /usr/include/c++/11/ext/numeric_traits.h \
- /usr/include/c++/11/bits/cpp_type_traits.h \
- /usr/include/c++/11/ext/type_traits.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/stl_pair.h \
- /usr/include/c++/11/bits/stl_function.h \
- /usr/include/c++/11/backward/binders.h \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
- /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/array /usr/include/c++/11/bits/stl_algobase.h \
- /usr/include/c++/11/bits/stl_iterator.h \
- /usr/include/c++/11/debug/debug.h \
- /usr/include/c++/11/bits/predefined_ops.h \
- /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
- /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/node_handle.h \
- /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/queue \
- /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/stl_queue.h ../threads/../userprog/socket.h \
+ ../threads/../userprog/semtable.h /usr/include/c++/12/unordered_map \
+ /usr/include/c++/12/type_traits /usr/include/c++/12/initializer_list \
+ /usr/include/c++/12/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++allocator.h \
+ /usr/include/c++/12/bits/new_allocator.h /usr/include/c++/12/new \
+ /usr/include/c++/12/bits/exception.h \
+ /usr/include/c++/12/bits/functexcept.h \
+ /usr/include/c++/12/bits/exception_defines.h \
+ /usr/include/c++/12/bits/move.h /usr/include/c++/12/bits/memoryfwd.h \
+ /usr/include/c++/12/ext/alloc_traits.h \
+ /usr/include/c++/12/bits/alloc_traits.h \
+ /usr/include/c++/12/bits/stl_construct.h \
+ /usr/include/c++/12/bits/stl_iterator_base_types.h \
+ /usr/include/c++/12/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/12/bits/concept_check.h \
+ /usr/include/c++/12/debug/assertions.h \
+ /usr/include/c++/12/bits/ptr_traits.h \
+ /usr/include/c++/12/ext/numeric_traits.h \
+ /usr/include/c++/12/bits/cpp_type_traits.h \
+ /usr/include/c++/12/ext/type_traits.h \
+ /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/bits/stl_pair.h /usr/include/c++/12/bits/utility.h \
+ /usr/include/c++/12/bits/stl_function.h \
+ /usr/include/c++/12/backward/binders.h \
+ /usr/include/c++/12/bits/functional_hash.h \
+ /usr/include/c++/12/bits/hash_bytes.h \
+ /usr/include/c++/12/bits/hashtable.h \
+ /usr/include/c++/12/bits/hashtable_policy.h /usr/include/c++/12/tuple \
+ /usr/include/c++/12/bits/uses_allocator.h \
+ /usr/include/c++/12/bits/invoke.h \
+ /usr/include/c++/12/bits/stl_algobase.h \
+ /usr/include/c++/12/bits/stl_iterator.h \
+ /usr/include/c++/12/debug/debug.h \
+ /usr/include/c++/12/bits/predefined_ops.h \
+ /usr/include/c++/12/bits/enable_special_members.h \
+ /usr/include/c++/12/bits/node_handle.h \
+ /usr/include/c++/12/bits/unordered_map.h \
+ /usr/include/c++/12/bits/range_access.h \
+ /usr/include/c++/12/bits/erase_if.h /usr/include/c++/12/queue \
+ /usr/include/c++/12/deque /usr/include/c++/12/bits/stl_uninitialized.h \
+ /usr/include/c++/12/bits/stl_deque.h /usr/include/c++/12/bits/refwrap.h \
+ /usr/include/c++/12/bits/deque.tcc /usr/include/c++/12/vector \
+ /usr/include/c++/12/bits/stl_vector.h \
+ /usr/include/c++/12/bits/stl_bvector.h \
+ /usr/include/c++/12/bits/vector.tcc /usr/include/c++/12/bits/stl_heap.h \
+ /usr/include/c++/12/bits/stl_queue.h ../threads/../userprog/socket.h \
  /usr/include/openssl/ssl.h /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
  /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/openssl/comp.h /usr/include/openssl/crypto.h \
@@ -666,8 +660,8 @@ system.o: ../threads/system.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /usr/include/openssl/safestack.h /usr/include/openssl/stack.h \
  /usr/include/openssl/types.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
@@ -698,11 +692,9 @@ system.o: ../threads/system.cc /usr/include/stdc-predef.h \
  /usr/include/openssl/dsaerr.h /usr/include/openssl/sha.h \
  /usr/include/openssl/x509err.h /usr/include/openssl/x509_vfy.h \
  /usr/include/openssl/lhash.h /usr/include/openssl/pkcs7.h \
- /usr/include/openssl/pkcs7err.h /usr/include/openssl/ocsp.h \
- /usr/include/openssl/http.h /usr/include/openssl/conf.h \
- /usr/include/openssl/conferr.h /usr/include/openssl/conftypes.h \
- /usr/include/openssl/x509v3.h /usr/include/openssl/x509v3err.h \
- /usr/include/openssl/ocsperr.h /usr/include/openssl/pem.h \
+ /usr/include/openssl/pkcs7err.h /usr/include/openssl/http.h \
+ /usr/include/openssl/conf.h /usr/include/openssl/conferr.h \
+ /usr/include/openssl/conftypes.h /usr/include/openssl/pem.h \
  /usr/include/openssl/pemerr.h /usr/include/openssl/hmac.h \
  /usr/include/openssl/async.h /usr/include/openssl/asyncerr.h \
  /usr/include/openssl/ct.h /usr/include/openssl/cterr.h \
@@ -718,10 +710,10 @@ system.o: ../threads/system.cc /usr/include/stdc-predef.h \
  ../threads/preemptive.h
 thread.o: ../threads/thread.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/thread.h ../threads/utility.h \
- ../machine/sysdep.h ../threads/copyright.h /usr/include/c++/11/stdlib.h \
- /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ ../machine/sysdep.h ../threads/copyright.h /usr/include/c++/12/stdlib.h \
+ /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -729,10 +721,10 @@ thread.o: ../threads/thread.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
@@ -765,8 +757,8 @@ thread.o: ../threads/thread.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -782,58 +774,58 @@ thread.o: ../threads/thread.cc /usr/include/stdc-predef.h \
  ../threads/../userprog/memorymanager.h \
  ../threads/../userprog/processtable.h ../threads/../userprog/bitmap.h \
  ../threads/../userprog/../filesys/openfile.h \
- ../threads/../userprog/semtable.h /usr/include/c++/11/unordered_map \
- /usr/include/c++/11/type_traits /usr/include/c++/11/initializer_list \
- /usr/include/c++/11/bits/allocator.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
- /usr/include/c++/11/ext/new_allocator.h /usr/include/c++/11/new \
- /usr/include/c++/11/bits/exception.h \
- /usr/include/c++/11/bits/functexcept.h \
- /usr/include/c++/11/bits/exception_defines.h \
- /usr/include/c++/11/bits/move.h /usr/include/c++/11/bits/memoryfwd.h \
- /usr/include/c++/11/ext/alloc_traits.h \
- /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_construct.h \
- /usr/include/c++/11/bits/stl_iterator_base_types.h \
- /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
- /usr/include/c++/11/bits/concept_check.h \
- /usr/include/c++/11/debug/assertions.h \
- /usr/include/c++/11/bits/ptr_traits.h \
- /usr/include/c++/11/ext/numeric_traits.h \
- /usr/include/c++/11/bits/cpp_type_traits.h \
- /usr/include/c++/11/ext/type_traits.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/stl_pair.h \
- /usr/include/c++/11/bits/stl_function.h \
- /usr/include/c++/11/backward/binders.h \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
- /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/array /usr/include/c++/11/bits/stl_algobase.h \
- /usr/include/c++/11/bits/stl_iterator.h \
- /usr/include/c++/11/debug/debug.h \
- /usr/include/c++/11/bits/predefined_ops.h \
- /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
- /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/node_handle.h \
- /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/queue \
- /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/stl_queue.h ../threads/synch.h \
+ ../threads/../userprog/semtable.h /usr/include/c++/12/unordered_map \
+ /usr/include/c++/12/type_traits /usr/include/c++/12/initializer_list \
+ /usr/include/c++/12/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++allocator.h \
+ /usr/include/c++/12/bits/new_allocator.h /usr/include/c++/12/new \
+ /usr/include/c++/12/bits/exception.h \
+ /usr/include/c++/12/bits/functexcept.h \
+ /usr/include/c++/12/bits/exception_defines.h \
+ /usr/include/c++/12/bits/move.h /usr/include/c++/12/bits/memoryfwd.h \
+ /usr/include/c++/12/ext/alloc_traits.h \
+ /usr/include/c++/12/bits/alloc_traits.h \
+ /usr/include/c++/12/bits/stl_construct.h \
+ /usr/include/c++/12/bits/stl_iterator_base_types.h \
+ /usr/include/c++/12/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/12/bits/concept_check.h \
+ /usr/include/c++/12/debug/assertions.h \
+ /usr/include/c++/12/bits/ptr_traits.h \
+ /usr/include/c++/12/ext/numeric_traits.h \
+ /usr/include/c++/12/bits/cpp_type_traits.h \
+ /usr/include/c++/12/ext/type_traits.h \
+ /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/bits/stl_pair.h /usr/include/c++/12/bits/utility.h \
+ /usr/include/c++/12/bits/stl_function.h \
+ /usr/include/c++/12/backward/binders.h \
+ /usr/include/c++/12/bits/functional_hash.h \
+ /usr/include/c++/12/bits/hash_bytes.h \
+ /usr/include/c++/12/bits/hashtable.h \
+ /usr/include/c++/12/bits/hashtable_policy.h /usr/include/c++/12/tuple \
+ /usr/include/c++/12/bits/uses_allocator.h \
+ /usr/include/c++/12/bits/invoke.h \
+ /usr/include/c++/12/bits/stl_algobase.h \
+ /usr/include/c++/12/bits/stl_iterator.h \
+ /usr/include/c++/12/debug/debug.h \
+ /usr/include/c++/12/bits/predefined_ops.h \
+ /usr/include/c++/12/bits/enable_special_members.h \
+ /usr/include/c++/12/bits/node_handle.h \
+ /usr/include/c++/12/bits/unordered_map.h \
+ /usr/include/c++/12/bits/range_access.h \
+ /usr/include/c++/12/bits/erase_if.h /usr/include/c++/12/queue \
+ /usr/include/c++/12/deque /usr/include/c++/12/bits/stl_uninitialized.h \
+ /usr/include/c++/12/bits/stl_deque.h /usr/include/c++/12/bits/refwrap.h \
+ /usr/include/c++/12/bits/deque.tcc /usr/include/c++/12/vector \
+ /usr/include/c++/12/bits/stl_vector.h \
+ /usr/include/c++/12/bits/stl_bvector.h \
+ /usr/include/c++/12/bits/vector.tcc /usr/include/c++/12/bits/stl_heap.h \
+ /usr/include/c++/12/bits/stl_queue.h ../threads/synch.h \
  ../threads/../userprog/socket.h /usr/include/openssl/ssl.h \
  /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
  /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/openssl/comp.h /usr/include/openssl/crypto.h \
@@ -843,8 +835,8 @@ thread.o: ../threads/thread.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /usr/include/openssl/safestack.h /usr/include/openssl/stack.h \
  /usr/include/openssl/types.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
@@ -875,11 +867,9 @@ thread.o: ../threads/thread.cc /usr/include/stdc-predef.h \
  /usr/include/openssl/dsaerr.h /usr/include/openssl/sha.h \
  /usr/include/openssl/x509err.h /usr/include/openssl/x509_vfy.h \
  /usr/include/openssl/lhash.h /usr/include/openssl/pkcs7.h \
- /usr/include/openssl/pkcs7err.h /usr/include/openssl/ocsp.h \
- /usr/include/openssl/http.h /usr/include/openssl/conf.h \
- /usr/include/openssl/conferr.h /usr/include/openssl/conftypes.h \
- /usr/include/openssl/x509v3.h /usr/include/openssl/x509v3err.h \
- /usr/include/openssl/ocsperr.h /usr/include/openssl/pem.h \
+ /usr/include/openssl/pkcs7err.h /usr/include/openssl/http.h \
+ /usr/include/openssl/conf.h /usr/include/openssl/conferr.h \
+ /usr/include/openssl/conftypes.h /usr/include/openssl/pem.h \
  /usr/include/openssl/pemerr.h /usr/include/openssl/hmac.h \
  /usr/include/openssl/async.h /usr/include/openssl/asyncerr.h \
  /usr/include/openssl/ct.h /usr/include/openssl/cterr.h \
@@ -894,10 +884,10 @@ thread.o: ../threads/thread.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h
 utility.o: ../threads/utility.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/utility.h ../machine/sysdep.h \
- ../threads/copyright.h /usr/include/c++/11/stdlib.h \
- /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ ../threads/copyright.h /usr/include/c++/12/stdlib.h \
+ /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -905,10 +895,10 @@ utility.o: ../threads/utility.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
@@ -941,8 +931,8 @@ utility.o: ../threads/utility.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -966,19 +956,19 @@ threadtest.o: ../threads/threadtest.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types.h \
  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
  /usr/include/x86_64-linux-gnu/bits/time64.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/confname.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /usr/include/linux/close_range.h ../threads/copyright.h \
  ../threads/system.h ../threads/utility.h ../machine/sysdep.h \
- ../threads/copyright.h /usr/include/c++/11/stdlib.h \
- /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ ../threads/copyright.h /usr/include/c++/12/stdlib.h \
+ /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
@@ -1009,8 +999,8 @@ threadtest.o: ../threads/threadtest.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -1025,57 +1015,57 @@ threadtest.o: ../threads/threadtest.cc /usr/include/stdc-predef.h \
  ../threads/../userprog/memorymanager.h \
  ../threads/../userprog/processtable.h ../threads/../userprog/bitmap.h \
  ../threads/../userprog/../filesys/openfile.h ../threads/synch.h \
- ../threads/../userprog/semtable.h /usr/include/c++/11/unordered_map \
- /usr/include/c++/11/type_traits /usr/include/c++/11/initializer_list \
- /usr/include/c++/11/bits/allocator.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
- /usr/include/c++/11/ext/new_allocator.h /usr/include/c++/11/new \
- /usr/include/c++/11/bits/exception.h \
- /usr/include/c++/11/bits/functexcept.h \
- /usr/include/c++/11/bits/exception_defines.h \
- /usr/include/c++/11/bits/move.h /usr/include/c++/11/bits/memoryfwd.h \
- /usr/include/c++/11/ext/alloc_traits.h \
- /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_construct.h \
- /usr/include/c++/11/bits/stl_iterator_base_types.h \
- /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
- /usr/include/c++/11/bits/concept_check.h \
- /usr/include/c++/11/debug/assertions.h \
- /usr/include/c++/11/bits/ptr_traits.h \
- /usr/include/c++/11/ext/numeric_traits.h \
- /usr/include/c++/11/bits/cpp_type_traits.h \
- /usr/include/c++/11/ext/type_traits.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/stl_pair.h \
- /usr/include/c++/11/bits/stl_function.h \
- /usr/include/c++/11/backward/binders.h \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
- /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/array /usr/include/c++/11/bits/stl_algobase.h \
- /usr/include/c++/11/bits/stl_iterator.h \
- /usr/include/c++/11/debug/debug.h \
- /usr/include/c++/11/bits/predefined_ops.h \
- /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
- /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/node_handle.h \
- /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/queue \
- /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/stl_queue.h ../threads/../userprog/socket.h \
+ ../threads/../userprog/semtable.h /usr/include/c++/12/unordered_map \
+ /usr/include/c++/12/type_traits /usr/include/c++/12/initializer_list \
+ /usr/include/c++/12/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++allocator.h \
+ /usr/include/c++/12/bits/new_allocator.h /usr/include/c++/12/new \
+ /usr/include/c++/12/bits/exception.h \
+ /usr/include/c++/12/bits/functexcept.h \
+ /usr/include/c++/12/bits/exception_defines.h \
+ /usr/include/c++/12/bits/move.h /usr/include/c++/12/bits/memoryfwd.h \
+ /usr/include/c++/12/ext/alloc_traits.h \
+ /usr/include/c++/12/bits/alloc_traits.h \
+ /usr/include/c++/12/bits/stl_construct.h \
+ /usr/include/c++/12/bits/stl_iterator_base_types.h \
+ /usr/include/c++/12/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/12/bits/concept_check.h \
+ /usr/include/c++/12/debug/assertions.h \
+ /usr/include/c++/12/bits/ptr_traits.h \
+ /usr/include/c++/12/ext/numeric_traits.h \
+ /usr/include/c++/12/bits/cpp_type_traits.h \
+ /usr/include/c++/12/ext/type_traits.h \
+ /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/bits/stl_pair.h /usr/include/c++/12/bits/utility.h \
+ /usr/include/c++/12/bits/stl_function.h \
+ /usr/include/c++/12/backward/binders.h \
+ /usr/include/c++/12/bits/functional_hash.h \
+ /usr/include/c++/12/bits/hash_bytes.h \
+ /usr/include/c++/12/bits/hashtable.h \
+ /usr/include/c++/12/bits/hashtable_policy.h /usr/include/c++/12/tuple \
+ /usr/include/c++/12/bits/uses_allocator.h \
+ /usr/include/c++/12/bits/invoke.h \
+ /usr/include/c++/12/bits/stl_algobase.h \
+ /usr/include/c++/12/bits/stl_iterator.h \
+ /usr/include/c++/12/debug/debug.h \
+ /usr/include/c++/12/bits/predefined_ops.h \
+ /usr/include/c++/12/bits/enable_special_members.h \
+ /usr/include/c++/12/bits/node_handle.h \
+ /usr/include/c++/12/bits/unordered_map.h \
+ /usr/include/c++/12/bits/range_access.h \
+ /usr/include/c++/12/bits/erase_if.h /usr/include/c++/12/queue \
+ /usr/include/c++/12/deque /usr/include/c++/12/bits/stl_uninitialized.h \
+ /usr/include/c++/12/bits/stl_deque.h /usr/include/c++/12/bits/refwrap.h \
+ /usr/include/c++/12/bits/deque.tcc /usr/include/c++/12/vector \
+ /usr/include/c++/12/bits/stl_vector.h \
+ /usr/include/c++/12/bits/stl_bvector.h \
+ /usr/include/c++/12/bits/vector.tcc /usr/include/c++/12/bits/stl_heap.h \
+ /usr/include/c++/12/bits/stl_queue.h ../threads/../userprog/socket.h \
  /usr/include/openssl/ssl.h /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
  /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/openssl/comp.h /usr/include/openssl/crypto.h \
@@ -1085,8 +1075,8 @@ threadtest.o: ../threads/threadtest.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /usr/include/openssl/safestack.h /usr/include/openssl/stack.h \
  /usr/include/openssl/types.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
@@ -1117,11 +1107,9 @@ threadtest.o: ../threads/threadtest.cc /usr/include/stdc-predef.h \
  /usr/include/openssl/dsaerr.h /usr/include/openssl/sha.h \
  /usr/include/openssl/x509err.h /usr/include/openssl/x509_vfy.h \
  /usr/include/openssl/lhash.h /usr/include/openssl/pkcs7.h \
- /usr/include/openssl/pkcs7err.h /usr/include/openssl/ocsp.h \
- /usr/include/openssl/http.h /usr/include/openssl/conf.h \
- /usr/include/openssl/conferr.h /usr/include/openssl/conftypes.h \
- /usr/include/openssl/x509v3.h /usr/include/openssl/x509v3err.h \
- /usr/include/openssl/ocsperr.h /usr/include/openssl/pem.h \
+ /usr/include/openssl/pkcs7err.h /usr/include/openssl/http.h \
+ /usr/include/openssl/conf.h /usr/include/openssl/conferr.h \
+ /usr/include/openssl/conftypes.h /usr/include/openssl/pem.h \
  /usr/include/openssl/pemerr.h /usr/include/openssl/hmac.h \
  /usr/include/openssl/async.h /usr/include/openssl/asyncerr.h \
  /usr/include/openssl/ct.h /usr/include/openssl/cterr.h \
@@ -1138,10 +1126,10 @@ threadtest.o: ../threads/threadtest.cc /usr/include/stdc-predef.h \
 diningph.o: ../threads/diningph.cc /usr/include/stdc-predef.h \
  ../threads/diningph.h ../threads/synch.h ../threads/copyright.h \
  ../threads/thread.h ../threads/utility.h ../machine/sysdep.h \
- ../threads/copyright.h /usr/include/c++/11/stdlib.h \
- /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ ../threads/copyright.h /usr/include/c++/12/stdlib.h \
+ /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -1149,10 +1137,10 @@ diningph.o: ../threads/diningph.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
@@ -1185,8 +1173,8 @@ diningph.o: ../threads/diningph.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -1199,9 +1187,9 @@ diningph.o: ../threads/diningph.cc /usr/include/stdc-predef.h \
 interrupt.o: ../machine/interrupt.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../machine/interrupt.h ../threads/list.h \
  ../threads/copyright.h ../threads/utility.h ../machine/sysdep.h \
- /usr/include/c++/11/stdlib.h /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ /usr/include/c++/12/stdlib.h /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -1209,10 +1197,10 @@ interrupt.o: ../machine/interrupt.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
@@ -1245,8 +1233,8 @@ interrupt.o: ../machine/interrupt.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -1261,57 +1249,57 @@ interrupt.o: ../machine/interrupt.cc /usr/include/stdc-predef.h \
  ../threads/../userprog/memorymanager.h \
  ../threads/../userprog/processtable.h ../threads/../userprog/bitmap.h \
  ../threads/../userprog/../filesys/openfile.h ../threads/synch.h \
- ../threads/../userprog/semtable.h /usr/include/c++/11/unordered_map \
- /usr/include/c++/11/type_traits /usr/include/c++/11/initializer_list \
- /usr/include/c++/11/bits/allocator.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
- /usr/include/c++/11/ext/new_allocator.h /usr/include/c++/11/new \
- /usr/include/c++/11/bits/exception.h \
- /usr/include/c++/11/bits/functexcept.h \
- /usr/include/c++/11/bits/exception_defines.h \
- /usr/include/c++/11/bits/move.h /usr/include/c++/11/bits/memoryfwd.h \
- /usr/include/c++/11/ext/alloc_traits.h \
- /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_construct.h \
- /usr/include/c++/11/bits/stl_iterator_base_types.h \
- /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
- /usr/include/c++/11/bits/concept_check.h \
- /usr/include/c++/11/debug/assertions.h \
- /usr/include/c++/11/bits/ptr_traits.h \
- /usr/include/c++/11/ext/numeric_traits.h \
- /usr/include/c++/11/bits/cpp_type_traits.h \
- /usr/include/c++/11/ext/type_traits.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/stl_pair.h \
- /usr/include/c++/11/bits/stl_function.h \
- /usr/include/c++/11/backward/binders.h \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
- /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/array /usr/include/c++/11/bits/stl_algobase.h \
- /usr/include/c++/11/bits/stl_iterator.h \
- /usr/include/c++/11/debug/debug.h \
- /usr/include/c++/11/bits/predefined_ops.h \
- /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
- /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/node_handle.h \
- /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/queue \
- /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/stl_queue.h ../threads/../userprog/socket.h \
+ ../threads/../userprog/semtable.h /usr/include/c++/12/unordered_map \
+ /usr/include/c++/12/type_traits /usr/include/c++/12/initializer_list \
+ /usr/include/c++/12/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++allocator.h \
+ /usr/include/c++/12/bits/new_allocator.h /usr/include/c++/12/new \
+ /usr/include/c++/12/bits/exception.h \
+ /usr/include/c++/12/bits/functexcept.h \
+ /usr/include/c++/12/bits/exception_defines.h \
+ /usr/include/c++/12/bits/move.h /usr/include/c++/12/bits/memoryfwd.h \
+ /usr/include/c++/12/ext/alloc_traits.h \
+ /usr/include/c++/12/bits/alloc_traits.h \
+ /usr/include/c++/12/bits/stl_construct.h \
+ /usr/include/c++/12/bits/stl_iterator_base_types.h \
+ /usr/include/c++/12/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/12/bits/concept_check.h \
+ /usr/include/c++/12/debug/assertions.h \
+ /usr/include/c++/12/bits/ptr_traits.h \
+ /usr/include/c++/12/ext/numeric_traits.h \
+ /usr/include/c++/12/bits/cpp_type_traits.h \
+ /usr/include/c++/12/ext/type_traits.h \
+ /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/bits/stl_pair.h /usr/include/c++/12/bits/utility.h \
+ /usr/include/c++/12/bits/stl_function.h \
+ /usr/include/c++/12/backward/binders.h \
+ /usr/include/c++/12/bits/functional_hash.h \
+ /usr/include/c++/12/bits/hash_bytes.h \
+ /usr/include/c++/12/bits/hashtable.h \
+ /usr/include/c++/12/bits/hashtable_policy.h /usr/include/c++/12/tuple \
+ /usr/include/c++/12/bits/uses_allocator.h \
+ /usr/include/c++/12/bits/invoke.h \
+ /usr/include/c++/12/bits/stl_algobase.h \
+ /usr/include/c++/12/bits/stl_iterator.h \
+ /usr/include/c++/12/debug/debug.h \
+ /usr/include/c++/12/bits/predefined_ops.h \
+ /usr/include/c++/12/bits/enable_special_members.h \
+ /usr/include/c++/12/bits/node_handle.h \
+ /usr/include/c++/12/bits/unordered_map.h \
+ /usr/include/c++/12/bits/range_access.h \
+ /usr/include/c++/12/bits/erase_if.h /usr/include/c++/12/queue \
+ /usr/include/c++/12/deque /usr/include/c++/12/bits/stl_uninitialized.h \
+ /usr/include/c++/12/bits/stl_deque.h /usr/include/c++/12/bits/refwrap.h \
+ /usr/include/c++/12/bits/deque.tcc /usr/include/c++/12/vector \
+ /usr/include/c++/12/bits/stl_vector.h \
+ /usr/include/c++/12/bits/stl_bvector.h \
+ /usr/include/c++/12/bits/vector.tcc /usr/include/c++/12/bits/stl_heap.h \
+ /usr/include/c++/12/bits/stl_queue.h ../threads/../userprog/socket.h \
  /usr/include/openssl/ssl.h /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
  /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/openssl/comp.h /usr/include/openssl/crypto.h \
@@ -1321,8 +1309,8 @@ interrupt.o: ../machine/interrupt.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /usr/include/openssl/safestack.h /usr/include/openssl/stack.h \
  /usr/include/openssl/types.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
@@ -1353,11 +1341,9 @@ interrupt.o: ../machine/interrupt.cc /usr/include/stdc-predef.h \
  /usr/include/openssl/dsaerr.h /usr/include/openssl/sha.h \
  /usr/include/openssl/x509err.h /usr/include/openssl/x509_vfy.h \
  /usr/include/openssl/lhash.h /usr/include/openssl/pkcs7.h \
- /usr/include/openssl/pkcs7err.h /usr/include/openssl/ocsp.h \
- /usr/include/openssl/http.h /usr/include/openssl/conf.h \
- /usr/include/openssl/conferr.h /usr/include/openssl/conftypes.h \
- /usr/include/openssl/x509v3.h /usr/include/openssl/x509v3err.h \
- /usr/include/openssl/ocsperr.h /usr/include/openssl/pem.h \
+ /usr/include/openssl/pkcs7err.h /usr/include/openssl/http.h \
+ /usr/include/openssl/conf.h /usr/include/openssl/conferr.h \
+ /usr/include/openssl/conftypes.h /usr/include/openssl/pem.h \
  /usr/include/openssl/pemerr.h /usr/include/openssl/hmac.h \
  /usr/include/openssl/async.h /usr/include/openssl/asyncerr.h \
  /usr/include/openssl/ct.h /usr/include/openssl/cterr.h \
@@ -1380,8 +1366,8 @@ sysdep.o: ../machine/sysdep.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types.h \
  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
  /usr/include/x86_64-linux-gnu/bits/time64.h \
@@ -1475,19 +1461,20 @@ sysdep.o: ../machine/sysdep.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/mman-map-flags-generic.h \
  /usr/include/x86_64-linux-gnu/bits/mman-linux.h \
  /usr/include/x86_64-linux-gnu/bits/mman-shared.h \
+ /usr/include/x86_64-linux-gnu/bits/mman_ext.h \
  /usr/include/x86_64-linux-gnu/sys/syscall.h \
  /usr/include/x86_64-linux-gnu/asm/unistd.h \
  /usr/include/x86_64-linux-gnu/asm/unistd_64.h \
  /usr/include/x86_64-linux-gnu/bits/syscall.h \
- /usr/include/c++/11/stdlib.h /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/c++/12/stdlib.h /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h ../machine/interrupt.h \
+ /usr/include/c++/12/bits/std_abs.h ../machine/interrupt.h \
  ../threads/list.h ../threads/copyright.h ../threads/utility.h \
  ../machine/sysdep.h ../threads/system.h ../threads/thread.h \
  ../threads/scheduler.h ../threads/list.h ../machine/interrupt.h \
@@ -1495,57 +1482,57 @@ sysdep.o: ../machine/sysdep.cc /usr/include/stdc-predef.h \
  ../threads/../userprog/memorymanager.h \
  ../threads/../userprog/processtable.h ../threads/../userprog/bitmap.h \
  ../threads/../userprog/../filesys/openfile.h ../threads/synch.h \
- ../threads/../userprog/semtable.h /usr/include/c++/11/unordered_map \
- /usr/include/c++/11/type_traits /usr/include/c++/11/initializer_list \
- /usr/include/c++/11/bits/allocator.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
- /usr/include/c++/11/ext/new_allocator.h /usr/include/c++/11/new \
- /usr/include/c++/11/bits/exception.h \
- /usr/include/c++/11/bits/functexcept.h \
- /usr/include/c++/11/bits/exception_defines.h \
- /usr/include/c++/11/bits/move.h /usr/include/c++/11/bits/memoryfwd.h \
- /usr/include/c++/11/ext/alloc_traits.h \
- /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_construct.h \
- /usr/include/c++/11/bits/stl_iterator_base_types.h \
- /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
- /usr/include/c++/11/bits/concept_check.h \
- /usr/include/c++/11/debug/assertions.h \
- /usr/include/c++/11/bits/ptr_traits.h \
- /usr/include/c++/11/ext/numeric_traits.h \
- /usr/include/c++/11/bits/cpp_type_traits.h \
- /usr/include/c++/11/ext/type_traits.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/stl_pair.h \
- /usr/include/c++/11/bits/stl_function.h \
- /usr/include/c++/11/backward/binders.h \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
- /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/array /usr/include/c++/11/bits/stl_algobase.h \
- /usr/include/c++/11/bits/stl_iterator.h \
- /usr/include/c++/11/debug/debug.h \
- /usr/include/c++/11/bits/predefined_ops.h \
- /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
- /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/node_handle.h \
- /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/queue \
- /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/stl_queue.h ../threads/../userprog/socket.h \
+ ../threads/../userprog/semtable.h /usr/include/c++/12/unordered_map \
+ /usr/include/c++/12/type_traits /usr/include/c++/12/initializer_list \
+ /usr/include/c++/12/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++allocator.h \
+ /usr/include/c++/12/bits/new_allocator.h /usr/include/c++/12/new \
+ /usr/include/c++/12/bits/exception.h \
+ /usr/include/c++/12/bits/functexcept.h \
+ /usr/include/c++/12/bits/exception_defines.h \
+ /usr/include/c++/12/bits/move.h /usr/include/c++/12/bits/memoryfwd.h \
+ /usr/include/c++/12/ext/alloc_traits.h \
+ /usr/include/c++/12/bits/alloc_traits.h \
+ /usr/include/c++/12/bits/stl_construct.h \
+ /usr/include/c++/12/bits/stl_iterator_base_types.h \
+ /usr/include/c++/12/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/12/bits/concept_check.h \
+ /usr/include/c++/12/debug/assertions.h \
+ /usr/include/c++/12/bits/ptr_traits.h \
+ /usr/include/c++/12/ext/numeric_traits.h \
+ /usr/include/c++/12/bits/cpp_type_traits.h \
+ /usr/include/c++/12/ext/type_traits.h \
+ /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/bits/stl_pair.h /usr/include/c++/12/bits/utility.h \
+ /usr/include/c++/12/bits/stl_function.h \
+ /usr/include/c++/12/backward/binders.h \
+ /usr/include/c++/12/bits/functional_hash.h \
+ /usr/include/c++/12/bits/hash_bytes.h \
+ /usr/include/c++/12/bits/hashtable.h \
+ /usr/include/c++/12/bits/hashtable_policy.h /usr/include/c++/12/tuple \
+ /usr/include/c++/12/bits/uses_allocator.h \
+ /usr/include/c++/12/bits/invoke.h \
+ /usr/include/c++/12/bits/stl_algobase.h \
+ /usr/include/c++/12/bits/stl_iterator.h \
+ /usr/include/c++/12/debug/debug.h \
+ /usr/include/c++/12/bits/predefined_ops.h \
+ /usr/include/c++/12/bits/enable_special_members.h \
+ /usr/include/c++/12/bits/node_handle.h \
+ /usr/include/c++/12/bits/unordered_map.h \
+ /usr/include/c++/12/bits/range_access.h \
+ /usr/include/c++/12/bits/erase_if.h /usr/include/c++/12/queue \
+ /usr/include/c++/12/deque /usr/include/c++/12/bits/stl_uninitialized.h \
+ /usr/include/c++/12/bits/stl_deque.h /usr/include/c++/12/bits/refwrap.h \
+ /usr/include/c++/12/bits/deque.tcc /usr/include/c++/12/vector \
+ /usr/include/c++/12/bits/stl_vector.h \
+ /usr/include/c++/12/bits/stl_bvector.h \
+ /usr/include/c++/12/bits/vector.tcc /usr/include/c++/12/bits/stl_heap.h \
+ /usr/include/c++/12/bits/stl_queue.h ../threads/../userprog/socket.h \
  /usr/include/openssl/ssl.h /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
  /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/openssl/comp.h /usr/include/openssl/crypto.h \
@@ -1555,8 +1542,8 @@ sysdep.o: ../machine/sysdep.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /usr/include/openssl/safestack.h /usr/include/openssl/stack.h \
  /usr/include/openssl/types.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
@@ -1587,11 +1574,9 @@ sysdep.o: ../machine/sysdep.cc /usr/include/stdc-predef.h \
  /usr/include/openssl/dsaerr.h /usr/include/openssl/sha.h \
  /usr/include/openssl/x509err.h /usr/include/openssl/x509_vfy.h \
  /usr/include/openssl/lhash.h /usr/include/openssl/pkcs7.h \
- /usr/include/openssl/pkcs7err.h /usr/include/openssl/ocsp.h \
- /usr/include/openssl/http.h /usr/include/openssl/conf.h \
- /usr/include/openssl/conferr.h /usr/include/openssl/conftypes.h \
- /usr/include/openssl/x509v3.h /usr/include/openssl/x509v3err.h \
- /usr/include/openssl/ocsperr.h /usr/include/openssl/pem.h \
+ /usr/include/openssl/pkcs7err.h /usr/include/openssl/http.h \
+ /usr/include/openssl/conf.h /usr/include/openssl/conferr.h \
+ /usr/include/openssl/conftypes.h /usr/include/openssl/pem.h \
  /usr/include/openssl/pemerr.h /usr/include/openssl/hmac.h \
  /usr/include/openssl/async.h /usr/include/openssl/asyncerr.h \
  /usr/include/openssl/ct.h /usr/include/openssl/cterr.h \
@@ -1606,10 +1591,10 @@ sysdep.o: ../machine/sysdep.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h
 stats.o: ../machine/stats.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../threads/utility.h ../threads/copyright.h \
- ../machine/sysdep.h /usr/include/c++/11/stdlib.h \
- /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ ../machine/sysdep.h /usr/include/c++/12/stdlib.h \
+ /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -1617,10 +1602,10 @@ stats.o: ../machine/stats.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
@@ -1653,8 +1638,8 @@ stats.o: ../machine/stats.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -1666,10 +1651,10 @@ stats.o: ../machine/stats.cc /usr/include/stdc-predef.h \
  /usr/include/strings.h ../machine/stats.h
 timer.o: ../machine/timer.cc /usr/include/stdc-predef.h \
  ../threads/copyright.h ../machine/timer.h ../threads/utility.h \
- ../threads/copyright.h ../machine/sysdep.h /usr/include/c++/11/stdlib.h \
- /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ ../threads/copyright.h ../machine/sysdep.h /usr/include/c++/12/stdlib.h \
+ /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -1677,10 +1662,10 @@ timer.o: ../machine/timer.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
@@ -1713,8 +1698,8 @@ timer.o: ../machine/timer.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -1729,57 +1714,57 @@ timer.o: ../machine/timer.cc /usr/include/stdc-predef.h \
  ../machine/timer.h ../threads/../userprog/memorymanager.h \
  ../threads/../userprog/processtable.h ../threads/../userprog/bitmap.h \
  ../threads/../userprog/../filesys/openfile.h ../threads/synch.h \
- ../threads/../userprog/semtable.h /usr/include/c++/11/unordered_map \
- /usr/include/c++/11/type_traits /usr/include/c++/11/initializer_list \
- /usr/include/c++/11/bits/allocator.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
- /usr/include/c++/11/ext/new_allocator.h /usr/include/c++/11/new \
- /usr/include/c++/11/bits/exception.h \
- /usr/include/c++/11/bits/functexcept.h \
- /usr/include/c++/11/bits/exception_defines.h \
- /usr/include/c++/11/bits/move.h /usr/include/c++/11/bits/memoryfwd.h \
- /usr/include/c++/11/ext/alloc_traits.h \
- /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_construct.h \
- /usr/include/c++/11/bits/stl_iterator_base_types.h \
- /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
- /usr/include/c++/11/bits/concept_check.h \
- /usr/include/c++/11/debug/assertions.h \
- /usr/include/c++/11/bits/ptr_traits.h \
- /usr/include/c++/11/ext/numeric_traits.h \
- /usr/include/c++/11/bits/cpp_type_traits.h \
- /usr/include/c++/11/ext/type_traits.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/stl_pair.h \
- /usr/include/c++/11/bits/stl_function.h \
- /usr/include/c++/11/backward/binders.h \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
- /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/array /usr/include/c++/11/bits/stl_algobase.h \
- /usr/include/c++/11/bits/stl_iterator.h \
- /usr/include/c++/11/debug/debug.h \
- /usr/include/c++/11/bits/predefined_ops.h \
- /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
- /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/node_handle.h \
- /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/queue \
- /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/stl_queue.h ../threads/../userprog/socket.h \
+ ../threads/../userprog/semtable.h /usr/include/c++/12/unordered_map \
+ /usr/include/c++/12/type_traits /usr/include/c++/12/initializer_list \
+ /usr/include/c++/12/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++allocator.h \
+ /usr/include/c++/12/bits/new_allocator.h /usr/include/c++/12/new \
+ /usr/include/c++/12/bits/exception.h \
+ /usr/include/c++/12/bits/functexcept.h \
+ /usr/include/c++/12/bits/exception_defines.h \
+ /usr/include/c++/12/bits/move.h /usr/include/c++/12/bits/memoryfwd.h \
+ /usr/include/c++/12/ext/alloc_traits.h \
+ /usr/include/c++/12/bits/alloc_traits.h \
+ /usr/include/c++/12/bits/stl_construct.h \
+ /usr/include/c++/12/bits/stl_iterator_base_types.h \
+ /usr/include/c++/12/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/12/bits/concept_check.h \
+ /usr/include/c++/12/debug/assertions.h \
+ /usr/include/c++/12/bits/ptr_traits.h \
+ /usr/include/c++/12/ext/numeric_traits.h \
+ /usr/include/c++/12/bits/cpp_type_traits.h \
+ /usr/include/c++/12/ext/type_traits.h \
+ /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/bits/stl_pair.h /usr/include/c++/12/bits/utility.h \
+ /usr/include/c++/12/bits/stl_function.h \
+ /usr/include/c++/12/backward/binders.h \
+ /usr/include/c++/12/bits/functional_hash.h \
+ /usr/include/c++/12/bits/hash_bytes.h \
+ /usr/include/c++/12/bits/hashtable.h \
+ /usr/include/c++/12/bits/hashtable_policy.h /usr/include/c++/12/tuple \
+ /usr/include/c++/12/bits/uses_allocator.h \
+ /usr/include/c++/12/bits/invoke.h \
+ /usr/include/c++/12/bits/stl_algobase.h \
+ /usr/include/c++/12/bits/stl_iterator.h \
+ /usr/include/c++/12/debug/debug.h \
+ /usr/include/c++/12/bits/predefined_ops.h \
+ /usr/include/c++/12/bits/enable_special_members.h \
+ /usr/include/c++/12/bits/node_handle.h \
+ /usr/include/c++/12/bits/unordered_map.h \
+ /usr/include/c++/12/bits/range_access.h \
+ /usr/include/c++/12/bits/erase_if.h /usr/include/c++/12/queue \
+ /usr/include/c++/12/deque /usr/include/c++/12/bits/stl_uninitialized.h \
+ /usr/include/c++/12/bits/stl_deque.h /usr/include/c++/12/bits/refwrap.h \
+ /usr/include/c++/12/bits/deque.tcc /usr/include/c++/12/vector \
+ /usr/include/c++/12/bits/stl_vector.h \
+ /usr/include/c++/12/bits/stl_bvector.h \
+ /usr/include/c++/12/bits/vector.tcc /usr/include/c++/12/bits/stl_heap.h \
+ /usr/include/c++/12/bits/stl_queue.h ../threads/../userprog/socket.h \
  /usr/include/openssl/ssl.h /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
  /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/openssl/comp.h /usr/include/openssl/crypto.h \
@@ -1789,8 +1774,8 @@ timer.o: ../machine/timer.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /usr/include/openssl/safestack.h /usr/include/openssl/stack.h \
  /usr/include/openssl/types.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
@@ -1821,11 +1806,9 @@ timer.o: ../machine/timer.cc /usr/include/stdc-predef.h \
  /usr/include/openssl/dsaerr.h /usr/include/openssl/sha.h \
  /usr/include/openssl/x509err.h /usr/include/openssl/x509_vfy.h \
  /usr/include/openssl/lhash.h /usr/include/openssl/pkcs7.h \
- /usr/include/openssl/pkcs7err.h /usr/include/openssl/ocsp.h \
- /usr/include/openssl/http.h /usr/include/openssl/conf.h \
- /usr/include/openssl/conferr.h /usr/include/openssl/conftypes.h \
- /usr/include/openssl/x509v3.h /usr/include/openssl/x509v3err.h \
- /usr/include/openssl/ocsperr.h /usr/include/openssl/pem.h \
+ /usr/include/openssl/pkcs7err.h /usr/include/openssl/http.h \
+ /usr/include/openssl/conf.h /usr/include/openssl/conferr.h \
+ /usr/include/openssl/conftypes.h /usr/include/openssl/pem.h \
  /usr/include/openssl/pemerr.h /usr/include/openssl/hmac.h \
  /usr/include/openssl/async.h /usr/include/openssl/asyncerr.h \
  /usr/include/openssl/ct.h /usr/include/openssl/cterr.h \
@@ -1841,9 +1824,9 @@ timer.o: ../machine/timer.cc /usr/include/stdc-predef.h \
 preemptive.o: ../threads/preemptive.cc /usr/include/stdc-predef.h \
  ../threads/preemptive.h ../threads/system.h ../threads/copyright.h \
  ../threads/utility.h ../machine/sysdep.h ../threads/copyright.h \
- /usr/include/c++/11/stdlib.h /usr/include/c++/11/cstdlib \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ /usr/include/c++/12/stdlib.h /usr/include/c++/12/cstdlib \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -1851,10 +1834,10 @@ preemptive.o: ../threads/preemptive.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
@@ -1887,8 +1870,8 @@ preemptive.o: ../threads/preemptive.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/11/bits/std_abs.h /usr/include/stdio.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -1903,57 +1886,57 @@ preemptive.o: ../threads/preemptive.cc /usr/include/stdc-predef.h \
  ../threads/../userprog/memorymanager.h \
  ../threads/../userprog/processtable.h ../threads/../userprog/bitmap.h \
  ../threads/../userprog/../filesys/openfile.h ../threads/synch.h \
- ../threads/../userprog/semtable.h /usr/include/c++/11/unordered_map \
- /usr/include/c++/11/type_traits /usr/include/c++/11/initializer_list \
- /usr/include/c++/11/bits/allocator.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
- /usr/include/c++/11/ext/new_allocator.h /usr/include/c++/11/new \
- /usr/include/c++/11/bits/exception.h \
- /usr/include/c++/11/bits/functexcept.h \
- /usr/include/c++/11/bits/exception_defines.h \
- /usr/include/c++/11/bits/move.h /usr/include/c++/11/bits/memoryfwd.h \
- /usr/include/c++/11/ext/alloc_traits.h \
- /usr/include/c++/11/bits/alloc_traits.h \
- /usr/include/c++/11/bits/stl_construct.h \
- /usr/include/c++/11/bits/stl_iterator_base_types.h \
- /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
- /usr/include/c++/11/bits/concept_check.h \
- /usr/include/c++/11/debug/assertions.h \
- /usr/include/c++/11/bits/ptr_traits.h \
- /usr/include/c++/11/ext/numeric_traits.h \
- /usr/include/c++/11/bits/cpp_type_traits.h \
- /usr/include/c++/11/ext/type_traits.h \
- /usr/include/c++/11/ext/aligned_buffer.h \
- /usr/include/c++/11/bits/stl_pair.h \
- /usr/include/c++/11/bits/stl_function.h \
- /usr/include/c++/11/backward/binders.h \
- /usr/include/c++/11/bits/functional_hash.h \
- /usr/include/c++/11/bits/hash_bytes.h \
- /usr/include/c++/11/bits/hashtable.h \
- /usr/include/c++/11/bits/hashtable_policy.h /usr/include/c++/11/tuple \
- /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /usr/include/c++/11/array /usr/include/c++/11/bits/stl_algobase.h \
- /usr/include/c++/11/bits/stl_iterator.h \
- /usr/include/c++/11/debug/debug.h \
- /usr/include/c++/11/bits/predefined_ops.h \
- /usr/include/c++/11/bits/range_access.h \
- /usr/include/c++/11/bits/uses_allocator.h \
- /usr/include/c++/11/bits/invoke.h \
- /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/node_handle.h \
- /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/queue \
- /usr/include/c++/11/deque /usr/include/c++/11/bits/stl_uninitialized.h \
- /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
- /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/stl_queue.h ../threads/../userprog/socket.h \
+ ../threads/../userprog/semtable.h /usr/include/c++/12/unordered_map \
+ /usr/include/c++/12/type_traits /usr/include/c++/12/initializer_list \
+ /usr/include/c++/12/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++allocator.h \
+ /usr/include/c++/12/bits/new_allocator.h /usr/include/c++/12/new \
+ /usr/include/c++/12/bits/exception.h \
+ /usr/include/c++/12/bits/functexcept.h \
+ /usr/include/c++/12/bits/exception_defines.h \
+ /usr/include/c++/12/bits/move.h /usr/include/c++/12/bits/memoryfwd.h \
+ /usr/include/c++/12/ext/alloc_traits.h \
+ /usr/include/c++/12/bits/alloc_traits.h \
+ /usr/include/c++/12/bits/stl_construct.h \
+ /usr/include/c++/12/bits/stl_iterator_base_types.h \
+ /usr/include/c++/12/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/12/bits/concept_check.h \
+ /usr/include/c++/12/debug/assertions.h \
+ /usr/include/c++/12/bits/ptr_traits.h \
+ /usr/include/c++/12/ext/numeric_traits.h \
+ /usr/include/c++/12/bits/cpp_type_traits.h \
+ /usr/include/c++/12/ext/type_traits.h \
+ /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/bits/stl_pair.h /usr/include/c++/12/bits/utility.h \
+ /usr/include/c++/12/bits/stl_function.h \
+ /usr/include/c++/12/backward/binders.h \
+ /usr/include/c++/12/bits/functional_hash.h \
+ /usr/include/c++/12/bits/hash_bytes.h \
+ /usr/include/c++/12/bits/hashtable.h \
+ /usr/include/c++/12/bits/hashtable_policy.h /usr/include/c++/12/tuple \
+ /usr/include/c++/12/bits/uses_allocator.h \
+ /usr/include/c++/12/bits/invoke.h \
+ /usr/include/c++/12/bits/stl_algobase.h \
+ /usr/include/c++/12/bits/stl_iterator.h \
+ /usr/include/c++/12/debug/debug.h \
+ /usr/include/c++/12/bits/predefined_ops.h \
+ /usr/include/c++/12/bits/enable_special_members.h \
+ /usr/include/c++/12/bits/node_handle.h \
+ /usr/include/c++/12/bits/unordered_map.h \
+ /usr/include/c++/12/bits/range_access.h \
+ /usr/include/c++/12/bits/erase_if.h /usr/include/c++/12/queue \
+ /usr/include/c++/12/deque /usr/include/c++/12/bits/stl_uninitialized.h \
+ /usr/include/c++/12/bits/stl_deque.h /usr/include/c++/12/bits/refwrap.h \
+ /usr/include/c++/12/bits/deque.tcc /usr/include/c++/12/vector \
+ /usr/include/c++/12/bits/stl_vector.h \
+ /usr/include/c++/12/bits/stl_bvector.h \
+ /usr/include/c++/12/bits/vector.tcc /usr/include/c++/12/bits/stl_heap.h \
+ /usr/include/c++/12/bits/stl_queue.h ../threads/../userprog/socket.h \
  /usr/include/openssl/ssl.h /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
  /usr/include/openssl/opensslv.h /usr/include/openssl/e_os2.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/openssl/comp.h /usr/include/openssl/crypto.h \
@@ -1963,8 +1946,8 @@ preemptive.o: ../threads/preemptive.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /usr/include/openssl/safestack.h /usr/include/openssl/stack.h \
  /usr/include/openssl/types.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
@@ -1995,11 +1978,9 @@ preemptive.o: ../threads/preemptive.cc /usr/include/stdc-predef.h \
  /usr/include/openssl/dsaerr.h /usr/include/openssl/sha.h \
  /usr/include/openssl/x509err.h /usr/include/openssl/x509_vfy.h \
  /usr/include/openssl/lhash.h /usr/include/openssl/pkcs7.h \
- /usr/include/openssl/pkcs7err.h /usr/include/openssl/ocsp.h \
- /usr/include/openssl/http.h /usr/include/openssl/conf.h \
- /usr/include/openssl/conferr.h /usr/include/openssl/conftypes.h \
- /usr/include/openssl/x509v3.h /usr/include/openssl/x509v3err.h \
- /usr/include/openssl/ocsperr.h /usr/include/openssl/pem.h \
+ /usr/include/openssl/pkcs7err.h /usr/include/openssl/http.h \
+ /usr/include/openssl/conf.h /usr/include/openssl/conferr.h \
+ /usr/include/openssl/conftypes.h /usr/include/openssl/pem.h \
  /usr/include/openssl/pemerr.h /usr/include/openssl/hmac.h \
  /usr/include/openssl/async.h /usr/include/openssl/asyncerr.h \
  /usr/include/openssl/ct.h /usr/include/openssl/cterr.h \
@@ -2043,6 +2024,7 @@ preemptive.o: ../threads/preemptive.cc /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_sigstack.h \
  /usr/include/x86_64-linux-gnu/bits/sigthread.h \
  /usr/include/x86_64-linux-gnu/bits/signal_ext.h \
+ /usr/include/x86_64-linux-gnu/bits/types/idtype_t.h \
  /usr/include/x86_64-linux-gnu/sys/user.h
 # DEPENDENCIES MUST END AT END OF FILE
 # IF YOU PUT STUFF HERE IT WILL GO AWAY
