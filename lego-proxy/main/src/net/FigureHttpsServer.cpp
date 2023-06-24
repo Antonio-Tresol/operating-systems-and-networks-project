@@ -4,7 +4,7 @@
 // Copyright 2023 Geancarlo Rivera Hernandez
 // <geancarlo.riverahernandez@ucr.ac.cr>.
 
-#include "../include/net/FigureHttpsServer.hpp"
+#include "../../include/net/FigureHttpsServer.hpp"
 
 #include <string>
 

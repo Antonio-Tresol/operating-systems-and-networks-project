@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "../include/common/Semaphore.hpp"
+#include "../include/concurrency/Semaphore.hpp"
 
 Semaphore::Semaphore(unsigned value) {
 #if USE_NAMED_SEMAPHORE

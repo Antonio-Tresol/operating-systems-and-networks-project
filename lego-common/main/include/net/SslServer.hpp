@@ -1,0 +1,14 @@
+//
+// Created by ariel on 6/24/23.
+//
+
+#ifndef PI_REDES_SISTEMAS_OPERATIVOS_SSLSERVER_HPP
+#define PI_REDES_SISTEMAS_OPERATIVOS_SSLSERVER_HPP
+
+
+class SslServer {
+
+};
+
+
+#endif //PI_REDES_SISTEMAS_OPERATIVOS_SSLSERVER_HPP

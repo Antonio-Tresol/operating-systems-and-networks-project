@@ -16,7 +16,7 @@
 #include <utility>
 #include <vector>
 
-#include "../common/Queue.hpp"
+#include "../concurrency/Queue.hpp"
 #include "../controller/FigureController.hpp"
 #include "./socket/IPv4SslSocket.hpp"
 

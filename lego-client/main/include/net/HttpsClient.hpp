@@ -9,7 +9,7 @@
 #include <sstream>
 #include <string>
 
-#include "./net/socket/Ipv4SslSocket.hpp"
+#include "./net/socket/IPv4SslSocket.hpp"
 /**
  * @brief Makes HTTP requests.
  */

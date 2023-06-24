@@ -49,7 +49,7 @@ El programa está organizado en varias clases y módulos que trabajan juntos par
 - `FigureController`: Controlador encargado de gestionar la búsqueda y visualización de las figuras.
 - `FigureHtmlRepository`: Repositorio encargado de buscar y procesar la información de las figuras desde la web.
 - `FigureHttpsServer`: Clase encargada del manejo de las peticiones entrantes que llegan al servidor.
-- `Ipv4SslSocket`: Clase que maneja conexiones SSL sobre IPv4.
+- `IPv4SslSocket`: Clase que maneja conexiones SSL sobre IPv4.
 
 Es de suma importancia destacar que tanto la clase `Queue` como la clase `Semaphore` fueron tomadas de cursos anteriores y fueron realizadas por el profesor Jeisson Hidalgo.
 

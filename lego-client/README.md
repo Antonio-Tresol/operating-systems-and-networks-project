@@ -45,7 +45,7 @@ El programa está organizado en varias clases y módulos que trabajan juntos par
 - `FigureController`: Controlador encargado de gestionar la búsqueda y visualización de las figuras.
 - `FigureRepository`: Repositorio encargado de buscar y procesar la información de las figuras desde la web.
 - `HttpsClient`: Cliente HTTPS que realiza solicitudes GET a través de conexiones SSL.
-- `Ipv4SslSocket`: Clase que maneja conexiones SSL sobre IPv4.
+- `IPv4SslSocket`: Clase que maneja conexiones SSL sobre IPv4.
 
 ## Licencia
 

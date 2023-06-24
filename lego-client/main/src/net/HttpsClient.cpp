@@ -4,7 +4,7 @@
 // Copyright 2023 Geancarlo Rivera Hernandez
 // <geancarlo.riverahernandez@ucr.ac.cr>.
 
-#include "../include/net/HttpsClient.hpp"
+#include "../../include/net/HttpsClient.hpp"
 
 using std::exception;
 using std::runtime_error;
@@ -13,12 +13,12 @@ using std::string;
 string HttpsClient::get(const std::string &host,
                         const std::string &resource) const {
   try {
-    Ipv4SslSocket socket{};
+    IPv4SslSocket socket{};
 
     socket.sslConnect(host, PORT);
 
-    const string request{string{GET} + resource + CRLF + HOST + host + CRLF +
-                         CRLF};
+    const string request{string{GET} + resource + CRLF + HOST + host + CRLF + CRLF};
+
     socket.sslWrite(request);
 
     string response{socket.sslRead()};

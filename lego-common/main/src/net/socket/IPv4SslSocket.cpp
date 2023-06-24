@@ -6,7 +6,7 @@
 
 #include "../include/net/socket/IPv4SslSocket.hpp"
 
-#include "common/Logger.hpp"
+#include "./logging/Logger.hpp"
 
 namespace Sys {
 using ::accept;
@@ -43,7 +43,7 @@ IPv4SslSocket::IPv4SslSocket(const string &certFileName,
 }
 
 IPv4SslSocket::IPv4SslSocket(int socketFD, const IPv4SslSocket *original)
-    : socketFD(socketFD), ssl(original->sslContext), sslContext() {
+    : socketFD(socketFD), ssl(original->sslContext) {
   if (!SSL_set_fd(static_cast<SSL *>(ssl), socketFD)) {
     throw runtime_error(appendErr(
         "IPv4SslSocket::IPv4SslSocket: Failed to create client socket: "));

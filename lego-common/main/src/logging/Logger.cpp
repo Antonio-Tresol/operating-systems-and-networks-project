@@ -1,6 +1,6 @@
 // Copyright 2022 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
 
-#include "../include/common/Logger.hpp"
+#include "../include/logging/Logger.hpp"
 
 using std::chrono::duration_cast;
 using std::chrono::high_resolution_clock;
