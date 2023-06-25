@@ -1,16 +1,27 @@
+// Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
+// Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
+// Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
+// Copyright 2023 Geancarlo Rivera Hernandez
+// <geancarlo.riverahernandez@ucr.ac.cr>.
+
 #include "../../include/net/ProtocolClient.hpp"
 #include "../../include/net/ProtocolHeader.hpp"
 #include <iostream>
 #include <cstdlib>
 
-ProtocolClient::ProtocolClient(int port) : port(port) {}
+ProtocolClient::ProtocolClient(int port) : port(port) {
+  //? Deberiamos crear dos sockets uno para cada puerto?
+  //? para asi reutilizar una instancia para ambos?
+  //? Es decir, un socket para el puerto 3141 y otro para el 3142
+  this->protocolClientSocket = IPv4UdpSocket(port);
+}
+
 
 void ProtocolClient::discover(const std::string& broadcastAddr) {
   std::string code { static_cast<char>(LEGO_DISCOVER) };
   std::string sep { SEPARATOR };
   std::string message = code + sep + getCurrentIP() + ":" + std::to_string(port);
-  // TODO: Send message to broadcast address
-  // send(message, broadcastAddr);
+  this->protocolClientSocket.send(message, broadcastAddr);
 }
 
 void ProtocolClient::present(const std::string& ipAddress, const std::vector<std::string>& figures) {
@@ -20,42 +31,39 @@ void ProtocolClient::present(const std::string& ipAddress, const std::vector<std
   for (const std::string& figure : figures) {
     message += figure + sep;
   }
-  // TODO: Send message to ipAddress or broadcast address
-  // send(message, ipAddress);
+  this->protocolClientSocket.send(message, ipAddress);
 }
 
 void ProtocolClient::release(const std::string& broadcastAddr) {
   std::string code { static_cast<char>(LEGO_RELEASE) };
   std::string sep { SEPARATOR };
   std::string message = code + sep + getCurrentIP() + ":" + std::to_string(port);
-  // TODO: Send message to broadcast address
-  // send(message, broadcastAddr);
+  this->protocolClientSocket.send(message, broadcastAddr);
 }
 
 void ProtocolClient::errorMsg(const std::string& code, const std::string& ipAddress) {
   std::string sep { SEPARATOR };
   std::string message = code + sep + "NotFound";
-  // TODO: Send message to ipAddress
-  // send(message, ipAddress);
+  this->protocolClientSocket.send(message, ipAddress);
 }
 
 std::string ProtocolClient::getCurrentIP() {
   std::string command = "hostname -I";
-  std::string result = "";
+  std::string ip = "";
   // Open pipe for reading output of command (hostname -I)
   FILE* pipe = popen(command.c_str(), "r");
   if (pipe) {
     char buffer[128];
     while (!feof(pipe)) {
       if (fgets(buffer, 128, pipe) != nullptr) {
-        result += buffer;
+        ip += buffer;
       }
     }
     pclose(pipe);
   }
-  // Erase any newline characters from the result
-  result.erase(std::remove(result.begin(), result.end(), '\n'), result.end());
-  result.erase(std::remove(result.begin(), result.end(), '\r'), result.end());
-  return result;
+  // Erase any newline characters from the ip
+  ip.erase(std::remove(ip.begin(), ip.end(), '\n'), ip.end());
+  ip.erase(std::remove(ip.begin(), ip.end(), '\r'), ip.end());
+  return ip;
 }
 

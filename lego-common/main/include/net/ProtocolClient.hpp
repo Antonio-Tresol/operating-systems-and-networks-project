@@ -52,7 +52,7 @@ class ProtocolClient {
   std::string getCurrentIP();
  private:
   int port;
-  IPv4UdpSocket socket;
+  IPv4UdpSocket protocolClientSocket;
 };
 
 
