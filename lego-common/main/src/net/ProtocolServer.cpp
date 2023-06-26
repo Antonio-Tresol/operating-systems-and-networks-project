@@ -14,25 +14,25 @@
 ProtocolServer::ProtocolServer(int port) : receiverSocket(port),
                                            keepListeningFlag(true)
 {
+  this->receiverSocket.bind();
 }
 
 void ProtocolServer::keepListening() const {
-  // Loop for listening (receiving)
-  // TODO: check if the socket is binded.
+  // Loop for listening (receiving)  
   while (keepListeningFlag) {
-    std::string message = this->receiverSocket.receive(); // TODO: thread-safe?
+    std::string message = this->receiverSocket.receive(); // TODO: port queue thread-safe? 
     this->handleRequest(message);
   }
   
 }
 
-// Retorna el codigo 
+// Returns the message code. 
 int ProtocolServer::analyzeMessage(std::string message) const {
+  // - being the separator
   //0-host:port-figura-figura2...
   // Get the code of the message
   int code = atoi(&message[0]);
-  //TODO: error message code.
-  // TODO: get the IP from 
+
   if (!this->checkHost(message)) {
     return -1; // Can't send message back. Nothing is sent.
   }
@@ -62,8 +62,7 @@ void ProtocolServer::respond(int code, std::string ip) const {
 }
 
 void ProtocolServer::handleRequest(std::string message) const {
-  // llama a analyze message
-  // dependiendo de la respuesta llama a respond
+  // Calls analyzeMessage and depending on the response calls respond.
   int code = this->analyzeMessage(message);
   if (code == -1) {
     return;
@@ -93,7 +92,6 @@ std::string ProtocolServer::getIP(std::string message) const {
 void ProtocolServer::start() {
   // Create 7 threads and call them to execute keepListening.
   for (int i{0}; i < THREAD_AMOUNT; i++) {
-    // FIXME: ??
     this->workers.emplace_back(&ProtocolServer::keepListening, this);
   }
 }
@@ -125,43 +123,3 @@ int findNthOccurrence(const std::string& str, char c, int n) {
     }
     return -1;  // Character not found or nth occurrence not found
 }
-
-/**
-void FigureHttpsServer::start() {
-  listener.bind(PORT);
-
-  listener.listen(QUEUE);
-
-  for (int i{0}; i < NUM_WORKERS; ++i) {
-    this->workers.emplace_back(&FigureHttpsServer::handleRequests, this);
-  }
-
-  Logger::info("Listener certificates: \n" + listener.getCerts());
-
-  Logger::info("Listening.");
-
-  while (true) {
-    try {
-      auto client{listener.accept()};
-      Logger::info("Accepted connection with socket: " +
-                   to_string(client->getSocketFD()));
-      this->clientQueue.enqueue(client);
-    } catch (exception &e) {
-      Logger::error("Listener error: ", e);
-    }
-  }
-}
-*/
-
-/*
-void FigureHttpsServer::stop() {
-  for (auto &worker : workers) {
-    clientQueue.enqueue(nullptr);
-  }
-
-  for (auto &handler : workers) {
-    handler.join();
-  }
-}
-
-*/
