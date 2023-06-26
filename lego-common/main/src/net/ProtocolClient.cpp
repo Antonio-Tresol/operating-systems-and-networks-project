@@ -10,9 +10,6 @@
 #include <cstdlib>
 
 ProtocolClient::ProtocolClient(int port) : port(port) {
-  //? Deberiamos crear dos sockets uno para cada puerto?
-  //? para asi reutilizar una instancia para ambos?
-  //? Es decir, un socket para el puerto 3141 y otro para el 3142
   this->protocolClientSocket = IPv4UdpSocket(port);
 }
 

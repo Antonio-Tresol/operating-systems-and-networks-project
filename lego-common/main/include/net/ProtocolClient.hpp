@@ -50,6 +50,14 @@ class ProtocolClient {
    * @return Current IP address.
    */
   std::string getCurrentIP();
+
+  /**
+   * @brief Gets the port of the protocol client.
+   * @return socket of the protocol.
+   */
+  inline IPv4UdpSocket getProtocolClientSocket() const {
+    return protocolClientSocket;
+  }
  private:
   int port;
   IPv4UdpSocket protocolClientSocket;
