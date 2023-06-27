@@ -9,6 +9,8 @@
 
 #include "./socket/IPv4UdpSocket.hpp"
 #include <string>
+#include <vector>
+
 
 class ProtocolClient {
  // Constructor and destructor. 

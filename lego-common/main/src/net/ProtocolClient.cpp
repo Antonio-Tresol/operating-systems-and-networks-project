@@ -8,11 +8,11 @@
 #include "../../include/net/ProtocolHeader.hpp"
 #include <iostream>
 #include <cstdlib>
+#include <vector>
+#include <algorithm>
 
-ProtocolClient::ProtocolClient(int port) : port(port) {
-  this->protocolClientSocket = IPv4UdpSocket(port);
+ProtocolClient::ProtocolClient(int port) : port(port), protocolClientSocket(port) {
 }
-
 
 void ProtocolClient::discover(const std::string& broadcastAddr) {
   std::string code { static_cast<char>(LEGO_DISCOVER) };

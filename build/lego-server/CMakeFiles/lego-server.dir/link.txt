@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/lego-server.dir/main/src/LegoServer.cpp.o CMakeFiles/lego-server.dir/main/src/controller/FigureController.cpp.o CMakeFiles/lego-server.dir/main/src/data/FigureHtmlRepository.cpp.o -o lego-server  /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so -lpthread ../liblego-common.a 

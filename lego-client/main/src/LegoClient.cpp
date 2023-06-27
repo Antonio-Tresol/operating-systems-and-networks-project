@@ -5,7 +5,7 @@
 
 #include <string>
 
-#include "./common/Logger.hpp"
+#include "../../../lego-common/main/include/logging/Logger.hpp"
 #include "./controller/FigureController.hpp"
 
 using std::exception;

@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "./common/Logger.hpp"
+#include "../../../../lego-common/main/include/logging/Logger.hpp"
 #include "./data/FigureRepository.hpp"
 #include "./model/Figure.hpp"
 
