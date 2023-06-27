@@ -1,9 +1,0 @@
-/mnt/d/Desktop/U/pi-redes-sistemas-operativos/build/CMakeFiles/lego-common.dir
-/mnt/d/Desktop/U/pi-redes-sistemas-operativos/build/CMakeFiles/edit_cache.dir
-/mnt/d/Desktop/U/pi-redes-sistemas-operativos/build/CMakeFiles/rebuild_cache.dir
-/mnt/d/Desktop/U/pi-redes-sistemas-operativos/build/lego-client/CMakeFiles/lego-client.dir
-/mnt/d/Desktop/U/pi-redes-sistemas-operativos/build/lego-client/CMakeFiles/edit_cache.dir
-/mnt/d/Desktop/U/pi-redes-sistemas-operativos/build/lego-client/CMakeFiles/rebuild_cache.dir
-/mnt/d/Desktop/U/pi-redes-sistemas-operativos/build/lego-server/CMakeFiles/lego-server.dir
-/mnt/d/Desktop/U/pi-redes-sistemas-operativos/build/lego-server/CMakeFiles/edit_cache.dir
-/mnt/d/Desktop/U/pi-redes-sistemas-operativos/build/lego-server/CMakeFiles/rebuild_cache.dir
