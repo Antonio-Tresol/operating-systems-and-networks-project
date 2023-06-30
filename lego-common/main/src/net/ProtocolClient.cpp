@@ -12,6 +12,7 @@
 #include <algorithm>
 
 ProtocolClient::ProtocolClient(int port) : port(port), protocolClientSocket(port) {
+  this->protocolClientSocket.bind();
 }
 
 void ProtocolClient::discover(const std::string& broadcastAddr) {
