@@ -7,13 +7,10 @@
 #include "../../include/net/ProtocolClient.hpp"
 #include "../../include/net/ProtocolHeader.hpp"
 #include <iostream>
-#include <cstdlib>
 #include <vector>
 #include <algorithm>
 
-ProtocolClient::ProtocolClient(int port) : port(port), protocolClientSocket(port) {
-  this->protocolClientSocket.bind();
-}
+ProtocolClient::ProtocolClient(int port) : port(port), protocolClientSocket(port) {}
 
 void ProtocolClient::discover(const std::string& broadcastAddr) {
   std::string code { static_cast<char>(LEGO_DISCOVER) };

@@ -1,5 +1,4 @@
-#ifndef PROTOCOL_HEADER_HPP
-#define PROTOCOL_HEADER_HPP
+#pragma once
 
 #include <errno.h>  // For Error Codes
 
@@ -39,5 +38,3 @@ enum LegoMessageCode {
   LEGO_RESPONSE,  /**< LEGO_RESPONSE type */
   LEGO_RELEASE    /**< LEGO_RELEASE type */
 };  // LegoMessageCode
-
-#endif  // PROTOCOL_HEADER_HPP

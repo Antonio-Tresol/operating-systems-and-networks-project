@@ -17,11 +17,11 @@ using std::throw_with_nested;
  * @return
  */
 string FigureController::getFigureByName(const string &name) const {
-  try {
-    string figureHtml{figureRepository.findByName(name)};
-    return figureHtml;
-  }
-  catch(invalid_argument &ia) {
-    return "";
-  }
+//  try {
+//    string figureHtml{figureRepository.findByName(name)};
+//    return figureHtml;
+//  }
+//  catch(invalid_argument &ia) {
+//    return "";
+//  }
 }

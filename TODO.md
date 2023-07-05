@@ -1,8 +1,17 @@
 # TODO
 
-* ProtocolClient[Constructor por puerto][Contiene todos los mensajes del protocolo] (UdpSocket) - Geanca
-* ProtocolServer[Constructor por puerto, handler][siete hilos] (UdpSocket) - Jean
-* SslServer[Constructor por puerto, handler] (IPv4SslSocket) - Antonio
+[JEAN]
+* FigureProtocolController
+* ProxyProtocolController
+
+[ARIEL]
+* SslServer -> FigureSslServer
+* FigureSslController
+
+[GEANCA Y ANTONIO]
+* FigureHttpsServer -> ProxyHttpsServer { ProxyHttpsController { ProxySslClient.get(host, resource) } }
+* FigureController -> ProxyHttpsController
+* ProxySslClient (subconjunto del HttpsClient)
 
 # DISEÑO
 

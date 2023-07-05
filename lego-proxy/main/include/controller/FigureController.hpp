@@ -8,7 +8,6 @@
 #include <string>
 
 #include "./logging/Logger.hpp"
-#include "./data/FigureHtmlRepository.hpp"
 
 /**
  * @brief Controller for functionality related to Figures.
@@ -23,5 +22,4 @@ class FigureController {
   std::string getFigureByName(const std::string &name) const;
 
  private:
-  FigureHtmlRepository figureRepository{};
 };

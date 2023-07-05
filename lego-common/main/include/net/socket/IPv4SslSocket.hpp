@@ -96,6 +96,8 @@ public:
      */
     [[nodiscard]] std::shared_ptr<IPv4SslSocket> accept() const;
 
+    void sslConnect(const std::string &host, int port) const;
+
     /**
      * @brief Establishes a TCP connection over SSL.
      * @param host Host to connect to.
@@ -144,6 +146,16 @@ private:
      * @return Concatenation of message and error
      */
     static std::string appendSslErr(const std::string &message);
+
+    void tcpConnect(const std::string &host, int port) const;
+
+    /**
+     * @brief Establishes a TCP connection.
+     * @param host Host to connect to.
+     * @param service Service over which to connect.
+     */
+    void tcpConnect(const std::string &host, const std::string &service) const;
+
 
     /**
      * @brief Returns whether socket fd is ready to be read from.

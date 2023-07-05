@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 project(pi-redes-sistemas-operativos)
+find_package(OpenSSL REQUIRED)
 
 # Set common settings
 set(CMAKE_CXX_STANDARD 17)
@@ -13,8 +14,9 @@ file(GLOB_RECURSE COMMON_SOURCES "${COMMON_SOURCES_DIR}/*.cpp")
 
 add_library(lego-common ${COMMON_SOURCES})
 target_include_directories(lego-common PUBLIC ${COMMON_INCLUDE_DIR})
+target_link_libraries(lego-common OpenSSL::SSL OpenSSL::Crypto)
 
 # Subprojects
-#add_subdirectory(lego-proxy)
+add_subdirectory(lego-proxy)
 add_subdirectory(lego-client)
 add_subdirectory(lego-server)

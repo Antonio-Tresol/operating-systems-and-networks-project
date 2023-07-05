@@ -6,7 +6,7 @@
 #include <csignal>
 #include <string>
 
-#include "../include/common/Logger.hpp"
+#include "./logging/Logger.hpp"
 #include "../include/net/FigureHttpsServer.hpp"
 
 using std::exception;
