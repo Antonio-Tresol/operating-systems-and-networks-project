@@ -1,0 +1,9 @@
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/CMakeFiles/rebuild_cache.dir
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/CMakeFiles/edit_cache.dir
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/CMakeFiles/lego-common.dir
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-client/CMakeFiles/rebuild_cache.dir
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-client/CMakeFiles/edit_cache.dir
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-client/CMakeFiles/lego-client.dir
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-server/CMakeFiles/rebuild_cache.dir
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-server/CMakeFiles/edit_cache.dir
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-server/CMakeFiles/lego-server.dir

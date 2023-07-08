@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -fsanitize=undefined CMakeFiles/lego_client_ubsan.dir/src/main/LegoClient.cpp.o  -o lego_client_ubsan 

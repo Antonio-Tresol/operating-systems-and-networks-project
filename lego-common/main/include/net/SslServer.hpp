@@ -12,7 +12,7 @@
 using Worker = std::thread;
 
 #include "./concurrency/Queue.hpp"
-#include "./socket/IPv4SslSocket.hpp"
+#include "socket/IPv4SslSocket.hpp"
 class SslServer {
  public:
   explicit SslServer(int32_t numWorkers, const std::string& certPath,

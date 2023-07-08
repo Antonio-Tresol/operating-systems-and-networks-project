@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/lego_client.dir/src/main/LegoClient.cpp.o  -o lego_client 
