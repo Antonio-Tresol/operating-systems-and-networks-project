@@ -6,6 +6,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 #include "./logging/Logger.hpp"
 
@@ -15,11 +16,17 @@
 class FigureController {
  public:
   /**
+   * @brief Default constructor.
+   */
+  FigureController();
+  /**
    * @brief Returns a figure's HTML by name.
    * @param name Name of figure to get.
    * @return Figure HTML.
    */
-  std::string getFigureByName(const std::string &name) const;
-
- private:
+  // TODO: necesita tabla de enrutamiento para saber a que servidor ir
+    std::string getFigureByName(const std::string &name) const;
+  private:
+    // std::shared_ptr<std::unordered_map<std::string, std::vector<std::string>>> routingTable;
 };
+

@@ -32,7 +32,7 @@ void SslServer::start() {
             auto client{listener.accept()};
             this->clientQueue.enqueue(client);
         } catch (exception &e) {
-            // TODO(@Antonio): log message Could not accept incoming connection
+            // TODO(@Antonio): log message Could not accept incoming connection      
             continue;
         }
     }

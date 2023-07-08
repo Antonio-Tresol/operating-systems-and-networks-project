@@ -11,11 +11,11 @@
 
 using Worker = std::thread;
 
-#include "./concurrency/Queue.hpp"
-#include "./socket/IPv4SslSocket.hpp"
+#include "../concurrency/Queue.hpp"
+#include "socket/IPv4SslSocket.hpp"
 class SslServer {
  public:
-  explicit SslServer(int32_t numWorkers, const std::string& certPath,
+  SslServer(int32_t numWorkers, const std::string& certPath,
                      int32_t port);
 
   virtual ~SslServer();
@@ -37,6 +37,7 @@ class SslServer {
 
  private:
   void handleRequests();
+  virtual void handleAcceptError(const std::exception& e) = 0;
 };
 
 #endif  // PI_REDES_SISTEMAS_OPERATIVOS_SSLSERVER_HPP

@@ -24,4 +24,5 @@ string FigureController::getFigureByName(const string &name) const {
 //  catch(invalid_argument &ia) {
 //    return "";
 //  }
+//  catch(runtime_error &re) {
 }

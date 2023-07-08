@@ -7,7 +7,7 @@
 #include <string>
 
 #include "./logging/Logger.hpp"
-#include "../include/net/FigureHttpsServer.hpp"
+#include "../include/net/ProxyHttpsServer.hpp"
 
 using std::exception;
 using std::invalid_argument;
@@ -34,11 +34,11 @@ int main(int argc, char *argv[]) {
     string certPath{argv[1]};
 
     try {
-        FigureHttpsServer server{certPath};
+        ProxyHttpsServer server{2, certPath, 7777};
 
         signalHandle();
-
-        server.start();
+        // pass start to a new thread
+        // server.start();
     } catch (exception const &e) {
         Logger::error("Server has crashed.", e);
         exit(1);

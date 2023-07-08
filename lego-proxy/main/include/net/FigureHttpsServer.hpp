@@ -36,7 +36,7 @@ class FigureHttpsServer {
   ~FigureHttpsServer();
 
   [[noreturn]] void start();
-
+  
   void stop();
 
  private:
@@ -58,7 +58,7 @@ class FigureHttpsServer {
    * @brief Worker method to process individual requests.
    */
   void handleRequests();
-
+///-----------------------------------------------------------------------------
   /**
    * @brief Returns map of headers for a given HTTP request.
    * @param stream Remainder of HTTP stream.
@@ -97,7 +97,6 @@ class FigureHttpsServer {
    */
   static std::string generateHttpResponse(int statusCode,
                                           const std::string &body);
-
   /**
    * @brief Builds and sends an HTTP response over a socket.
    * @param client Socket to send response through.
@@ -115,6 +114,8 @@ class FigureHttpsServer {
    */
   static void sendHttpsResponse(const std::shared_ptr<IPv4SslSocket> &client,
                                 int statusCode, const std::string &body);
+  
+  //---------------------------------------------------------------------------
   /**
    * @brief builds the body of the response for the figures send to nachos
    * client
