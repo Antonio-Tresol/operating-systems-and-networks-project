@@ -17,6 +17,6 @@ target_include_directories(lego-common PUBLIC ${COMMON_INCLUDE_DIR})
 target_link_libraries(lego-common OpenSSL::SSL OpenSSL::Crypto)
 
 # Subprojects
-# add_subdirectory(lego-proxy)
+add_subdirectory(lego-proxy)
 add_subdirectory(lego-client)
 add_subdirectory(lego-server)

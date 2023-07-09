@@ -12,7 +12,7 @@
 
 class ProxyProtocolController : public ProtocolController {
  public:
-  ProxyProtocolController();
+  ProxyProtocolController(ProxyRoutingTable* routingTable);
   ~ProxyProtocolController();
 
   void handle(int code, std::string ip, std::string body);
