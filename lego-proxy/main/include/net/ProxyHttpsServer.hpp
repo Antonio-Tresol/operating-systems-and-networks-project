@@ -19,6 +19,10 @@ class ProxyHttpsServer : public SslServer {
 
  private:
   ProxyHttpsController proxyHttpsController{};
+  /**
+   * @brief Handles an error accepting a client.
+   * @param e Exception thrown.
+   */
   void handleAcceptError(const std::exception &e) override;
   /**
    * @brief Returns map of headers for a given HTTP request.

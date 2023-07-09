@@ -11,6 +11,12 @@ class ProxyHttpsController {
  public:
   ProxyHttpsController() = default;
   ~ProxyHttpsController() = default;
+  /**
+   * @brief Get the Figure By Name object
+   * @details search in proxy routing table for a figure by to find a host
+   * @param name name of the figure
+   * @return string with the figure in html format
+   */
   std::string getFigureByName(const std::string &name);
 
  private:
