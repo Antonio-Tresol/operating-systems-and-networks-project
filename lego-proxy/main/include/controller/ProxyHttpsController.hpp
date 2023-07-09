@@ -11,7 +11,7 @@
 
 class ProxyHttpsController {
  public:
-  ProxyHttpsController();
+  ProxyHttpsController() {};
   ~ProxyHttpsController() = default;
   /**
    * @brief Get the Figure By Name object

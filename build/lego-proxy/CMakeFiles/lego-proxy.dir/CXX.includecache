@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+../lego-common/main/include/controller/ProtocolController.hpp
+string
+-
+../net/ProtocolHeader.hpp
+../lego-common/main/include/net/ProtocolHeader.hpp
+
+../lego-common/main/include/net/ProtocolHeader.hpp
+errno.h
+-
+
 /home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/concurrency/Queue.hpp
 mutex
 -
@@ -38,16 +48,22 @@ iostream
 string
 -
 
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/ProtocolClient.hpp
-./socket/IPv4UdpSocket.hpp
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/ProtocolHeader.hpp
+errno.h
+-
+
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/ProtocolServer.hpp
+socket/IPv4UdpSocket.hpp
 /home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/socket/IPv4UdpSocket.hpp
+controller/ProtocolController.hpp
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/controller/ProtocolController.hpp
 string
 -
 vector
 -
-
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/ProtocolHeader.hpp
-errno.h
+thread
+-
+atomic
 -
 
 /home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/SslServer.hpp
@@ -144,18 +160,6 @@ stdexcept
 ./SslCtxPtr.hpp
 /home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/socket/SslCtxPtr.hpp
 
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/src/net/ProtocolClient.cpp
-../../include/net/ProtocolClient.hpp
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/ProtocolClient.hpp
-../../include/net/ProtocolHeader.hpp
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/ProtocolHeader.hpp
-iostream
--
-vector
--
-algorithm
--
-
 /home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/include/controller/ProxyHttpsController.hpp
 map
 -
@@ -185,8 +189,6 @@ vector
 /home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/controller/ProtocolController.hpp
 ../../../../lego-common/main/include/net/ProtocolHeader.hpp
 /home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/ProtocolHeader.hpp
-../../../../lego-common/main/src/net/ProtocolClient.cpp
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/src/net/ProtocolClient.cpp
 ProxyRoutingTable.hpp
 /home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/include/controller/ProxyRoutingTable.hpp
 
@@ -229,8 +231,8 @@ string
 -
 ../../../lego-common/main/include/logging/Logger.hpp
 /home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/logging/Logger.hpp
-../include/controller/ProxyHttpsController.hpp
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/include/controller/ProxyHttpsController.hpp
+../../../lego-common/main/include/net/ProtocolServer.hpp
+/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/ProtocolServer.hpp
 ../include/controller/ProxyProtocolController.hpp
 /home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/include/controller/ProxyProtocolController.hpp
 ../include/controller/ProxyRoutingTable.hpp
@@ -238,33 +240,5 @@ string
 ../include/net/ProxyHttpsServer.hpp
 /home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/include/net/ProxyHttpsServer.hpp
 ../include/net/ProxySslClient.hpp
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/include/net/ProxySslClient.hpp
-
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/src/controller/ProxyHttpsController.cpp
-../../include/controller/ProxyHttpsController.hpp
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/include/controller/ProxyHttpsController.hpp
-
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/src/controller/ProxyProtocolController.cpp
-../../include/controller/ProxyProtocolController.hpp
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/include/controller/ProxyProtocolController.hpp
-algorithm
--
-../../../../lego-common/main/include/net/ProtocolHeader.hpp
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-common/main/include/net/ProtocolHeader.hpp
-
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/src/controller/ProxyRoutingTable.cpp
-../../include/controller/ProxyRoutingTable.hpp
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/include/controller/ProxyRoutingTable.hpp
-
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/src/net/ProxyHttpsServer.cpp
-../../include/net/ProxyHttpsServer.hpp
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/include/net/ProxyHttpsServer.hpp
-regex
--
-utility
--
-
-/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/src/net/ProxySslClient.cpp
-../../include/net/ProxySslClient.hpp
 /home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/include/net/ProxySslClient.hpp
 

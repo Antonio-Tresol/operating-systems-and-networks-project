@@ -15,14 +15,14 @@ ProtocolClient::ProtocolClient(int port) : port(port), protocolClientSocket(port
 void ProtocolClient::discover(const std::string& broadcastAddr) {
   std::string code { static_cast<char>(LEGO_DISCOVER) };
   std::string sep { SEPARATOR };
-  std::string message = code + sep + getCurrentIP() + ":" + std::to_string(port);
+  std::string message = code + sep + this->getCurrentIP() + ":" + std::to_string(port);
   this->protocolClientSocket.send(message, broadcastAddr);
 }
 
 void ProtocolClient::present(const std::string& ipAddress, const std::vector<std::string>& figures) {
   std::string code { static_cast<char>(LEGO_PRESENT) };
   std::string sep { SEPARATOR };
-  std::string message = code + sep + getCurrentIP() + ":" + std::to_string(port) + sep;
+  std::string message = code + sep + this->getCurrentIP() + ":" + std::to_string(port) + sep;
   for (const std::string& figure : figures) {
     message += figure + sep;
   }
@@ -32,7 +32,7 @@ void ProtocolClient::present(const std::string& ipAddress, const std::vector<std
 void ProtocolClient::release(const std::string& broadcastAddr) {
   std::string code { static_cast<char>(LEGO_RELEASE) };
   std::string sep { SEPARATOR };
-  std::string message = code + sep + getCurrentIP() + ":" + std::to_string(port);
+  std::string message = code + sep + this->getCurrentIP() + ":" + std::to_string(port);
   this->protocolClientSocket.send(message, broadcastAddr);
 }
 

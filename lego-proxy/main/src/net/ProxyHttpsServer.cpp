@@ -143,7 +143,6 @@ void ProxyHttpsServer::serveFigure(const shared_ptr<IPv4SslSocket> &client,
     // get the body of the figure
     string body{proxyHttpsController.getFigureByName(getLastPath(url))};
     // prepare the headers
-    string body{""};
     map<string, string> headers{parsedRequest["Headers"]};
     if (body.empty()) {  // if the body is empty, send a 404 response
       Logger::info("Client request: \n" + request);

@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "lego-client/lego-client"
+			"path" : "lego-proxy/lego-proxy"
 		}
 	],
 	"backtrace" : 1,
@@ -16,7 +16,7 @@
 		],
 		"files" : 
 		[
-			"lego-client/CMakeLists.txt"
+			"lego-proxy/CMakeLists.txt"
 		],
 		"nodes" : 
 		[
@@ -59,7 +59,7 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-client/main/include"
+					"path" : "/home/jean/IS2023/PI/grupo/pi-redes-sistemas-operativos/lego-proxy/main/include"
 				},
 				{
 					"backtrace" : 2,
@@ -73,7 +73,8 @@
 				1,
 				2,
 				3,
-				4
+				4,
+				5
 			]
 		}
 	],
@@ -84,7 +85,7 @@
 			"id" : "lego-common::@6890427a1f51a3e7e1df"
 		}
 	],
-	"id" : "lego-client::@484228c47ba4ee27d0c7",
+	"id" : "lego-proxy::@29bdac9c98278e59a2f4",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -121,16 +122,20 @@
 				"backtrace" : 1,
 				"fragment" : "/usr/lib/x86_64-linux-gnu/libcrypto.so",
 				"role" : "libraries"
+			},
+			{
+				"fragment" : "-pthread",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "lego-client",
-	"nameOnDisk" : "lego-client",
+	"name" : "lego-proxy",
+	"nameOnDisk" : "lego-proxy",
 	"paths" : 
 	{
-		"build" : "lego-client",
-		"source" : "lego-client"
+		"build" : "lego-proxy",
+		"source" : "lego-proxy"
 	},
 	"sourceGroups" : 
 	[
@@ -142,7 +147,8 @@
 				1,
 				2,
 				3,
-				4
+				4,
+				5
 			]
 		}
 	],
@@ -151,31 +157,37 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "lego-client/main/src/LegoClient.cpp",
+			"path" : "lego-proxy/main/src/LegoProxy.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "lego-client/main/src/controller/FigureController.cpp",
+			"path" : "lego-proxy/main/src/controller/ProxyHttpsController.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "lego-client/main/src/data/FigureRepository.cpp",
+			"path" : "lego-proxy/main/src/controller/ProxyProtocolController.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "lego-client/main/src/model/Figure.cpp",
+			"path" : "lego-proxy/main/src/controller/ProxyRoutingTable.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "lego-client/main/src/net/HttpsClient.cpp",
+			"path" : "lego-proxy/main/src/net/ProxyHttpsServer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "lego-proxy/main/src/net/ProxySslClient.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

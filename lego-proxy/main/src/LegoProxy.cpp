@@ -8,7 +8,8 @@
 #include <string>
 
 #include "../../../lego-common/main/include/logging/Logger.hpp"
-#include "../include/controller/ProxyHttpsController.hpp"
+#include "../../../lego-common/main/include/net/ProtocolServer.hpp"
+// #include "../include/controller/ProxyHttpsController.hpp"
 #include "../include/controller/ProxyProtocolController.hpp"
 #include "../include/controller/ProxyRoutingTable.hpp"
 #include "../include/net/ProxyHttpsServer.hpp"
@@ -41,6 +42,10 @@ int main(int argc, char *argv[]) {
   try {
     ProxyRoutingTable *proxyRoutingTable = ProxyRoutingTable::getInstance();
     ProxyHttpsServer server{2, certPath, 7777, proxyRoutingTable};
+    ProxyProtocolController* proxyProtocolController = new ProxyProtocolController{proxyRoutingTable};
+    ProtocolServer protocolServer{INTERMEDIARY_UDP_PORT, *proxyProtocolController};
+    protocolServer.start();
+    server.start();
 
     signalHandle();
     // pass start to a new thread
