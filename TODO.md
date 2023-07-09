@@ -2,16 +2,16 @@
 
 [JEAN]
 * FigureProtocolController
-* ProxyProtocolController
+* ProxyProtocolController (tiene una dependencia de routing table - compartida con el Proxy Https Controller)
+* Routing Table Object Thread Safe <-> Singleton (es un std::unordered_map<std::string, vector<std::string>>)
 
 [ARIEL]
 * SslServer -> FigureSslServer
 * FigureSslController
 
 [GEANCA Y ANTONIO]
-* FigureHttpsServer -> ProxyHttpsServer { ProxyHttpsController { ProxySslClient.get(host, resource) } }
-* FigureController -> ProxyHttpsController (falta server figure)
-* ProxySslClient (subconjunto del HttpsClient) DONE!
+* ProxyHttpsServer { ProxyHttpsController { ProxySslClient.get(host, resource) } }
+* ProxyHttpsController ( tiene una dependencia de routing table - compartida con el Proxy Protocol Controller )
 
 # DISEÑO
 

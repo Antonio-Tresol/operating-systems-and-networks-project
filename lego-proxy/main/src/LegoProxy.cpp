@@ -1,12 +1,13 @@
 // Copyright 2023 Ariel Arevalo Alvarado <ariel.arevalo@ucr.ac.cr>.
 // Copyright 2023 Antonio Badilla Olivas <anthonny.badilla@ucr.ac.cr>.
 // Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
-// Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
+// Copyright 2023 Geancarlo Rivera Hernandez
+// <geancarlo.riverahernandez@ucr.ac.cr>.
 
 #include <csignal>
 #include <string>
 
-#include "./logging/Logger.hpp"
+#include "../../../lego-common/main/include/logging/Logger.hpp"
 #include "../include/net/ProxyHttpsServer.hpp"
 
 using std::exception;
@@ -24,34 +25,34 @@ void signalHandle();
  * @brief Entry point.
  */
 int main(int argc, char *argv[]) {
-    Logger::initialize();
+  Logger::initialize();
 
-    if(argc < 2) {
-      Logger::error("Missing certificate path.");
-      exit(1);
-    }
+  if (argc < 2) {
+    Logger::error("Missing certificate path.");
+    exit(1);
+  }
 
-    string certPath{argv[1]};
+  string certPath{argv[1]};
 
-    try {
-        ProxyHttpsServer server{2, certPath, 7777};
+  try {
+    ProxyHttpsServer server{2, certPath, 7777};
 
-        signalHandle();
-        // pass start to a new thread
-        // server.start();
-    } catch (exception const &e) {
-        Logger::error("Server has crashed.", e);
-        exit(1);
-    }
+    signalHandle();
+    // pass start to a new thread
+    // server.start();
+  } catch (exception const &e) {
+    Logger::error("Server has crashed.", e);
+    exit(1);
+  }
 }
 
 void signalAction(int signum) {
-    Logger::info("Exiting.");
+  Logger::info("Exiting.");
 
-    exit(signum);
+  exit(signum);
 }
 
 void signalHandle() {
-    signal(SIGINT, signalAction);
-    signal(SIGTERM, signalAction);
+  signal(SIGINT, signalAction);
+  signal(SIGTERM, signalAction);
 }
