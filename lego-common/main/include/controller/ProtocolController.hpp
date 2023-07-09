@@ -11,7 +11,7 @@
 
 class ProtocolController {
 public:
-    virtual void handle(int code, std::string ip, std::string body) const = 0;
+    virtual void handle(int code, std::string ip, std::string body) = 0;
 };
 
 

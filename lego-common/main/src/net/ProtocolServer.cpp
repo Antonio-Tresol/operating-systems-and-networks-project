@@ -55,8 +55,7 @@ void ProtocolServer::handleRequest(std::string message) const {
         return;
     }
 
-    // TODO: aaaaaaaaaaaaaaaaaaaa
-    protocolController.handle(code, getIP(message), getBody(message));
+    protocolController.handle(code, getIP(message), message);
 }
 
 bool ProtocolServer::checkHost(std::string message) const {
@@ -73,14 +72,14 @@ bool ProtocolServer::checkHost(std::string message) const {
 // ! Assumes that the message has the right format.
 std::string ProtocolServer::getIP(std::string message) const {
     // First character doesn't matter anymore.
-    // TODO: check substring generation. De fijo bro (numero de char segundo arg)
-    return message.substr(2, message.find(":") - 1);
+    std::string::size_type pos = message.find(":");
+    if (pos != std::string::npos) {
+      message = message.substr(0, pos);
+    } 
+    return message.substr(2);
+
 }
 
-std::string ProtocolServer::getBody(std::string message) const {
-    // TODO: AAAAAAAAAAAAAAAAAAAAAAAa
-    return std::string();
-}
 
 
 void ProtocolServer::start() {
