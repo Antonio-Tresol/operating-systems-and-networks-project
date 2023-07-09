@@ -8,7 +8,11 @@
 #include <string>
 
 #include "../../../lego-common/main/include/logging/Logger.hpp"
+#include "../include/controller/ProxyHttpsController.hpp"
+#include "../include/controller/ProxyProtocolController.hpp"
+#include "../include/controller/ProxyRoutingTable.hpp"
 #include "../include/net/ProxyHttpsServer.hpp"
+#include "../include/net/ProxySslClient.hpp"
 
 using std::exception;
 using std::invalid_argument;
@@ -35,7 +39,8 @@ int main(int argc, char *argv[]) {
   string certPath{argv[1]};
 
   try {
-    ProxyHttpsServer server{2, certPath, 7777};
+    ProxyRoutingTable *proxyRoutingTable = ProxyRoutingTable::getInstance();
+    ProxyHttpsServer server{2, certPath, 7777, proxyRoutingTable};
 
     signalHandle();
     // pass start to a new thread

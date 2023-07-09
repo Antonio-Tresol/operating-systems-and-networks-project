@@ -6,8 +6,10 @@
 class ProxyHttpsServer : public SslServer {
  public:
   ProxyHttpsServer(int32_t numWorkers, const std::string &certPath,
-                   int32_t port)
-      : SslServer(numWorkers, certPath, port) {}
+                   int32_t port, ProxyRoutingTable *proxyRoutingTable)
+      : SslServer(numWorkers, certPath, port) {
+    proxyHttpsController.setRoutingTable(proxyRoutingTable);
+  }
 
   ~ProxyHttpsServer() {}
 
@@ -18,7 +20,7 @@ class ProxyHttpsServer : public SslServer {
   void handleClient(const std::shared_ptr<IPv4SslSocket> &client) override;
 
  private:
-  ProxyHttpsController proxyHttpsController{};
+  ProxyHttpsController proxyHttpsController;
   /**
    * @brief Handles an error accepting a client.
    * @param e Exception thrown.
