@@ -8,6 +8,7 @@
 #include "../../../../lego-common/main/include/controller/ProtocolController.hpp"
 #include "../../../../lego-common/main/include/net/ProtocolHeader.hpp"
 #include "../../../../lego-common/main/src/net/ProtocolClient.cpp"
+#include "ProxyRoutingTable.hpp"
 
 class ProxyProtocolController : public ProtocolController {
  public:
@@ -15,8 +16,10 @@ class ProxyProtocolController : public ProtocolController {
   ~ProxyProtocolController();
 
   void handle(int code, std::string ip, std::string body);
+  void setRoutingTable(ProxyRoutingTable* proxyRoutingTable) {
+    this->proxyRoutingTable = proxyRoutingTable;
+  }
 
  private:
-  std::shared_ptr<std::unordered_map<std::string, std::vector<std::string>>>
-      availableFigures;  // <figure, [ips]>
+  ProxyRoutingTable* proxyRoutingTable;
 };
