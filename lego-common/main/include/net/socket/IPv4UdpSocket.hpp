@@ -14,6 +14,7 @@
 
 #include <cerrno>
 #include <cstddef>
+#include <cstring>
 #include <stdexcept>
 #include <string>
 

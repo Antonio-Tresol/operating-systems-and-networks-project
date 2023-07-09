@@ -141,7 +141,6 @@ void ProxyHttpsServer::serveFigure(const shared_ptr<IPv4SslSocket> &client,
       return;
     }
     // get the body of the figure
-    // TODO CHECK:
     string body{proxyHttpsController.getFigureByName(getLastPath(url))};
     // prepare the headers
     string body{""};
