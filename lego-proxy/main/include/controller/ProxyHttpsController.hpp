@@ -6,6 +6,7 @@
 
 #include "../../../../lego-common/main/include/logging/Logger.hpp"
 #include "../../../../lego-common/main/include/net/socket/IPv4SslSocket.hpp"
+#include "../net/ProxySslClient.hpp"
 
 class ProxyHttpsController {
  public:
@@ -21,4 +22,5 @@ class ProxyHttpsController {
 
  private:
   // instancia routing table
+  ProxySslClient proxySslClient{};
 };

@@ -4,5 +4,8 @@ using std::string;
 
 string ProxyHttpsController::getFigureByName(const string &name) {
   // todo: search in proxy routing table
-  return "";
+  std::string host{};
+  // todo: search in proxy routing table
+  std::string figureHtml{proxySslClient.legoRequest(host, name)};
+  return figureHtml;
 };
