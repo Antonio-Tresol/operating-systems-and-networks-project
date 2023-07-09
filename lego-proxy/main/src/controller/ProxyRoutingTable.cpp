@@ -3,16 +3,18 @@
 ProxyRoutingTable* ProxyRoutingTable::proxyRoutingTable = nullptr;
 std::mutex ProxyRoutingTable::mutex;
 
-ProxyRoutingTable::ProxyRoutingTable() {}
+
+ProxyRoutingTable::~ProxyRoutingTable() {
+  delete proxyRoutingTable;
+}
 
 ProxyRoutingTable* ProxyRoutingTable::getInstance() {
   std::lock_guard<std::mutex> lock(mutex);
-  if (instance == nullptr) {
+  if (proxyRoutingTable == nullptr) {
     proxyRoutingTable = new ProxyRoutingTable();
   }
   return proxyRoutingTable;
 }
-
 
 void ProxyRoutingTable::insertFigure(const std::string& figure,
                                      const std::string& ip) {
@@ -26,13 +28,11 @@ void ProxyRoutingTable::insertFigure(const std::string& figure,
   }
 }
 
-
-
 void ProxyRoutingTable::eraseIP(const std::string& ip) {
   std::lock_guard<std::mutex> lock(mutex);
 
   // Iterate over each entry in the routingTable map
-  for (auto it = routingTable.begin(); it != routingTable.end(); ++it) {
+  for (auto it = routingTable.begin(); it != routingTable.end(); ) {
     // Get a reference to the vector of the current iteration
     auto& ipList = it->second;
 
@@ -48,7 +48,10 @@ void ProxyRoutingTable::eraseIP(const std::string& ip) {
     }
     if (ipList.empty()) {
       // If the vector is empty after removing IPs, erase the entry from the map
-      routingTable.erase(it);
+      it = routingTable.erase(it);
+    } else {
+      // Move to the next element in the map
+      ++it;
     }
   }
 }
@@ -60,6 +63,26 @@ std::string ProxyRoutingTable::getIP(const std::string& figure) {
     std::vector<std::string> ipList = it->second;
     if (ipList.size() > 0) {
       return ipList[0];
+    }
+  }
+  return "";
+}
+
+int ProxyRoutingTable::sizeIPList(const std::string& figure) {
+  std::lock_guard<std::mutex> lock(mutex);
+  auto it = routingTable.find(figure);
+  if (it != routingTable.end()) {
+    return it->second.size();
+  }
+  return -1;
+}
+
+std::string ProxyRoutingTable::getNthIP(const std::string& figure, int n) {
+  std::lock_guard<std::mutex> lock(mutex);
+  auto it = routingTable.find(figure);
+  if (it != routingTable.end()) {
+    if (it->second.size() > n) {
+      return it->second[n];
     }
   }
   return "";
