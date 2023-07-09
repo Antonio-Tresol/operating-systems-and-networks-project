@@ -10,8 +10,8 @@
 
 [GEANCA Y ANTONIO]
 * FigureHttpsServer -> ProxyHttpsServer { ProxyHttpsController { ProxySslClient.get(host, resource) } }
-* FigureController -> ProxyHttpsController
-* ProxySslClient (subconjunto del HttpsClient)
+* FigureController -> ProxyHttpsController (falta server figure)
+* ProxySslClient (subconjunto del HttpsClient) DONE!
 
 # DISEÑO
 
