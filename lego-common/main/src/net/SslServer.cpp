@@ -3,12 +3,14 @@
 //
 
 #include "../../include/net/SslServer.hpp"
+#include "./logging/Logger.hpp"
 
 #include <exception>
 #include <string>
 
 using std::exception;
 using std::string;
+using std::to_string;
 
 SslServer::SslServer(int32_t numWorkers, const std::string &certPath,
                      int32_t port)
@@ -27,13 +29,18 @@ void SslServer::start() {
         this->workers.emplace_back(&SslServer::handleRequests, this);
     }
 
+    Logger::info("Listener certificates: \n" + listener.getCerts());
+
+    Logger::info("Listening.");
+
     while (true) {
         try {
             auto client{listener.accept()};
+            Logger::info("Accepted connection with socket: " +
+                         to_string(client->getSocketFD()));
             this->clientQueue.enqueue(client);
         } catch (exception &e) {
-            // TODO(@Antonio): log message Could not accept incoming connection
-            continue;
+            Logger::error("Listener error: ", e);
         }
     }
 }
@@ -57,7 +64,8 @@ void SslServer::handleRequests() {
         try {
             client->sslAccept();
         } catch (exception &e) {
-            // TODO(@Antonio)Log error message could not make handshake
+            Logger::error("Client error: ", e);
+            Logger::error("Dropping client");
             continue;
         }
         handleClient(client);

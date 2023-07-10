@@ -20,15 +20,16 @@ using std::string;
 int main(int argc, char *argv[]) {
     Logger::initialize();
     try {
-        if (argc < 2) {
-            Logger::error("Invalid arguments: No figure name provided.");
+        if (argc < 3) {
+            Logger::error("Invalid arguments: Must provide host IP address and figure name.");
 
             exit(1);
         }
 
-        string figureName{argv[1]};
+        string hostIpAddr{argv[1]};
+        string figureName{argv[2]};
 
-        FigureController().printFigureByName(figureName);
+        FigureController(hostIpAddr).printFigureByName(figureName);
     }
     catch (exception const &e) {
         Logger::error("Client has crashed.", e);

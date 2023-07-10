@@ -7,7 +7,8 @@
 #include <string>
 
 #include "./logging/Logger.hpp"
-#include "./net/FigureHttpsServer.hpp"
+#include "./net/FigureSslServer.hpp"
+#include "./net/ProtocolHeader.hpp"
 
 using std::exception;
 using std::invalid_argument;
@@ -34,7 +35,7 @@ int main(int argc, char *argv[]) {
     string certPath{argv[1]};
 
     try {
-        FigureHttpsServer server{certPath};
+        FigureSslServer server{8, certPath, PIECES_TCP_PORT};
 
         signalHandle();
 

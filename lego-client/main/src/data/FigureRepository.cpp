@@ -7,9 +7,11 @@
 
 using std::string;
 
+FigureRepository::FigureRepository(const std::string &host) : host(host) {}
+
 Figure FigureRepository::findByName(const string& name) const {
     const string url{URL_TEMPLATE + name};
-    const string html{httpsClient.get(HOST, url)};
+    const string html{httpsClient.get(host, url)};
 
     return Figure::fromHtml(html);
 }

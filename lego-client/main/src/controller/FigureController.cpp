@@ -17,3 +17,5 @@ void FigureController::printFigureByName(const string &name) const {
         Logger::info(string(figure));
     }
 }
+
+FigureController::FigureController(const std::string &host) : figureRepository(host) {}

@@ -3,7 +3,7 @@
 // Copyright 2023 Jean Paul Chacon Gonzalez <jean.chacongonzalez@ucr.ac.cr>.
 // Copyright 2023 Geancarlo Rivera Hernandez <geancarlo.riverahernandez@ucr.ac.cr>.
 
-#include "../include/controller/FigureController.hpp"
+#include "./controller/FigureSslController.hpp"
 
 using std::cout;
 using std::invalid_argument;
@@ -16,12 +16,12 @@ using std::throw_with_nested;
  * @param name
  * @return
  */
-string FigureController::getFigureByName(const string &name) const {
-  try {
-    string figureHtml{figureRepository.findByName(name)};
-    return figureHtml;
-  }
-  catch(invalid_argument &ia) {
-    return "";
-  }
+string FigureSslController::getFigureByName(const string &name) const {
+    try {
+        string figureHtml{figureRepository.findByName(name)};
+        return figureHtml;
+    }
+    catch(invalid_argument &ia) {
+        return "";
+    }
 }

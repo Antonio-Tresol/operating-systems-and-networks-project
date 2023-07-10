@@ -16,6 +16,10 @@
  */
 class FigureController {
  public:
+    FigureController() = delete;
+
+    explicit FigureController(const std::string &host);
+
   /**
    * @brief Prints a Figure obtained from the repository by name.
    * @param name Name of the figure to print.
@@ -23,5 +27,5 @@ class FigureController {
   void printFigureByName(const std::string &name) const;
 
  private:
-  FigureRepository figureRepository{};
+  FigureRepository figureRepository;
 };

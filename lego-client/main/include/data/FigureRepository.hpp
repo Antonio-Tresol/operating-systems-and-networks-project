@@ -16,6 +16,10 @@
  */
 class FigureRepository {
  public:
+    FigureRepository() = delete;
+
+    explicit FigureRepository(const std::string &host);
+
   /**
    * @brief Finds a figure by its name.
    * @param name Name of the figure to find.
@@ -24,8 +28,8 @@ class FigureRepository {
   [[nodiscard]] Figure findByName(const std::string& name) const;
 
  private:
-  static constexpr char HOST[]{"127.0.0.1"};
   static constexpr char URL_TEMPLATE[]{"/lego/"};
 
+  std::string host;
   HttpsClient httpsClient{};
 };
