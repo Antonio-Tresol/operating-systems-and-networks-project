@@ -14,6 +14,7 @@
 
 #include <cerrno>
 #include <cstddef>
+#include <cstring>
 #include <stdexcept>
 #include <string>
 
@@ -21,41 +22,43 @@
  * @brief A socket to connect via IPv4 over UDP.
  */
 class IPv4UdpSocket {
-public:
-    explicit IPv4UdpSocket(int port);
+ public:
+  explicit IPv4UdpSocket(int port);
 
-    ~IPv4UdpSocket();
+  ~IPv4UdpSocket();
 
-    /**
-     * @brief Binds socket to given port.
-     */
-    void bind() const;
+  /**
+   * @brief Binds socket to given port.
+   */
+  void bind() const;
 
-    /**
-     * @brief Sends a message to a given address
-     * @param text message to send
-     * @param address address to send to
-     */
-    void send(const std::string &text, const std::string &address) const;
+  /**
+   * @brief Sends a message to a given address
+   * @param text message to send
+   * @param address address to send to
+   */
+  void send(const std::string &text, const std::string &address) const;
 
-    /**
-     * @brief Receives a message on the set port
-     * @return message received
-     */
-    std::string receive() const;
+  /**
+   * @brief Receives a message on the set port
+   * @return message received
+   */
+  std::string receive() const;
 
-private:
-    static constexpr int NONE{0};
-    static constexpr int UDP_ID{17};
-    static constexpr int64_t CHUNK_SIZE{512};
+ private:
+  static constexpr int NONE{0};
+  static constexpr int UDP_ID{17};
+  static constexpr int64_t CHUNK_SIZE{512};
 
-    /**
+  /**
    * Appends the current C error to the input message.
    * @param message Message to append the error.
    * @return Concatenation of message and error
    */
-    static std::string appendErr(const std::string &message);
+  static std::string appendErr(const std::string &message) {
+    return message + ": " + strerror(errno);
+  }
 
-    int socketFD;
-    int port;
+  int socketFD;
+  int port;
 };

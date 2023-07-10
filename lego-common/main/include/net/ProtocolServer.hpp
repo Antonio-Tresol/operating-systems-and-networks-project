@@ -67,14 +67,6 @@ private:
     std::string getIP(std::string message) const;
 
     /**
-     * @brief Get the body from the message.
-     *
-     * @param message Message to get the body from.
-     * @return std::string body.
-     */
-    std::string getBody(std::string message) const;
-
-    /**
      * @brief When a LEGO_PRESENT message is received, this function extracts the
      * figures from the message.
      *

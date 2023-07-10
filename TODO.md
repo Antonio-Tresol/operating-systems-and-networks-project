@@ -2,16 +2,12 @@
 
 [JEAN]
 * FigureProtocolController
-* ProxyProtocolController
+* ProxyProtocolController (tiene una dependencia de routing table - compartida con el Proxy Https Controller)
 
 [ARIEL]
 * SslServer -> FigureSslServer
 * FigureSslController
 
-[GEANCA Y ANTONIO]
-* FigureHttpsServer -> ProxyHttpsServer { ProxyHttpsController { ProxySslClient.get(host, resource) } }
-* FigureController -> ProxyHttpsController
-* ProxySslClient (subconjunto del HttpsClient)
 
 # DISEÑO
 
