@@ -1,1 +1,0 @@
-/usr/bin/c++  -g  -fsanitize=thread CMakeFiles/lego_client_tsan.dir/src/main/LegoClient.cpp.o  -o lego_client_tsan 

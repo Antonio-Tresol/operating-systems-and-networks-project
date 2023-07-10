@@ -1,1 +1,0 @@
-/usr/bin/c++  -g  -fsanitize=address -fno-omit-frame-pointer CMakeFiles/lego_client_asan.dir/src/main/LegoClient.cpp.o  -o lego_client_asan 

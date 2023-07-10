@@ -1,1 +1,0 @@
-/usr/bin/c++  -g  -fsanitize=memory CMakeFiles/lego_client_msan.dir/src/main/LegoClient.cpp.o  -o lego_client_msan 
