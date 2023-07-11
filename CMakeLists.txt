@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.16)
 project(pi-redes-sistemas-operativos)
 find_package(OpenSSL REQUIRED)
 find_package(Threads REQUIRED)

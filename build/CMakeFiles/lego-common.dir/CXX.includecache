@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jean/IS2023/PI/grupo/lego-common/main/include/net/socket/clSocket.hpp
+stdlib.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+openssl/ssl.h
+-
+
+/home/jean/IS2023/PI/grupo/lego-common/main/src/net/socket/clSocket.cpp
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+arpa/inet.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+unistd.h
+-
+../../../include/net/socket/clSocket.hpp
+/home/jean/IS2023/PI/grupo/lego-common/main/include/net/socket/clSocket.hpp
+netdb.h
+-
+iostream
+-
+openssl/ssl.h
+-
+openssl/err.h
+-
+

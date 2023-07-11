@@ -13,15 +13,25 @@ using std::string;
 string ProxySslClient::legoRequest(const std::string &host,
                                    const std::string &resource) const {
   try {
-    IPv4SslSocket socket{};
+    // IPv4SslSocket socket{};
 
-    socket.sslConnect(host, PORT);
+    // socket.sslConnect(host, PORT);
 
     const string request{std::to_string(CODE) + SEP + resource};
-    Logger::info("Sending request: " + request);
-    socket.sslWrite(request);
-    string response{socket.sslRead()};
+    // Logger::info("Sending request: " + request);
+    // socket.sslWrite(request);
+    // string response{socket.sslRead()};
 
+    // return response;
+    Socket* client = new Socket('s', false);
+    client->InitSSL();
+    const char* hostc = host.c_str();
+    client->SSLConnect(hostc, PORT);
+    client->SSLWrite(request.data(), request.size());
+    char buf[1024];
+    int bytes = client->SSLRead(buf, sizeof(buf));
+    buf[bytes] = '\0';
+    string response = string(buf);
     return response;
   } catch (exception const &e) {
     throw_with_nested(runtime_error("Failed to GET from: " + resource));

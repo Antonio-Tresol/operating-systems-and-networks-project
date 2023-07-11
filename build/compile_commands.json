@@ -1,0 +1,132 @@
+[
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-common.dir/lego-common/main/src/concurrency/Semaphore.cpp.o -c /home/jean/IS2023/PI/grupo/lego-common/main/src/concurrency/Semaphore.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-common/main/src/concurrency/Semaphore.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-common.dir/lego-common/main/src/logging/Logger.cpp.o -c /home/jean/IS2023/PI/grupo/lego-common/main/src/logging/Logger.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-common/main/src/logging/Logger.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-common.dir/lego-common/main/src/net/ProtocolClient.cpp.o -c /home/jean/IS2023/PI/grupo/lego-common/main/src/net/ProtocolClient.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-common/main/src/net/ProtocolClient.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-common.dir/lego-common/main/src/net/ProtocolServer.cpp.o -c /home/jean/IS2023/PI/grupo/lego-common/main/src/net/ProtocolServer.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-common/main/src/net/ProtocolServer.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-common.dir/lego-common/main/src/net/SslServer.cpp.o -c /home/jean/IS2023/PI/grupo/lego-common/main/src/net/SslServer.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-common/main/src/net/SslServer.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-common.dir/lego-common/main/src/net/socket/IPv4SslSocket.cpp.o -c /home/jean/IS2023/PI/grupo/lego-common/main/src/net/socket/IPv4SslSocket.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-common/main/src/net/socket/IPv4SslSocket.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-common.dir/lego-common/main/src/net/socket/IPv4UdpSocket.cpp.o -c /home/jean/IS2023/PI/grupo/lego-common/main/src/net/socket/IPv4UdpSocket.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-common/main/src/net/socket/IPv4UdpSocket.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-common.dir/lego-common/main/src/net/socket/SslCtxPtr.cpp.o -c /home/jean/IS2023/PI/grupo/lego-common/main/src/net/socket/SslCtxPtr.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-common/main/src/net/socket/SslCtxPtr.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-common.dir/lego-common/main/src/net/socket/SslPtr.cpp.o -c /home/jean/IS2023/PI/grupo/lego-common/main/src/net/socket/SslPtr.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-common/main/src/net/socket/SslPtr.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-common.dir/lego-common/main/src/net/socket/clSocket.cpp.o -c /home/jean/IS2023/PI/grupo/lego-common/main/src/net/socket/clSocket.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-common/main/src/net/socket/clSocket.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-proxy",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-proxy/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-proxy.dir/main/src/LegoProxy.cpp.o -c /home/jean/IS2023/PI/grupo/lego-proxy/main/src/LegoProxy.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-proxy/main/src/LegoProxy.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-proxy",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-proxy/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-proxy.dir/main/src/controller/ProxyHttpsController.cpp.o -c /home/jean/IS2023/PI/grupo/lego-proxy/main/src/controller/ProxyHttpsController.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-proxy/main/src/controller/ProxyHttpsController.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-proxy",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-proxy/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-proxy.dir/main/src/controller/ProxyProtocolController.cpp.o -c /home/jean/IS2023/PI/grupo/lego-proxy/main/src/controller/ProxyProtocolController.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-proxy/main/src/controller/ProxyProtocolController.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-proxy",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-proxy/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-proxy.dir/main/src/controller/ProxyRoutingTable.cpp.o -c /home/jean/IS2023/PI/grupo/lego-proxy/main/src/controller/ProxyRoutingTable.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-proxy/main/src/controller/ProxyRoutingTable.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-proxy",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-proxy/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-proxy.dir/main/src/net/ProxyHttpsServer.cpp.o -c /home/jean/IS2023/PI/grupo/lego-proxy/main/src/net/ProxyHttpsServer.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-proxy/main/src/net/ProxyHttpsServer.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-proxy",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-proxy/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-proxy.dir/main/src/net/ProxySslClient.cpp.o -c /home/jean/IS2023/PI/grupo/lego-proxy/main/src/net/ProxySslClient.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-proxy/main/src/net/ProxySslClient.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-client",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-client/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-client.dir/main/src/LegoClient.cpp.o -c /home/jean/IS2023/PI/grupo/lego-client/main/src/LegoClient.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-client/main/src/LegoClient.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-client",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-client/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-client.dir/main/src/controller/FigureController.cpp.o -c /home/jean/IS2023/PI/grupo/lego-client/main/src/controller/FigureController.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-client/main/src/controller/FigureController.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-client",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-client/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-client.dir/main/src/data/FigureRepository.cpp.o -c /home/jean/IS2023/PI/grupo/lego-client/main/src/data/FigureRepository.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-client/main/src/data/FigureRepository.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-client",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-client/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-client.dir/main/src/model/Figure.cpp.o -c /home/jean/IS2023/PI/grupo/lego-client/main/src/model/Figure.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-client/main/src/model/Figure.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-client",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-client/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-client.dir/main/src/net/HttpsClient.cpp.o -c /home/jean/IS2023/PI/grupo/lego-client/main/src/net/HttpsClient.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-client/main/src/net/HttpsClient.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-server",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-server/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-server.dir/main/src/LegoServer.cpp.o -c /home/jean/IS2023/PI/grupo/lego-server/main/src/LegoServer.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-server/main/src/LegoServer.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-server",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-server/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-server.dir/main/src/controller/FigureProtocolController.cpp.o -c /home/jean/IS2023/PI/grupo/lego-server/main/src/controller/FigureProtocolController.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-server/main/src/controller/FigureProtocolController.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-server",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-server/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-server.dir/main/src/controller/FigureSslController.cpp.o -c /home/jean/IS2023/PI/grupo/lego-server/main/src/controller/FigureSslController.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-server/main/src/controller/FigureSslController.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-server",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-server/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-server.dir/main/src/data/FigureHtmlRepository.cpp.o -c /home/jean/IS2023/PI/grupo/lego-server/main/src/data/FigureHtmlRepository.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-server/main/src/data/FigureHtmlRepository.cpp"
+},
+{
+  "directory": "/home/jean/IS2023/PI/grupo/build/lego-server",
+  "command": "/usr/bin/clang++   -I/home/jean/IS2023/PI/grupo/lego-server/main/include -I/home/jean/IS2023/PI/grupo/lego-common/main/include  -g   -std=gnu++17 -o CMakeFiles/lego-server.dir/main/src/net/FigureSslServer.cpp.o -c /home/jean/IS2023/PI/grupo/lego-server/main/src/net/FigureSslServer.cpp",
+  "file": "/home/jean/IS2023/PI/grupo/lego-server/main/src/net/FigureSslServer.cpp"
+}
+]

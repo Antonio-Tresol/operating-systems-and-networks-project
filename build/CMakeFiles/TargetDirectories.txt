@@ -1,0 +1,12 @@
+/home/jean/IS2023/PI/grupo/build/CMakeFiles/rebuild_cache.dir
+/home/jean/IS2023/PI/grupo/build/CMakeFiles/edit_cache.dir
+/home/jean/IS2023/PI/grupo/build/CMakeFiles/lego-common.dir
+/home/jean/IS2023/PI/grupo/build/lego-proxy/CMakeFiles/rebuild_cache.dir
+/home/jean/IS2023/PI/grupo/build/lego-proxy/CMakeFiles/edit_cache.dir
+/home/jean/IS2023/PI/grupo/build/lego-proxy/CMakeFiles/lego-proxy.dir
+/home/jean/IS2023/PI/grupo/build/lego-client/CMakeFiles/rebuild_cache.dir
+/home/jean/IS2023/PI/grupo/build/lego-client/CMakeFiles/edit_cache.dir
+/home/jean/IS2023/PI/grupo/build/lego-client/CMakeFiles/lego-client.dir
+/home/jean/IS2023/PI/grupo/build/lego-server/CMakeFiles/rebuild_cache.dir
+/home/jean/IS2023/PI/grupo/build/lego-server/CMakeFiles/edit_cache.dir
+/home/jean/IS2023/PI/grupo/build/lego-server/CMakeFiles/lego-server.dir
