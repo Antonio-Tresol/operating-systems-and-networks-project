@@ -14,6 +14,7 @@ using ::bind;
 using ::connect;
 using ::listen;
 using ::write;
+using ::close;
 }  // namespace Sys
 
 using ::SSL_connect;
@@ -57,7 +58,11 @@ IPv4SslSocket::IPv4SslSocket(int socketFD, const IPv4SslSocket *original)
   }
 }
 
-IPv4SslSocket::~IPv4SslSocket() { close(socketFD); }
+IPv4SslSocket::~IPv4SslSocket() { close(); }
+
+void IPv4SslSocket::close() {
+    Sys::close(socketFD);
+}
 
 void IPv4SslSocket::connect(const string &host, const string &service) const {
   struct addrinfo *result;

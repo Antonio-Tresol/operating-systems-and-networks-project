@@ -6,6 +6,7 @@
 
 #include "./net/ProtocolClient.hpp"
 #include "./net/ProtocolHeader.hpp"
+#include "logging/Logger.hpp"
 
 #include <iostream>
 #include <vector>
@@ -15,6 +16,8 @@
 ProtocolClient::ProtocolClient(int port) : port(port), protocolClientSocket(port) {}
 
 void ProtocolClient::discover() {
+    Logger::info("ProtocolClient: Sending " + getLegoMessageCodeName(LEGO_DISCOVER));
+
     std::string code{std::to_string(static_cast<int>(LEGO_DISCOVER))};
     std::string message = code + SEPARATOR + this->getCurrentIP() + ":" + std::to_string(port);
 
@@ -29,6 +32,7 @@ void ProtocolClient::discover() {
 }
 
 void ProtocolClient::presentBcast(const std::vector<std::string> &figures) {
+    Logger::info("ProtocolClient: Sending " + getLegoMessageCodeName(LEGO_PRESENT));
     for (int i{0}; i < 7; ++i) {
         int broadcastAddrSuffix{BROADCAST_ADDR_START + BROADCAST_ADDR_INCREMENT * i};
         std::string broadcastAddr{BROADCAST_ADDR_PREFIX + std::to_string(broadcastAddrSuffix)};
@@ -49,15 +53,22 @@ void ProtocolClient::present(const std::string &ipAddress, const std::vector<std
 }
 
 void ProtocolClient::release() {
-    std::string code{static_cast<char>(LEGO_RELEASE)};
-    std::string sep{SEPARATOR};
-    std::string message = code + sep + this->getCurrentIP() + ":" + std::to_string(port);
-    this->protocolClientSocket.send(message, BROADCAST_ADDR_PREFIX);
+    Logger::info("ProtocolClient: Sending " + getLegoMessageCodeName(LEGO_RELEASE));
+    std::string code{std::to_string(static_cast<int>(LEGO_RELEASE))};
+    std::string message = code + SEPARATOR + this->getCurrentIP() + ":" + std::to_string(port);
+
+    for (int i{0}; i < 7; ++i) {
+        int broadcastAddrSuffix{BROADCAST_ADDR_START + BROADCAST_ADDR_INCREMENT * i};
+        std::string broadcastAddr{BROADCAST_ADDR_PREFIX + std::to_string(broadcastAddrSuffix)};
+
+        this->protocolClientSocket.send(message, broadcastAddr);
+    }
+
+    this->protocolClientSocket.send(message, "255.255.255.255");
 }
 
 void ProtocolClient::errorMsg(const std::string &code, const std::string &ipAddress) {
-    std::string sep{SEPARATOR};
-    std::string message = code + sep + "NotFound";
+    std::string message = code + SEPARATOR + "NotFound";
     this->protocolClientSocket.send(message, ipAddress);
 }
 

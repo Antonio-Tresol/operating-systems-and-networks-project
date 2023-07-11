@@ -23,8 +23,6 @@ public:
     void presentBcast();
 
 private:
-    std::filesystem::path getResourcePath();
-
     ProtocolClient protocolClient{INTERMEDIARY_UDP_PORT};
 
     FigureHtmlRepository& figureHtmlRepository;

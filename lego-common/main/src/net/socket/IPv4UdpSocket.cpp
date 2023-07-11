@@ -5,6 +5,7 @@
 // <geancarlo.riverahernandez@ucr.ac.cr>.
 
 #include "./net/socket/IPv4UdpSocket.hpp"
+#include "net/Timeout.hpp"
 
 namespace Sys {
 using ::bind;
@@ -30,6 +31,14 @@ IPv4UdpSocket::IPv4UdpSocket(int port)
     throw runtime_error(
         appendErr("IPv4UdpSocket::IPv4UdpSocket: Failed to set broadcast: "));
   }
+
+    struct timeval timeout{1, 500000};
+
+    if (-1 == setsockopt(socketFD, SOL_SOCKET, SO_RCVTIMEO, &timeout,
+                         sizeof(timeout))) {
+        throw runtime_error(
+                appendErr("IPv4UdpSocket::IPv4UdpSocket: Failed to set timeout: "));
+    }
 }
 
 IPv4UdpSocket::~IPv4UdpSocket() { Sys::close(socketFD); }
@@ -64,6 +73,9 @@ string IPv4UdpSocket::receive() const {
   char buf[CHUNK_SIZE]{};
 
   if (-1 == recv(socketFD, static_cast<void *>(buf), CHUNK_SIZE, NONE)) {
+      if (errno == EAGAIN || errno == EWOULDBLOCK) {
+        throw Timeout{};
+      }
     throw runtime_error(appendErr("IPv4UdpSocket::receive: "));
   }
 

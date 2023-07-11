@@ -131,27 +131,30 @@ void ProxyHttpsServer::serveFigure(const shared_ptr<IPv4SslSocket> &client,
         // for a normal request: parse the request
         map<string, map<string, string>> parsedRequest{parseHttpRequest(request)};
         string url{parsedRequest["Request-Line"]["URL"]};
+
+        Logger::info("HttpsServer: Client request on socket " + socketNum + ": " + request);
+
         // check if the url is valid
         if (!validateUrlFormat(url)) {
-            Logger::info("HttpsServer: Client request on socket " + socketNum + ": " + request);
             Logger::info(
                     "HttpsServer: Sending 404 response to client (caused by invalid URL Format) on socket "
                     + socketNum);
             sendHttpsResponse(client, 404, "");
             return;
         }
+
+        string figureName{getLastPath(url)};
+
         // get the body of the figure
-        string body{proxyHttpsController.getFigureByName(getLastPath(url))};
+        string body{proxyHttpsController.getFigureByName(figureName)};
         // prepare the headers
         map<string, string> headers{parsedRequest["Headers"]};
         if (body.empty()) {  // if the body is empty, send a 404 response
-            Logger::info("HttpsServer: Client request on socket " + socketNum + ": " + request);
             Logger::info(
                     "HttpsServer: Sending 404 response to client (caused by FigureNotFound) on socket "
                     + socketNum);
             sendHttpsResponse(client, 404, body);
         } else {  // if the body is not empty, send the figure and 200 response
-            Logger::info("HttpsServer: Client request on socket " + socketNum + ": " + request);
             Logger::info("HttpsServer: Sending response to client on socket " + socketNum);
             sendHttpsResponse(client, 200, body);
         }

@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #include "./logging/Logger.hpp"
+#include "net/ProtocolHeader.hpp"
 
 using std::exception;
 using std::regex;
@@ -33,6 +34,7 @@ void FigureSslServer::handleClient(const std::shared_ptr<IPv4SslSocket> &client)
       return;
     }
 
+    Logger::info("SslServer: Sending " + getLegoMessageCodeName(LEGO_RESPONSE));
     client->sslWrite(figureSslController.getFigureByName(request.substr(2)));
   } catch (exception &e) {
     Logger::error("SslServer: Client error: ", e);

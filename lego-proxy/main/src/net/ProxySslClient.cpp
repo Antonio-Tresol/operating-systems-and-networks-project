@@ -12,6 +12,7 @@ using std::string;
 
 string ProxySslClient::legoRequest(const std::string &host,
                                    const std::string &resource) const {
+    Logger::info("SslClient: Sending " + getLegoMessageCodeName(LEGO_REQUEST));
   try {
     // IPv4SslSocket socket{};
 
@@ -28,7 +29,6 @@ string ProxySslClient::legoRequest(const std::string &host,
     client->InitSSL();
     const char* hostc = host.c_str();
     client->SSLConnect(hostc, PORT);
-    Logger::info("SslClient: Redirecting request for: " + resource);
 
     client->SSLWrite(request.data(), request.size());
     char buf[4096];

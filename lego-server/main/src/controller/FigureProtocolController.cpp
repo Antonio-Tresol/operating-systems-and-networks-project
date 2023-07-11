@@ -15,7 +15,6 @@ FigureProtocolController::FigureProtocolController(
     : figureHtmlRepository(figureHtmlRepository) {}
 
 FigureProtocolController::~FigureProtocolController() {
-  Logger::info("FigureProtocolController ended, sending release.");
   protocolClient.release();
 }
 
@@ -28,20 +27,4 @@ void FigureProtocolController::handle(int code, std::string ip,
 
 void FigureProtocolController::presentBcast() {
   protocolClient.presentBcast(figureHtmlRepository.getAvailableFigures());
-}
-
-std::filesystem::path FigureProtocolController::getResourcePath() {
-  // std::filesystem::path currentFilePath(__FILE__);
-  // std::filesystem::path rootPath = currentFilePath.parent_path();
-  // std::filesystem::path resRootPath = (rootPath.parent_path()).parent_path();
-  // resRootPath = resRootPath.parent_path();
-  // std::filesystem::path resourcePath = resRootPath / "res";
-  // return resourcePath;
-
-  std::filesystem::path currentFilePath(std::filesystem::current_path());
-
-  std::filesystem::path rootPath = currentFilePath.parent_path();
-  std::filesystem::path resRootPath = (rootPath.parent_path()).parent_path();
-  std::filesystem::path resourcePath = resRootPath / "res";
-  return resourcePath;
 }

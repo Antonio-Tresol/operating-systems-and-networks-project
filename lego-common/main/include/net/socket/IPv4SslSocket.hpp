@@ -124,6 +124,8 @@ public:
 
     [[nodiscard]] std::string getCerts() const;
 
+    void close();
+
     int getSocketFD() const;
 
 private:
