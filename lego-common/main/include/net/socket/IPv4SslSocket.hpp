@@ -34,7 +34,7 @@ public:
     /**
      * Client constructor.
      */
-    IPv4SslSocket() = default;
+    IPv4SslSocket();
 
     /**
      * Listener Constructor.

@@ -5,7 +5,7 @@ using std::string;
 string ProxyHttpsController::getFigureByName(const string &name) {
   // check if figure is in routing table
   int ipCount{proxyRoutingTable.sizeIPList(name)};
-  if (-1 == ipCount) {
+  if (1 > ipCount) {
     // if it is not in routing table, return empty string
     return "";
   }

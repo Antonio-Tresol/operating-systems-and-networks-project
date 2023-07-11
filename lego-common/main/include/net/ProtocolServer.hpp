@@ -54,7 +54,7 @@ private:
      *
      * @param message Message to handle.
      */
-    void handleRequest(std::string message) const;
+    void handleRequest(std::string message, int worker_pos) const;
 
     bool checkHost(std::string message) const;
 
@@ -70,7 +70,7 @@ private:
      * @brief Keeps listening for messages.
      *
      */
-    void keepListening() const;
+    void keepListening(int worker_pos) const;
 
     IPv4UdpSocket receiverSocket;
     ProtocolController& protocolController;

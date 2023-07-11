@@ -7,13 +7,10 @@
 #include <csignal>
 #include <string>
 
-#include "../../../lego-common/main/include/logging/Logger.hpp"
-#include "../../../lego-common/main/include/net/ProtocolServer.hpp"
-// #include "../include/controller/ProxyHttpsController.hpp"
-#include "../include/controller/ProxyProtocolController.hpp"
-#include "../include/controller/ProxyRoutingTable.hpp"
-#include "../include/net/ProxyHttpsServer.hpp"
-#include "../include/net/ProxySslClient.hpp"
+#include "./logging/Logger.hpp"
+#include "./net/ProtocolServer.hpp"
+#include "./controller/ProxyProtocolController.hpp"
+#include "./net/ProxyHttpsServer.hpp"
 
 using std::exception;
 using std::invalid_argument;
@@ -51,6 +48,7 @@ int main(int argc, char *argv[]) {
         signalHandle();
 
         protocolServer.start();
+        sleep(1);
         httpsServer.start();
     } catch (exception const &e) {
         Logger::error("Server has crashed.", e);

@@ -28,8 +28,6 @@ IPv4UdpSocket::IPv4UdpSocket(int port) : socketFD(socket(AF_INET, SOCK_DGRAM, UD
 
         throw runtime_error(appendErr("IPv4UdpSocket::IPv4UdpSocket: Failed to set broadcast: "));
     }
-
-    bind();
 }
 
 IPv4UdpSocket::~IPv4UdpSocket() { close(socketFD); }

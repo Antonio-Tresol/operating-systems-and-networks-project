@@ -23,7 +23,7 @@ public:
 private:
     static bool validateRequest(const std::string &request);
 
-    void handleClient(const std::shared_ptr<IPv4SslSocket> &client) override;
+    void handleClient(const std::shared_ptr<IPv4SslSocket> &client, int worker_pos) override;
 
     FigureSslController figureSslController;
 };

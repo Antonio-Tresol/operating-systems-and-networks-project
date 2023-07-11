@@ -22,9 +22,11 @@ void ProxyProtocolController::handle(int code, string ip, string body) {
         std::istringstream iss(extractedBody);
         string token;
         while (std::getline(iss, token, SEPARATOR)) {
+            Logger::info("ProtocolController: Adding entry:\n\t Figure: " + token + "\n\t IP: " + ip);
             proxyRoutingTable.insertFigure(token, ip);
         }
     } else if (code == LEGO_RELEASE) {
+        Logger::info("ProtocolController: Erasing IP address: " + ip);
         proxyRoutingTable.eraseIP(ip);
     }
 }

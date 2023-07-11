@@ -9,14 +9,7 @@ ProxyRoutingTable &ProxyRoutingTable::getInstance() {
 
 void ProxyRoutingTable::insertFigure(const std::string &figure, const std::string &ip) {
     std::lock_guard<std::mutex> lock(mutex);
-
-    auto it = routingTable.find(figure);
-    if (it != routingTable.end()) {
-        it->second.push_back(ip);
-    } else {
-        std::vector<std::string> ipList = {ip};
-        routingTable.insert({figure, ipList});
-    }
+    routingTable[figure].push_back(ip);
 }
 
 void ProxyRoutingTable::eraseIP(const std::string &ip) {
@@ -62,12 +55,7 @@ std::string ProxyRoutingTable::getIP(const std::string &figure) {
 
 int ProxyRoutingTable::sizeIPList(const std::string &figure) {
     std::lock_guard<std::mutex> lock(mutex);
-
-    auto it = routingTable.find(figure);
-    if (it != routingTable.end()) {
-        return it->second.size();
-    }
-    return -1;
+    return routingTable[figure].size();
 }
 
 std::string ProxyRoutingTable::getNthIP(const std::string &figure, int n) {

@@ -10,13 +10,13 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 
 ProtocolClient::ProtocolClient(int port) : port(port), protocolClientSocket(port) {}
 
 void ProtocolClient::discover() {
-    std::string code{static_cast<char>(LEGO_DISCOVER)};
-    std::string sep{SEPARATOR};
-    std::string message = code + sep + this->getCurrentIP() + ":" + std::to_string(port);
+    std::string code{std::to_string(static_cast<int>(LEGO_DISCOVER))};
+    std::string message = code + SEPARATOR + this->getCurrentIP() + ":" + std::to_string(port);
 
     for (int i{0}; i < 7; ++i) {
         int broadcastAddrSuffix{BROADCAST_ADDR_START + BROADCAST_ADDR_INCREMENT * i};
@@ -25,7 +25,7 @@ void ProtocolClient::discover() {
         this->protocolClientSocket.send(message, broadcastAddr);
     }
 
-    this->protocolClientSocket.send(message, "");
+    this->protocolClientSocket.send(message, "255.255.255.255");
 }
 
 void ProtocolClient::presentBcast(const std::vector<std::string> &figures) {
@@ -35,14 +35,15 @@ void ProtocolClient::presentBcast(const std::vector<std::string> &figures) {
 
         present(broadcastAddr, figures);
     }
+
+    present("255.255.255.255", figures);
 }
 
 void ProtocolClient::present(const std::string &ipAddress, const std::vector<std::string> &figures) {
-    std::string code{static_cast<char>(LEGO_PRESENT)};
-    std::string sep{SEPARATOR};
-    std::string message = code + sep + this->getCurrentIP() + ":" + std::to_string(port) + sep;
+    std::string code{std::to_string(static_cast<int>(LEGO_PRESENT))};
+    std::string message = code + SEPARATOR + this->getCurrentIP() + ":" + std::to_string(port);
     for (const std::string &figure: figures) {
-        message += figure + sep;
+        message += SEPARATOR + figure;
     }
     this->protocolClientSocket.send(message, ipAddress);
 }
@@ -77,6 +78,11 @@ std::string ProtocolClient::getCurrentIP() {
     // Erase any newline characters from the ip
     ip.erase(std::remove(ip.begin(), ip.end(), '\n'), ip.end());
     ip.erase(std::remove(ip.begin(), ip.end(), '\r'), ip.end());
-    return ip;
+
+    std::istringstream iss(ip);
+    std::string output;
+    std::getline(iss, output, ' ');
+
+    return output;
 }
 

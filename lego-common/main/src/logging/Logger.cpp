@@ -10,9 +10,12 @@ using std::endl;
 using std::exception;
 using std::filesystem::remove_all;
 using std::filesystem::create_directory;
+using std::mutex;
 using std::ofstream;
 using std::rethrow_if_nested;
 using std::string;
+
+mutex Logger::mtx{};
 
 ofstream Logger::file{};
 
@@ -21,14 +24,17 @@ high_resolution_clock::time_point Logger::start{
 };
 
 void Logger::print(const string &message) {
+    std::lock_guard<std::mutex> lock(mtx);
     cout << "[" << duration() << " ms]" << "[INFO]: " << message << endl;
 }
 
 void Logger::info(const string &message) {
+    std::lock_guard<std::mutex> lock(mtx);
     cout << "[" << duration() << " ms]" << "[INFO]: " << message << endl;
 }
 
 void Logger::error(const string &message) {
+    std::lock_guard<std::mutex> lock(mtx);
     cout << "[" << duration() << " ms]" << "[ERROR]: " << message << endl;
 }
 

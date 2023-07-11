@@ -31,6 +31,13 @@ using std::runtime_error;
 using std::shared_ptr;
 using std::string;
 
+IPv4SslSocket::IPv4SslSocket() : socketFD(socket(AF_INET, SOCK_STREAM, TCP_ID)) {
+    if (-1 == socketFD) {
+        throw runtime_error(appendErr(
+                "IPv4SslSocket::IPv4SslSocket: Failed to create socket: "));
+    }
+}
+
 IPv4SslSocket::IPv4SslSocket(const string &certFileName,
                              const string &keyFileName)
     : socketFD(socket(AF_INET, SOCK_STREAM, TCP_ID)),
@@ -242,10 +249,10 @@ void IPv4SslSocket::tcpConnect(const std::string &host, int port) const {
 
     if (status == 0) {
         throw runtime_error(
-                appendErr("Ipv4SslSocket::Connect: Invalid IPv4 address"));
+                appendErr("Ipv4SslSocket::Connect: Invalid IPv4 address: "));
     } else if (status == -1) {
         throw runtime_error(
-                appendErr("Ipv4SslSocket::Connect: Error converting IPv4 address"));
+                appendErr("Ipv4SslSocket::Connect: Error converting IPv4 address: "));
     }
 
     hostIpv4.sin_port = htons(port);
@@ -257,7 +264,7 @@ void IPv4SslSocket::tcpConnect(const std::string &host, int port) const {
     status = Sys::connect(socketFD, hostIpv4Ptr, hostIpv4Len);
     if (status == -1) {
         throw runtime_error(
-                appendErr("Ipv4SslSocket::Connect: Invalid IPv4 address"));
+                appendErr("Ipv4SslSocket::Connect: Invalid IPv4 address: "));
     }
 }
 

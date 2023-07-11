@@ -19,14 +19,13 @@ using std::vector;
 using Row = std::pair<std::string, int>;
 using std::string;
 
-void ProxyHttpsServer::handleClient(
-    const std::shared_ptr<IPv4SslSocket> &client) {
+void ProxyHttpsServer::handleClient(const std::shared_ptr<IPv4SslSocket> &client, int worker_pos) {
   try {
     string request{client->sslRead()};
-    Logger::info("Received request: " + request);
+    Logger::info("HttpsServer: Received request on worker " + std::to_string(worker_pos));
     serveFigure(client, request);
   } catch (const std::exception &e) {
-    Logger::error("Error reading from client: " + string{e.what()});
+    Logger::error("HttpsServer: Error reading from client: " + string{e.what()});
   }
 }
 
@@ -128,9 +127,9 @@ void ProxyHttpsServer::serveFigure(const shared_ptr<IPv4SslSocket> &client,
     string url{parsedRequest["Request-Line"]["URL"]};
     // check if the url is valid
     if (!validateUrlFormat(url)) {
-      Logger::info("Client request: \n" + request);
+      Logger::info("HttpsServer: Client request: " + request);
       Logger::info(
-          "Sending 404 response to client (caused by invalid URL "
+          "HttpsServer: Sending 404 response to client (caused by invalid URL "
           "Format): " +
           to_string(client->getSocketFD()));
       sendHttpsResponse(client, 404, "");
@@ -141,22 +140,22 @@ void ProxyHttpsServer::serveFigure(const shared_ptr<IPv4SslSocket> &client,
     // prepare the headers
     map<string, string> headers{parsedRequest["Headers"]};
     if (body.empty()) {  // if the body is empty, send a 404 response
-      Logger::info("Client request: \n" + request);
+      Logger::info("HttpsServer: Client request: " + request);
       Logger::info(
-          "Sending 404 response to client (caused by FigureNotFound): " +
+          "HttpsServer: Sending 404 response to client (caused by FigureNotFound): " +
           to_string(client->getSocketFD()));
       sendHttpsResponse(client, 404, body);
     } else {  // if the body is not empty, send the figure and 200 response
-      Logger::info("Client request: \n" + request);
-      Logger::info("Sending response to client: " +
+      Logger::info("HttpsServer: Client request: " + request);
+      Logger::info("HttpsServer: Sending response to client: " +
                    to_string(client->getSocketFD()));
       sendHttpsResponse(client, 200, body);
     }
   } catch (exception &e) {
-    Logger::error("Client error: ", e);
-    Logger::error("Dropping client");
+    Logger::error("HttpsServer: Client error: ", e);
+    Logger::error("HttpsServer: Dropping client");
   }
-  Logger::info("Handled connection with socket: " +
+  Logger::info("HttpsServer: Handled connection with socket: " +
                to_string(client->getSocketFD()));
   return;
 }

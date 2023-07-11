@@ -33,10 +33,12 @@ class SslServer {
   Queue<std::shared_ptr<IPv4SslSocket>> clientQueue{};
   std::vector<Worker> workers{};
 
-  virtual void handleClient(const std::shared_ptr<IPv4SslSocket>& client) = 0;
+  virtual void handleClient(const std::shared_ptr<IPv4SslSocket> &client, int worker_pos) = 0;
 
  private:
-  void handleRequests();
+  void handleRequests(int worker_pos);
+
+  std::string getCurrentIP();
 };
 
 #endif  // PI_REDES_SISTEMAS_OPERATIVOS_SSLSERVER_HPP

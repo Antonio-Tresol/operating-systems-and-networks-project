@@ -5,6 +5,7 @@
 // <geancarlo.riverahernandez@ucr.ac.cr>.
 
 #include "../../include/net/ProtocolServer.hpp"
+#include "logging/Logger.hpp"
 #include <arpa/inet.h>
 
 #define RESPOND_ERROR -2
@@ -13,14 +14,16 @@
 ProtocolServer::ProtocolServer(int port, ProtocolController &protocolController) : receiverSocket(port),
                                                                                    protocolController(
                                                                                            protocolController),
-                                                                                   keepListeningFlag(true) {}
+                                                                                   keepListeningFlag(true) {
+    receiverSocket.bind();
+}
 
 
 ProtocolServer::~ProtocolServer() {
     stop();
 }
 
-void ProtocolServer::keepListening() const {
+void ProtocolServer::keepListening(int worker_pos) const {
     // Loop for listening (receiving)
     while (keepListeningFlag) {
 //        POSIX defines send/recv as atomic operations, so assuming you're talking about POSIX send/recv then yes, you
@@ -37,7 +40,8 @@ void ProtocolServer::keepListening() const {
 //        difference between blocking and non-blocking is not useful.
 //        https://stackoverflow.com/questions/1981372/are-parallel-calls-to-send-recv-on-the-same-socket-valid
         std::string message = this->receiverSocket.receive();
-        this->handleRequest(message);
+        Logger::info("ProtocolServer: Received message on worker " + std::to_string(worker_pos));
+        this->handleRequest(message, worker_pos);
     }
 }
 
@@ -45,6 +49,10 @@ void ProtocolServer::keepListening() const {
 int ProtocolServer::validateMessage(std::string message) const {
     // - being the separator
     //0-host:port-figura-figura2...
+    if(message.size() < 2) {
+        return -1;
+    }
+
     // Get the code of the message
     int code = atoi(&message[0]);
 
@@ -64,12 +72,17 @@ int ProtocolServer::validateMessage(std::string message) const {
     }
 }
 
-void ProtocolServer::handleRequest(std::string message) const {
+void ProtocolServer::handleRequest(std::string message, int worker_pos) const {
     // Calls analyzeMessage and depending on the response calls respond.
     int code = this->validateMessage(message);
     if (code == -1) {
+        Logger::info("ProtocolServer: Invalid message on worker " + std::to_string(worker_pos));
         return;
     }
+
+    std::string messageType{getLegoMessageCodeName(code)};
+
+    Logger::info("ProtocolServer: Handling " + messageType + " on worker " + std::to_string(worker_pos));
 
     protocolController.handle(code, getIP(message), message);
 }
@@ -100,8 +113,9 @@ std::string ProtocolServer::getIP(std::string message) const {
 void ProtocolServer::start() {
     // Create 7 threads and call them to execute keepListening.
     for (int i{0}; i < THREAD_AMOUNT; i++) {
-        this->workers.emplace_back(&ProtocolServer::keepListening, this);
+        this->workers.emplace_back(&ProtocolServer::keepListening, this, i);
     }
+    Logger::info("ProtocolServer: Listening");
 }
 
 void ProtocolServer::stop() {

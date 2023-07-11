@@ -17,32 +17,8 @@ FigureProtocolController::~FigureProtocolController() {
 }
 
 void FigureProtocolController::handle(int code, std::string ip, std::string body) {
-  /* 
-  Aqui solo me puede llegar un discover (debo enviar mis piezas), porque soy el servidor de piezas como tal,
-  yo no handleo present, request, response, release (cuando se mata el servidor),
-  ni error (ssl).
-  */
-//  if (code == LEGO_DISCOVER) {
-//    auto itr = availableFigures.begin();
-//    string figures = "";
-//   while (itr != availableFigures.end()) {
-//     figures += itr->first + SEPARATOR;
-//     itr++;
-//   }
-//   const string ipSend = ip;
-//   protocolClient.present((&ipSend), this->availableFigures->second);
-//  } 
   if (code == LEGO_DISCOVER) {
-    // auto itr = availableFigures.begin();
-    // std::vector<std::string> figures;
-    // while (itr != availableFigures.end()) {
-    //   figures.push_back(itr->first);
-    //   itr++;
-    // }
-    
-
     protocolClient.present(ip, figureHtmlRepository.getAvailableFigures());
-    
   } 
 
 }

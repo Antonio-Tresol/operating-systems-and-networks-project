@@ -11,7 +11,7 @@ class ProxyHttpsServer : public SslServer {
    * Receive a client to handle. This client is a socket that has already
    * ben ssl accepted.
    */
-  void handleClient(const std::shared_ptr<IPv4SslSocket> &client) override;
+  void handleClient(const std::shared_ptr<IPv4SslSocket> &client, int worker_pos) override;
 
  private:
   ProxyHttpsController proxyHttpsController;

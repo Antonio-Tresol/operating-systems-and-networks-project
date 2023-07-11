@@ -1,6 +1,8 @@
 #pragma once
 
 #include <errno.h>  // For Error Codes
+#include <string>
+#include <stdexcept>
 
 /*---------------------------Broadcast Address--------------------------------*/
 
@@ -38,9 +40,23 @@
  * 
  */
 enum LegoMessageCode {
-  LEGO_DISCOVER,  /**< LEGO_DISCOVER type */
+  LEGO_DISCOVER = 0,  /**< LEGO_DISCOVER type */
   LEGO_PRESENT,   /**< LEGO_PRESENT type */
   LEGO_REQUEST,   /**< LEGO_REQUEST type */
   LEGO_RESPONSE,  /**< LEGO_RESPONSE type */
   LEGO_RELEASE    /**< LEGO_RELEASE type */
 };  // LegoMessageCode
+
+inline std::string getLegoMessageCodeName(int code) {
+    if (code < 0 || code > LEGO_RELEASE) {
+        throw std::out_of_range("Invalid code");
+    }
+    switch(static_cast<LegoMessageCode>(code)) {
+        case LEGO_DISCOVER: return "LEGO_DISCOVER";
+        case LEGO_PRESENT: return "LEGO_PRESENT";
+        case LEGO_REQUEST: return "LEGO_REQUEST";
+        case LEGO_RESPONSE: return "LEGO_RESPONSE";
+        case LEGO_RELEASE: return "LEGO_RELEASE";
+        default: throw std::out_of_range("Invalid LegoMessageCode");
+    }
+}
