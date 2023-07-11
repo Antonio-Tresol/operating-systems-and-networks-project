@@ -44,6 +44,7 @@ class IPv4UdpSocket {
    * @return message received
    */
   std::string receive() const;
+  void close() const;
 
  private:
   static constexpr int NONE{0};

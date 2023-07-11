@@ -125,6 +125,7 @@ void ProtocolServer::start() {
 
 void ProtocolServer::stop() {
   this->keepListeningFlag = false;
+  receiverSocket.close();
   for (auto &worker : workers) {
     worker.join();
   }
