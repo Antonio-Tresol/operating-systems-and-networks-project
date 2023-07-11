@@ -1,6 +1,5 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.24)
 project(lego-proxy)
-find_package(OpenSSL REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_BUILD_TYPE Debug)
@@ -12,7 +11,7 @@ set(INCLUDE_DIR ${MAIN_DIR}/include)
 file(GLOB_RECURSE TARGET_SOURCES "${SOURCES_DIR}/*.cpp")
 
 include_directories(${INCLUDE_DIR})
-link_libraries(OpenSSL::SSL OpenSSL::Crypto)
+link_libraries(OpenSSL::SSL OpenSSL::Crypto Threads::Threads)
 
 set(DEFAULT_TARGET ${PROJECT_NAME})
 

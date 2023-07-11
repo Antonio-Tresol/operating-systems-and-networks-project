@@ -14,22 +14,3 @@ class ProtocolController {
  public:
   virtual void handle(int code, std::string ip, std::string body) = 0;
 };
-
-// TODO: Implementar estos m[etodos en la subclase apropiada
-
-/**
-   * @brief When a LEGO_PRESENT message is received, this function extracts the
-   * figures from the message.
-   *
-   * @param message Raw message from socket.
-   * @return std::string Figures
-   */
-// std::string extractFigures(std::string message) const;
-
-// std::string ProtocolServer::extractFigures(std::string message) const {
-//    int index = findNthOccurrence(message, SEPARATOR, 2);
-//    if (index == -1) {
-//        return "";
-//    }
-//    return message.substr(index + 1);
-//}

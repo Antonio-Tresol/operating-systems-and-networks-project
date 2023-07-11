@@ -4,7 +4,7 @@ using std::string;
 
 string ProxyHttpsController::getFigureByName(const string &name) {
   // check if figure is in routing table
-  int ipCount{proxyRoutingTable->sizeIPList(name)};
+  int ipCount{proxyRoutingTable.sizeIPList(name)};
   if (-1 == ipCount) {
     // if it is not in routing table, return empty string
     return "";
@@ -14,7 +14,7 @@ string ProxyHttpsController::getFigureByName(const string &name) {
   int attempts{0};
   int const maxAttempts{3};
   int hostIndex{0};
-  string host{proxyRoutingTable->getNthIP(name, hostIndex)};
+  string host{proxyRoutingTable.getNthIP(name, hostIndex)};
 
   while (hostIndex < ipCount) {
     try {
@@ -25,17 +25,17 @@ string ProxyHttpsController::getFigureByName(const string &name) {
     } catch (std::exception const &e) {
       if (std::string(e.what()) == "ECONNREFUSED" || attempts == maxAttempts) {
         // on econnrefused or after maxAttempts, we will erase the host
-        proxyRoutingTable->eraseIP(host);
+        proxyRoutingTable.eraseIP(host);
 
         // update IP count
-        ipCount = proxyRoutingTable->sizeIPList(name);
+        ipCount = proxyRoutingTable.sizeIPList(name);
 
         // reset attempts
         attempts = 0;
 
         // and get the next host if we are still within bounds
         if (hostIndex < ipCount) {
-          host = proxyRoutingTable->getNthIP(name, hostIndex);
+          host = proxyRoutingTable.getNthIP(name, hostIndex);
         }
 
       } else {

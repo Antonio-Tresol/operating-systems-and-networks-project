@@ -11,6 +11,11 @@ using std::string;
 FigureProtocolController::FigureProtocolController(FigureHtmlRepository &figureHtmlRepository) :
         figureHtmlRepository(figureHtmlRepository) {}
 
+
+FigureProtocolController::~FigureProtocolController() {
+    protocolClient.release();
+}
+
 void FigureProtocolController::handle(int code, std::string ip, std::string body) {
   /* 
   Aqui solo me puede llegar un discover (debo enviar mis piezas), porque soy el servidor de piezas como tal,

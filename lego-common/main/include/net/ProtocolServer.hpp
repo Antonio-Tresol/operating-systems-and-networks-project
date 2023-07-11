@@ -18,7 +18,7 @@ public:
     // Constructor and destructor.
     explicit ProtocolServer(int port, ProtocolController& protocolController);
 
-    ~ProtocolServer() = default;
+    ~ProtocolServer();
 
     /**
      * @brief Starts the server (including the 7 threads).

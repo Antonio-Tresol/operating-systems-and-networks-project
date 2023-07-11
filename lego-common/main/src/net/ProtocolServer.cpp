@@ -15,6 +15,11 @@ ProtocolServer::ProtocolServer(int port, ProtocolController &protocolController)
                                                                                            protocolController),
                                                                                    keepListeningFlag(true) {}
 
+
+ProtocolServer::~ProtocolServer() {
+    stop();
+}
+
 void ProtocolServer::keepListening() const {
     // Loop for listening (receiving)
     while (keepListeningFlag) {

@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
 
         signalHandle();
 
+        protocolServer.start();
         sslServer.start();
     } catch (exception const &e) {
         Logger::error("Server has crashed.", e);
