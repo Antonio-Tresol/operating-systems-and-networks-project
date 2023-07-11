@@ -64,6 +64,13 @@ class Socket {
         bool ipv6;
         void * SSLContext;	// SSL context
 	      void * SSLStruct;	// SSL BIO basis input output
+
+    int socketFD;
+    fd_set read_fds{};
+    struct timeval timeout{
+            5, 0
+    };
+    bool isReadReady();
 };
 
 #endif

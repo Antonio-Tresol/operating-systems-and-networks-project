@@ -16,19 +16,18 @@ FigureSslServer::FigureSslServer(int32_t numWorkers,
     : SslServer(numWorkers, certPath, port),
       figureSslController(figureHtmlRepository) {}
 
-void FigureSslServer::handleClient(const std::shared_ptr<IPv4SslSocket> &client,
-                                   int worker_pos) {
+void FigureSslServer::handleClient(const std::shared_ptr<IPv4SslSocket> &client) {
   string request{client->sslRead()};
-  Logger::info("SslServer: Received request on worker " +
-               std::to_string(worker_pos));
+  Logger::info("SslServer: Received request on socket " +
+               std::to_string(client->getSocketFD()));
 
   try {
     // check if the request is valid
     if (!validateRequest(request)) {
       Logger::info("SslServer: Client request: " + request);
       Logger::info(
-          "SslServer: Sending emtpy response to client (caused by invalid URL "
-          "Format): " +
+          "SslServer: Sending empty response to client (caused by invalid URL "
+          "Format) on socket " +
           to_string(client->getSocketFD()));
       client->sslWrite("");
       return;
@@ -39,8 +38,8 @@ void FigureSslServer::handleClient(const std::shared_ptr<IPv4SslSocket> &client,
     Logger::error("SslServer: Client error: ", e);
     Logger::error("SslServer: Dropping client");
   }
-  Logger::info("SslServer: Handled connection with socket: " +
-               to_string(client->getSocketFD()));
+  Logger::info("SslServer: Handled connection on socket " +
+               std::to_string(client->getSocketFD()));
 }
 
 bool FigureSslServer::validateRequest(const string &request) {

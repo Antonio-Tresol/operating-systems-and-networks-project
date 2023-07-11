@@ -28,15 +28,15 @@ string ProxySslClient::legoRequest(const std::string &host,
     client->InitSSL();
     const char* hostc = host.c_str();
     client->SSLConnect(hostc, PORT);
-    Logger::info("Sending request: " + request);
+    Logger::info("SslClient: Redirecting request for: " + resource);
 
     client->SSLWrite(request.data(), request.size());
-    char buf[1024];
+    char buf[4096];
     int bytes = client->SSLRead(buf, sizeof(buf));
     buf[bytes] = '\0';
     string response = string(buf);
     return response;
   } catch (exception const &e) {
-    throw_with_nested(runtime_error("Failed to GET from: " + resource));
+    throw_with_nested(runtime_error("Failed to GET from: /" + resource));
   }
 }

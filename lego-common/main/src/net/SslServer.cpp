@@ -37,8 +37,7 @@ void SslServer::start() {
     while (true) {
         try {
             auto client{listener.accept()};
-            Logger::info("SslServer: Accepted connection with socket: " +
-                         to_string(client->getSocketFD()));
+            Logger::info("SslServer: Accepted connection");
             this->clientQueue.enqueue(client);
         } catch (exception &e) {
             Logger::error("SslServer: Listener error: ", e);
@@ -69,7 +68,7 @@ void SslServer::handleRequests(int worker_pos) {
             Logger::error("SslServer: Dropping client");
             continue;
         }
-        handleClient(client, worker_pos);
+        handleClient(client);
     }
 }
 
