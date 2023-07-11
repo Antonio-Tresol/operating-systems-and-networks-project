@@ -478,7 +478,7 @@ int Socket::SSLRead( void * buffer, int size ) {
   // return st;
   int st = SSL_read( (SSL *) this->SSLStruct, buffer, size );
   if (st <= 0) {
-    std::cerr << "Error reading SSL socket" << std::endl;
+    std::cerr << "SSLRead::Error reading SSL socket" << std::endl;
     exit(2);
   }
   return st;

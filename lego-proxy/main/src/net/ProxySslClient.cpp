@@ -18,6 +18,7 @@ string ProxySslClient::legoRequest(const std::string &host,
     // socket.sslConnect(host, PORT);
 
     const string request{std::to_string(CODE) + SEP + resource};
+    // const string request{resource};
     // Logger::info("Sending request: " + request);
     // socket.sslWrite(request);
     // string response{socket.sslRead()};
@@ -27,6 +28,8 @@ string ProxySslClient::legoRequest(const std::string &host,
     client->InitSSL();
     const char* hostc = host.c_str();
     client->SSLConnect(hostc, PORT);
+    Logger::info("Sending request: " + request);
+
     client->SSLWrite(request.data(), request.size());
     char buf[1024];
     int bytes = client->SSLRead(buf, sizeof(buf));

@@ -34,7 +34,7 @@ void FigureSslServer::handleClient(const std::shared_ptr<IPv4SslSocket> &client,
       return;
     }
 
-    client->sslWrite(figureSslController.getFigureByName(request));
+    client->sslWrite(figureSslController.getFigureByName(request.substr(2)));
   } catch (exception &e) {
     Logger::error("SslServer: Client error: ", e);
     Logger::error("SslServer: Dropping client");
@@ -44,6 +44,6 @@ void FigureSslServer::handleClient(const std::shared_ptr<IPv4SslSocket> &client,
 }
 
 bool FigureSslServer::validateRequest(const string &request) {
-  regex requestFormat{R"(w+$)"};
+  regex requestFormat{R"(\d\x1D\w+)"};
   return std::regex_match(request, requestFormat);
 }
