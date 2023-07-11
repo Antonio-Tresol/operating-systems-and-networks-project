@@ -7,13 +7,17 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 #include "./net/SslServer.hpp"
 #include "../controller/FigureSslController.hpp"
 
 class FigureSslServer : SslServer {
 public:
-    using SslServer::SslServer;
+    FigureSslServer() = delete;
+
+    FigureSslServer(int32_t numWorkers, const std::string& certPath,
+                    int32_t port, FigureHtmlRepository& figureHtmlRepository);
 
     using SslServer::start;
 private:
@@ -21,5 +25,5 @@ private:
 
     void handleClient(const std::shared_ptr<IPv4SslSocket> &client) override;
 
-    FigureSslController figureSslController{};
+    FigureSslController figureSslController;
 };

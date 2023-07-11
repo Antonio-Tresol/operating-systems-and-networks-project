@@ -2,6 +2,12 @@
 
 #include <errno.h>  // For Error Codes
 
+/*---------------------------Broadcast Address--------------------------------*/
+
+#define BROADCAST_ADDR_PREFIX "172.16.123."
+#define BROADCAST_ADDR_INCREMENT 16
+#define BROADCAST_ADDR_START 15
+
 /*---------------------------------Ports--------------------------------------*/
 
 #define INTERMEDIARY_UDP_PORT 3141  /**< Intermediary Server UDP Port */

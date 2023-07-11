@@ -16,6 +16,16 @@ class ProtocolController {
 };
 
 // TODO: Implementar estos m[etodos en la subclase apropiada
+
+/**
+   * @brief When a LEGO_PRESENT message is received, this function extracts the
+   * figures from the message.
+   *
+   * @param message Raw message from socket.
+   * @return std::string Figures
+   */
+// std::string extractFigures(std::string message) const;
+
 // std::string ProtocolServer::extractFigures(std::string message) const {
 //    int index = findNthOccurrence(message, SEPARATOR, 2);
 //    if (index == -1) {
@@ -23,17 +33,3 @@ class ProtocolController {
 //    }
 //    return message.substr(index + 1);
 //}
-
-// int ProtocolServer::findNthOccurrence(const std::string& str, char c, int n)
-// const {
-//     int count = 0;
-//     for (int i = 0; i < str.length(); i++) {
-//         if (str[i] == c) {
-//             count++;
-//             if (count == n) {
-//                 return i;
-//             }
-//         }
-//     }
-//     return -1;  // Character not found or nth occurrence not found
-// }

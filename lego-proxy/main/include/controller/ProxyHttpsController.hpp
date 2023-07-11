@@ -11,7 +11,8 @@
 
 class ProxyHttpsController {
  public:
-  ProxyHttpsController() {};
+  ProxyHttpsController() = default;
+
   ~ProxyHttpsController() = default;
   /**
    * @brief Get the Figure By Name object
@@ -20,12 +21,10 @@ class ProxyHttpsController {
    * @return string with the figure in html format
    */
   std::string getFigureByName(const std::string& name);
-  void setRoutingTable(ProxyRoutingTable* proxyRoutingTable) {
-    this->proxyRoutingTable = proxyRoutingTable;
-  }
 
  private:
   // instancia routing table
   ProxySslClient proxySslClient{};
-  ProxyRoutingTable* proxyRoutingTable;
+
+  ProxyRoutingTable& proxyRoutingTable{ProxyRoutingTable::getInstance()};
 };

@@ -67,29 +67,10 @@ private:
     std::string getIP(std::string message) const;
 
     /**
-     * @brief When a LEGO_PRESENT message is received, this function extracts the
-     * figures from the message.
-     *
-     * @param message Raw message from socket.
-     * @return std::string Figures
-     */
-    std::string extractFigures(std::string message) const;
-
-    /**
      * @brief Keeps listening for messages.
      *
      */
     void keepListening() const;
-
-    /**
-     * @brief Finds the nth occurrence of a character in a string.
-     *
-     * @param str String to search in.
-     * @param c Character to search for.
-     * @param n Nth occurrence.
-     * @return int Position of the nth occurrence.
-     */
-    int findNthOccurrence(const std::string &str, char c, int n) const;
 
     IPv4UdpSocket receiverSocket;
     ProtocolController& protocolController;

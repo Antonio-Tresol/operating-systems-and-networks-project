@@ -5,13 +5,11 @@
 // <geancarlo.riverahernandez@ucr.ac.cr>.
 
 #include "../../include/net/ProtocolServer.hpp"
-#include "../../include/net/ProtocolHeader.hpp"
 #include <arpa/inet.h>
 
 #define RESPOND_ERROR -2
 #define THREAD_AMOUNT 7
 
-// TODO: Agregar ProtocolController como dependencia
 ProtocolServer::ProtocolServer(int port, ProtocolController &protocolController) : receiverSocket(port),
                                                                                    protocolController(
                                                                                            protocolController),
@@ -20,7 +18,20 @@ ProtocolServer::ProtocolServer(int port, ProtocolController &protocolController)
 void ProtocolServer::keepListening() const {
     // Loop for listening (receiving)
     while (keepListeningFlag) {
-        std::string message = this->receiverSocket.receive(); // TODO: port queue thread-safe?
+//        POSIX defines send/recv as atomic operations, so assuming you're talking about POSIX send/recv then yes, you
+//        can call them simultaneously from multiple threads and things will work.
+//
+//        This doesn't necessarily mean that they'll be executed in parallel -- in the case of multiple sends, the
+//        second will likely block until the first completes. You probably won't notice this much, as a send completes
+//        once its put its data into the socket buffer.
+//
+//        If you're using SOCK_STREAM sockets, trying to do things a parallel is less likely to be useful as send/recv
+//        might send or receive only part of a message, which means things could get split up.
+//
+//        Blocking send/recv on SOCK_STREAM sockets only block until they send or recv at least 1 byte, so the
+//        difference between blocking and non-blocking is not useful.
+//        https://stackoverflow.com/questions/1981372/are-parallel-calls-to-send-recv-on-the-same-socket-valid
+        std::string message = this->receiverSocket.receive();
         this->handleRequest(message);
     }
 }
@@ -74,12 +85,11 @@ std::string ProtocolServer::getIP(std::string message) const {
     // First character doesn't matter anymore.
     std::string::size_type pos = message.find(":");
     if (pos != std::string::npos) {
-      message = message.substr(0, pos);
-    } 
+        message = message.substr(0, pos);
+    }
     return message.substr(2);
 
 }
-
 
 
 void ProtocolServer::start() {

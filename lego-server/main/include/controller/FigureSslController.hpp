@@ -15,6 +15,10 @@
  */
 class FigureSslController {
 public:
+    FigureSslController() = delete;
+
+    explicit FigureSslController(FigureHtmlRepository& figureHtmlRepository);
+
     /**
      * @brief Returns a figure's HTML by name.
      * @param name Name of figure to get.
@@ -23,5 +27,5 @@ public:
     std::string getFigureByName(const std::string &name) const;
 
 private:
-    FigureHtmlRepository figureRepository{};
+    FigureHtmlRepository& figureHtmlRepository;
 };

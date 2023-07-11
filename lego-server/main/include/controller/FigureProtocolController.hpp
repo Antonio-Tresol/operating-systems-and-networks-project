@@ -2,23 +2,28 @@
 
 #include "../../../../lego-common/main/include/controller/ProtocolController.hpp"
 #include "../../../../lego-common/main/src/net/ProtocolClient.cpp"
+#include "data/FigureHtmlRepository.hpp"
 
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <filesystem>
 
 class FigureProtocolController : public ProtocolController {
 
 public:
-  FigureProtocolController(int port);
-  ~FigureProtocolController();
+    FigureProtocolController() = delete;
 
-  void handle(int code, std::string ip, std::string body);
-  
+    explicit FigureProtocolController(FigureHtmlRepository& figureHtmlRepository);
+
+    void handle(int code, std::string ip, std::string body) override;
+
+    void presentBcast();
+
 private:
-  std::vector<std::string> findAllHtmlFiles();
+    std::filesystem::path getResourcePath();
 
-  std::vector<std::string> availableFigures; 
-  ProtocolClient protocolClient;
+    ProtocolClient protocolClient{INTERMEDIARY_UDP_PORT};
 
+    FigureHtmlRepository& figureHtmlRepository;
 };

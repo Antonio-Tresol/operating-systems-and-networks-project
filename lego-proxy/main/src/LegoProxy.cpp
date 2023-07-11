@@ -30,39 +30,41 @@ void signalHandle();
  * @brief Entry point.
  */
 int main(int argc, char *argv[]) {
-  Logger::initialize();
+    Logger::initialize();
 
-  if (argc < 2) {
-    Logger::error("Missing certificate path.");
-    exit(1);
-  }
+    if (argc < 2) {
+        Logger::error("Missing certificate path.");
+        exit(1);
+    }
 
-  string certPath{argv[1]};
+    string certPath{argv[1]};
 
-  try {
-    ProxyRoutingTable *proxyRoutingTable = ProxyRoutingTable::getInstance();
-    ProxyHttpsServer server{2, certPath, 7777, proxyRoutingTable};
-    ProxyProtocolController* proxyProtocolController = new ProxyProtocolController{proxyRoutingTable};
-    ProtocolServer protocolServer{INTERMEDIARY_UDP_PORT, *proxyProtocolController};
-    protocolServer.start();
-    server.start();
+    try {
+        ProxyHttpsServer httpsServer{2, certPath, 7777};
 
-    signalHandle();
-    // pass start to a new thread
-    // server.start();
-  } catch (exception const &e) {
-    Logger::error("Server has crashed.", e);
-    exit(1);
-  }
+        ProxyProtocolController proxyProtocolController{};
+
+        ProtocolServer protocolServer{INTERMEDIARY_UDP_PORT, proxyProtocolController};
+
+        proxyProtocolController.discover();
+
+        signalHandle();
+
+        protocolServer.start();
+        httpsServer.start();
+    } catch (exception const &e) {
+        Logger::error("Server has crashed.", e);
+        exit(1);
+    }
 }
 
 void signalAction(int signum) {
-  Logger::info("Exiting.");
+    Logger::info("Exiting.");
 
-  exit(signum);
+    exit(signum);
 }
 
 void signalHandle() {
-  signal(SIGINT, signalAction);
-  signal(SIGTERM, signalAction);
+    signal(SIGINT, signalAction);
+    signal(SIGTERM, signalAction);
 }

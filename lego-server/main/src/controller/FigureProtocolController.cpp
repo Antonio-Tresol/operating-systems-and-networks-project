@@ -1,5 +1,6 @@
 #include "../include/controller/FigureProtocolController.hpp"
 #include "../../../../lego-common/main/include/net/ProtocolHeader.hpp"
+#include "data/FigureHtmlRepository.hpp"
 // #include "../../../../lego-common/main/src/net/ProtocolClient.cpp"
 #include <filesystem>
 
@@ -7,11 +8,8 @@ using std::vector;
 using std::string;
 // using std::filesystem;
 
-std::filesystem::path getResourcePath();
-
-FigureProtocolController::FigureProtocolController(int port) : protocolClient(port) {
-  this->availableFigures = findAllHtmlFiles();
-}
+FigureProtocolController::FigureProtocolController(FigureHtmlRepository &figureHtmlRepository) :
+        figureHtmlRepository(figureHtmlRepository) {}
 
 void FigureProtocolController::handle(int code, std::string ip, std::string body) {
   /* 
@@ -38,38 +36,23 @@ void FigureProtocolController::handle(int code, std::string ip, std::string body
     // }
     
 
-    protocolClient.present(ip, this->availableFigures);
+    protocolClient.present(ip, figureHtmlRepository.getAvailableFigures());
     
   } 
 
 }
 
-vector<string> FigureProtocolController::findAllHtmlFiles() {
-    std::vector<std::string> filenames;
-    std::string pathStr{getResourcePath().c_str()};
-
-    for (const auto &entry : std::filesystem::directory_iterator(pathStr)) {
-        if (entry.is_regular_file()) {
-            std::string filename = entry.path().filename().string();
-            if (entry.path().extension() == ".html") {
-                // Remove the extension from the filename
-                filename = filename.substr(0, filename.size() - 5);
-                filenames.push_back(filename);
-            }
-        }
-    }
-
-    return filenames;
+void FigureProtocolController::presentBcast() {
+    protocolClient.presentBcast(figureHtmlRepository.getAvailableFigures());
 }
 
-std::filesystem::path getResourcePath() {
+std::filesystem::path FigureProtocolController::getResourcePath() {
   // std::filesystem::path currentFilePath(__FILE__);
   // std::filesystem::path rootPath = currentFilePath.parent_path();
   // std::filesystem::path resRootPath = (rootPath.parent_path()).parent_path();
   // resRootPath = resRootPath.parent_path();
   // std::filesystem::path resourcePath = resRootPath / "res";
   // return resourcePath;
-
 
   std::filesystem::path currentFilePath(std::filesystem::current_path());
 

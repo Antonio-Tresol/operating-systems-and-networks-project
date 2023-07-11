@@ -8,12 +8,16 @@
 * SslServer -> FigureSslServer
 * FigureSslController
 
+[GEANCA Y ANTONIO]
+* FigureHttpsServer -> ProxyHttpsServer { ProxyHttpsController { ProxySslClient.get(host, resource) } }
+* FigureController -> ProxyHttpsController
+* ProxySslClient (subconjunto del HttpsClient)
 
 # DISEÑO
 
 lego-server:
     FigureController {
-        * void present() { ProtocolClient.present(lista) }
+        * void presentBcast() { ProtocolClient.presentBcast(lista) }
         ... etc.
     }
     ProtocolServer
@@ -48,7 +52,7 @@ lego-client:
 
 common:
     ProtocolClient {
-        * void present(lista) { Consigue la IP y la manda jejepz }
+        * void presentBcast(lista) { Consigue la IP y la manda jejepz }
     }
 
     ProtocolServer {
@@ -74,7 +78,7 @@ common:
         FigureHttpsServer::Handle() :) <- Ssl ssl = Algo ya
     }
 
-Map serverMap { ("PRESENT", &Controller::present) }
+Map serverMap { ("PRESENT", &Controller::presentBcast) }
 
 Map proxyMap { ("DISCOVER", &Controller::discover), (...), ()}
 

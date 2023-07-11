@@ -30,10 +30,6 @@ void ProxyHttpsServer::handleClient(
   }
 }
 
-void ProxyHttpsServer::handleAcceptError(const std::exception &e) {
-  Logger::error("Error accepting client: " + string{e.what()});
-}
-
 // Client interaction
 map<string, map<string, string>> ProxyHttpsServer::parseHttpRequest(
     const string &request) {

@@ -5,27 +5,17 @@
 
 class ProxyHttpsServer : public SslServer {
  public:
-  ProxyHttpsServer(int32_t numWorkers, const std::string &certPath,
-                   int32_t port, ProxyRoutingTable *proxyRoutingTable)
-      : SslServer(numWorkers, certPath, port) {
-    proxyHttpsController.setRoutingTable(proxyRoutingTable);
-  }
+  using SslServer::SslServer;
 
-  ~ProxyHttpsServer() {}
-
-  /** receive a client to handle. This client is a socket that has already
+  /**
+   * Receive a client to handle. This client is a socket that has already
    * ben ssl accepted.
-   *
    */
   void handleClient(const std::shared_ptr<IPv4SslSocket> &client) override;
 
  private:
   ProxyHttpsController proxyHttpsController;
-  /**
-   * @brief Handles an error accepting a client.
-   * @param e Exception thrown.
-   */
-  void handleAcceptError(const std::exception &e) override;
+
   /**
    * @brief Returns map of headers for a given HTTP request.
    * @param stream Remainder of HTTP stream.

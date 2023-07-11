@@ -11,6 +11,9 @@ using std::runtime_error;
 using std::string;
 using std::throw_with_nested;
 
+FigureSslController::FigureSslController(FigureHtmlRepository &figureHtmlRepository) :
+        figureHtmlRepository(figureHtmlRepository) {}
+
 /**
  * Worker for GET /figureName
  * @param name
@@ -18,10 +21,10 @@ using std::throw_with_nested;
  */
 string FigureSslController::getFigureByName(const string &name) const {
     try {
-        string figureHtml{figureRepository.findByName(name)};
+        string figureHtml{figureHtmlRepository.findByName(name)};
         return figureHtml;
     }
-    catch(invalid_argument &ia) {
+    catch (invalid_argument &ia) {
         return "";
     }
 }

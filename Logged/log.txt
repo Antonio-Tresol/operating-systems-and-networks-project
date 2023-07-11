@@ -1,2 +1,0 @@
-[0 ms][ERROR]: Invalid arguments
-Caused by: No figure name provided.

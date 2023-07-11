@@ -12,11 +12,25 @@
 
 ProtocolClient::ProtocolClient(int port) : port(port), protocolClientSocket(port) {}
 
-void ProtocolClient::discover(const std::string& broadcastAddr) {
-  std::string code { static_cast<char>(LEGO_DISCOVER) };
-  std::string sep { SEPARATOR };
-  std::string message = code + sep + this->getCurrentIP() + ":" + std::to_string(port);
-  this->protocolClientSocket.send(message, broadcastAddr);
+void ProtocolClient::discover() {
+  for(int i{0}; i < 7; ++i) {
+      int broadcastAddrSuffix{BROADCAST_ADDR_START + BROADCAST_ADDR_INCREMENT*i};
+      std::string broadcastAddr{BROADCAST_ADDR_PREFIX + std::to_string(broadcastAddrSuffix)};
+
+      std::string code { static_cast<char>(LEGO_DISCOVER) };
+      std::string sep { SEPARATOR };
+      std::string message = code + sep + this->getCurrentIP() + ":" + std::to_string(port);
+      this->protocolClientSocket.send(message, BROADCAST_ADDR_PREFIX);
+  }
+}
+
+void ProtocolClient::presentBcast(const std::vector<std::string>& figures) {
+    for(int i{0}; i < 7; ++i) {
+        int broadcastAddrSuffix{BROADCAST_ADDR_START + BROADCAST_ADDR_INCREMENT*i};
+        std::string broadcastAddr{BROADCAST_ADDR_PREFIX + std::to_string(broadcastAddrSuffix)};
+
+        present(broadcastAddr, figures);
+    }
 }
 
 void ProtocolClient::present(const std::string& ipAddress, const std::vector<std::string>& figures) {
@@ -29,11 +43,11 @@ void ProtocolClient::present(const std::string& ipAddress, const std::vector<std
   this->protocolClientSocket.send(message, ipAddress);
 }
 
-void ProtocolClient::release(const std::string& broadcastAddr) {
+void ProtocolClient::release() {
   std::string code { static_cast<char>(LEGO_RELEASE) };
   std::string sep { SEPARATOR };
   std::string message = code + sep + this->getCurrentIP() + ":" + std::to_string(port);
-  this->protocolClientSocket.send(message, broadcastAddr);
+  this->protocolClientSocket.send(message, BROADCAST_ADDR_PREFIX);
 }
 
 void ProtocolClient::errorMsg(const std::string& code, const std::string& ipAddress) {

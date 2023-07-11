@@ -9,6 +9,10 @@ using std::regex;
 using std::string;
 using std::to_string;
 
+FigureSslServer::FigureSslServer(int32_t numWorkers, const std::string &certPath, int32_t port,
+                                 FigureHtmlRepository &figureHtmlRepository) :
+        SslServer(numWorkers, certPath, port), figureSslController(figureHtmlRepository) {}
+
 void FigureSslServer::handleClient(const std::shared_ptr<IPv4SslSocket> &client) {
     string request{client->sslRead()};
 
@@ -17,7 +21,7 @@ void FigureSslServer::handleClient(const std::shared_ptr<IPv4SslSocket> &client)
         if (!validateRequest(request)) {
             Logger::info("Client request: \n" + request);
             Logger::info("Sending emtpy response to client (caused by invalid URL Format): "
-            + to_string(client->getSocketFD()));
+                         + to_string(client->getSocketFD()));
             client->sslWrite("");
             return;
         }

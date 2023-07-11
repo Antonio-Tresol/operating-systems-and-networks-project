@@ -9,6 +9,8 @@
 #include "./logging/Logger.hpp"
 #include "./net/FigureSslServer.hpp"
 #include "./net/ProtocolHeader.hpp"
+#include "net/ProtocolServer.hpp"
+#include "controller/FigureProtocolController.hpp"
 
 using std::exception;
 using std::invalid_argument;
@@ -35,11 +37,19 @@ int main(int argc, char *argv[]) {
     string certPath{argv[1]};
 
     try {
-        FigureSslServer server{8, certPath, PIECES_TCP_PORT};
+        FigureHtmlRepository figureHtmlRepository{};
+
+        FigureSslServer sslServer{8, certPath, PIECES_TCP_PORT, figureHtmlRepository};
+
+        FigureProtocolController figureProtocolController{figureHtmlRepository};
+
+        ProtocolServer protocolServer{PIECES_UDP_PORT, figureProtocolController};
+
+        figureProtocolController.presentBcast();
 
         signalHandle();
 
-        server.start();
+        sslServer.start();
     } catch (exception const &e) {
         Logger::error("Server has crashed.", e);
         exit(1);

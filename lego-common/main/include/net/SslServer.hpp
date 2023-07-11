@@ -18,7 +18,7 @@ class SslServer {
   SslServer(int32_t numWorkers, const std::string& certPath,
                      int32_t port);
 
-  virtual ~SslServer();
+  ~SslServer();
 
   [[noreturn]] void start();
   void stop();
@@ -37,7 +37,6 @@ class SslServer {
 
  private:
   void handleRequests();
-  virtual void handleAcceptError(const std::exception& e) = 0;
 };
 
 #endif  // PI_REDES_SISTEMAS_OPERATIVOS_SSLSERVER_HPP
