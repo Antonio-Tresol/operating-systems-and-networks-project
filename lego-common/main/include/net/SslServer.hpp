@@ -15,12 +15,12 @@ using Worker = std::thread;
 #include "socket/IPv4SslSocket.hpp"
 class SslServer {
  public:
-  SslServer(int32_t numWorkers, const std::string& certPath,
-                     int32_t port);
+  SslServer(int32_t numWorkers, const std::string& certPath, int32_t port);
 
   ~SslServer();
 
   [[noreturn]] void start();
+
   void stop();
 
  protected:
@@ -33,7 +33,7 @@ class SslServer {
   Queue<std::shared_ptr<IPv4SslSocket>> clientQueue{};
   std::vector<Worker> workers{};
 
-  virtual void handleClient(const std::shared_ptr<IPv4SslSocket> &client) = 0;
+  virtual void handleClient(const std::shared_ptr<IPv4SslSocket>& client) = 0;
 
  private:
   void handleRequests(int worker_pos);

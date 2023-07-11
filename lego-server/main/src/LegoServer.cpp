@@ -20,14 +20,16 @@ using std::signal;
 using std::stoi;
 using std::string;
 
+// Define global pointers to the servers so they can be accessed from the signal
+// handler
+FigureSslServer* sslServerPtr = nullptr;
+ProtocolServer* protocolServerPtr = nullptr;
+
 void signalAction(int signum);
 
 void signalHandle();
 
-/**
- * @brief Entry point.
- */
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   Logger::initialize();
 
   if (argc < 2) {
@@ -47,6 +49,10 @@ int main(int argc, char *argv[]) {
 
     ProtocolServer protocolServer{PIECES_UDP_PORT, figureProtocolController};
 
+    // Set the global pointers to point to the server instances
+    sslServerPtr = &sslServer;
+    protocolServerPtr = &protocolServer;
+
     figureProtocolController.presentBcast();
 
     signalHandle();
@@ -54,7 +60,7 @@ int main(int argc, char *argv[]) {
     protocolServer.start();
     sleep(1);
     sslServer.start();
-  } catch (exception const &e) {
+  } catch (exception const& e) {
     Logger::error("Server has crashed.", e);
     exit(1);
   }
@@ -62,6 +68,15 @@ int main(int argc, char *argv[]) {
 
 void signalAction(int signum) {
   Logger::info("Exiting.");
+
+  // Clean up the servers before exiting
+  if (sslServerPtr != nullptr) {
+    sslServerPtr->stop();
+  }
+  if (protocolServerPtr != nullptr) {
+    protocolServerPtr->stop();
+  }
+
   exit(signum);
 }
 

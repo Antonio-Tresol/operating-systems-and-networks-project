@@ -9,21 +9,23 @@
 #include <memory>
 #include <string>
 
-#include "./net/SslServer.hpp"
 #include "../controller/FigureSslController.hpp"
+#include "./net/SslServer.hpp"
 
-class FigureSslServer : SslServer {
-public:
-    FigureSslServer() = delete;
+class FigureSslServer : public SslServer {
+ public:
+  FigureSslServer() = delete;
 
-    FigureSslServer(int32_t numWorkers, const std::string& certPath,
-                    int32_t port, FigureHtmlRepository& figureHtmlRepository);
+  FigureSslServer(int32_t numWorkers, const std::string& certPath, int32_t port,
+                  FigureHtmlRepository& figureHtmlRepository);
 
-    using SslServer::start;
-private:
-    static bool validateRequest(const std::string &request);
+  using SslServer::start;
+  using SslServer::stop;
 
-    void handleClient(const std::shared_ptr<IPv4SslSocket> &client) override;
+ private:
+  static bool validateRequest(const std::string& request);
 
-    FigureSslController figureSslController;
+  void handleClient(const std::shared_ptr<IPv4SslSocket>& client) override;
+
+  FigureSslController figureSslController;
 };

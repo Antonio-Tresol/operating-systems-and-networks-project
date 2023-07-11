@@ -7,9 +7,9 @@
 #include <csignal>
 #include <string>
 
+#include "./controller/ProxyProtocolController.hpp"
 #include "./logging/Logger.hpp"
 #include "./net/ProtocolServer.hpp"
-#include "./controller/ProxyProtocolController.hpp"
 #include "./net/ProxyHttpsServer.hpp"
 
 using std::exception;
@@ -19,50 +19,64 @@ using std::signal;
 using std::stoi;
 using std::string;
 
+// Declare global pointers to the servers
+ProxyHttpsServer* httpsServerPtr = nullptr;
+ProtocolServer* protocolServerPtr = nullptr;
+
 void signalAction(int signum);
 
 void signalHandle();
 
-/**
- * @brief Entry point.
- */
-int main(int argc, char *argv[]) {
-    Logger::initialize();
+int main(int argc, char* argv[]) {
+  Logger::initialize();
 
-    if (argc < 2) {
-        Logger::error("Missing certificate path.");
-        exit(1);
-    }
+  if (argc < 2) {
+    Logger::error("Missing certificate path.");
+    exit(1);
+  }
 
-    string certPath{argv[1]};
+  string certPath{argv[1]};
 
-    try {
-        ProxyHttpsServer httpsServer{2, certPath, 7777};
+  try {
+    ProxyHttpsServer httpsServer{2, certPath, 7777};
 
-        ProxyProtocolController proxyProtocolController{};
+    ProxyProtocolController proxyProtocolController{};
 
-        ProtocolServer protocolServer{INTERMEDIARY_UDP_PORT, proxyProtocolController};
+    ProtocolServer protocolServer{INTERMEDIARY_UDP_PORT,
+                                  proxyProtocolController};
 
-        proxyProtocolController.discover();
+    // Set the global pointers to point to the server instances
+    httpsServerPtr = &httpsServer;
+    protocolServerPtr = &protocolServer;
 
-        signalHandle();
+    proxyProtocolController.discover();
 
-        protocolServer.start();
-        sleep(1);
-        httpsServer.start();
-    } catch (exception const &e) {
-        Logger::error("Server has crashed.", e);
-        exit(1);
-    }
+    signalHandle();
+
+    protocolServer.start();
+    sleep(1);
+    httpsServer.start();
+  } catch (exception const& e) {
+    Logger::error("Server has crashed.", e);
+    exit(1);
+  }
 }
 
 void signalAction(int signum) {
-    Logger::info("Exiting.");
+  Logger::info("Exiting.");
 
-    exit(signum);
+  // Call the stop methods on the servers before exiting
+  if (httpsServerPtr != nullptr) {
+    httpsServerPtr->stop();
+  }
+  if (protocolServerPtr != nullptr) {
+    protocolServerPtr->stop();
+  }
+
+  exit(signum);
 }
 
 void signalHandle() {
-    signal(SIGINT, signalAction);
-    signal(SIGTERM, signalAction);
+  signal(SIGINT, signalAction);
+  signal(SIGTERM, signalAction);
 }
