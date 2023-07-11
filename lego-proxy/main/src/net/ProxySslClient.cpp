@@ -17,10 +17,9 @@ string ProxySslClient::legoRequest(const std::string &host,
 
     socket.sslConnect(host, PORT);
 
-    const string request{string{CODE} + string{SEP} + resource};
-
+    const string request{std::to_string(CODE) + SEP + resource};
+    Logger::info("Sending request: " + request);
     socket.sslWrite(request);
-
     string response{socket.sslRead()};
 
     return response;

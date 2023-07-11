@@ -33,6 +33,8 @@ string ProxyHttpsController::getFigureByName(const string &name) {
         // reset attempts
         attempts = 0;
 
+        hostIndex++;
+
         // and get the next host if we are still within bounds
         if (hostIndex < ipCount) {
           host = proxyRoutingTable.getNthIP(name, hostIndex);

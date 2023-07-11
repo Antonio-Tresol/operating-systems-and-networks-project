@@ -29,5 +29,5 @@ class ProxySslClient {
  private:
   static constexpr char SEP{SEPARATOR};
   static constexpr int PORT{PIECES_TCP_PORT};
-  static constexpr char CODE{static_cast<char>(LEGO_REQUEST)};
+  static constexpr int CODE{static_cast<int>(LEGO_REQUEST)};
 };

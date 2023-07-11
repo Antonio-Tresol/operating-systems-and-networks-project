@@ -9,6 +9,7 @@
 #include <sstream>
 #include <string>
 
+#include "../../../../lego-common/main/include/logging/Logger.hpp"
 #include "./net/socket/IPv4SslSocket.hpp"
 /**
  * @brief Makes HTTP requests.

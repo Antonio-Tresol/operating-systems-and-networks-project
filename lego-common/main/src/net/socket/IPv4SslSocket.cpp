@@ -24,18 +24,18 @@ using ::SSL_set_fd;
 using ::SSL_shutdown;
 using ::SSL_write;
 using ::TLS_client_method;
-
 using std::endl;
 using std::ostringstream;
 using std::runtime_error;
 using std::shared_ptr;
 using std::string;
 
-IPv4SslSocket::IPv4SslSocket() : socketFD(socket(AF_INET, SOCK_STREAM, TCP_ID)) {
-    if (-1 == socketFD) {
-        throw runtime_error(appendErr(
-                "IPv4SslSocket::IPv4SslSocket: Failed to create socket: "));
-    }
+IPv4SslSocket::IPv4SslSocket()
+    : socketFD(socket(AF_INET, SOCK_STREAM, TCP_ID)) {
+  if (-1 == socketFD) {
+    throw runtime_error(
+        appendErr("IPv4SslSocket::IPv4SslSocket: Failed to create socket: "));
+  }
 }
 
 IPv4SslSocket::IPv4SslSocket(const string &certFileName,
@@ -68,7 +68,8 @@ void IPv4SslSocket::connect(const string &host, const string &service) const {
                         string(gai_strerror(st)));
   }
 
-  // TODO: Manejar error para CONNECTION REFUSED, throw, ver los demás como ejemplo
+  // TODO: Manejar error para CONNECTION REFUSED, throw, ver los demás como
+  // ejemplo
   for (struct addrinfo *rp{result}; rp; rp = rp->ai_next) {
     if (0 == Sys::connect(socketFD, rp->ai_addr, rp->ai_addrlen)) break;
   }
@@ -109,21 +110,20 @@ void IPv4SslSocket::write(const string &text) const {
 }
 
 void IPv4SslSocket::sslConnect(const std::string &host, int port) const {
-    tcpConnect(host, port);
+  tcpConnect(host, port);
 
-    int st{SSL_set_fd(static_cast<SSL *>(this->ssl), this->socketFD)};
-    if (!st) {
-        throw runtime_error(
-                appendSslErr("Ipv4SslSocket::sslConnect: Failed to set SSL socket: "));
-    }
+  int st{SSL_set_fd(static_cast<SSL *>(this->ssl), this->socketFD)};
+  if (!st) {
+    throw runtime_error(
+        appendSslErr("Ipv4SslSocket::sslConnect: Failed to set SSL socket: "));
+  }
 
-    st = SSL_connect(static_cast<SSL *>(this->ssl));
-    if (0 >= st) {
-        throw runtime_error(
-                appendSslErr("Ipv4SslSocket::sslConnect: Failed to connect socket: "));
-    }
+  st = SSL_connect(static_cast<SSL *>(this->ssl));
+  if (0 >= st) {
+    throw runtime_error(
+        appendSslErr("Ipv4SslSocket::sslConnect: Failed to connect socket: "));
+  }
 }
-
 
 void IPv4SslSocket::sslConnect(const string &host,
                                const string &service) const {
@@ -241,52 +241,50 @@ string IPv4SslSocket::appendSslErr(const string &message) {
 }
 
 void IPv4SslSocket::tcpConnect(const std::string &host, int port) const {
-    struct sockaddr_in hostIpv4;
+  struct sockaddr_in hostIpv4;
 
-    hostIpv4.sin_family = AF_INET;
+  hostIpv4.sin_family = AF_INET;
 
-    int status = inet_pton(AF_INET, host.c_str(), &hostIpv4.sin_addr);
+  int status = inet_pton(AF_INET, host.c_str(), &hostIpv4.sin_addr);
 
-    if (status == 0) {
-        throw runtime_error(
-                appendErr("Ipv4SslSocket::Connect: Invalid IPv4 address: "));
-    } else if (status == -1) {
-        throw runtime_error(
-                appendErr("Ipv4SslSocket::Connect: Error converting IPv4 address: "));
-    }
+  if (status == 0) {
+    throw runtime_error(
+        appendErr("Ipv4SslSocket::Connect: Invalid IPv4 address: "));
+  } else if (status == -1) {
+    throw runtime_error(
+        appendErr("Ipv4SslSocket::Connect: Error converting IPv4 address: "));
+  }
 
-    hostIpv4.sin_port = htons(port);
+  hostIpv4.sin_port = htons(port);
 
-    struct sockaddr *hostIpv4Ptr = reinterpret_cast<struct sockaddr *>(&hostIpv4);
+  struct sockaddr *hostIpv4Ptr = reinterpret_cast<struct sockaddr *>(&hostIpv4);
 
-    socklen_t hostIpv4Len = sizeof(hostIpv4);
+  socklen_t hostIpv4Len = sizeof(hostIpv4);
 
-    status = Sys::connect(socketFD, hostIpv4Ptr, hostIpv4Len);
-    if (status == -1) {
-        throw runtime_error(
-                appendErr("Ipv4SslSocket::Connect: Invalid IPv4 address: "));
-    }
+  status = Sys::connect(socketFD, hostIpv4Ptr, hostIpv4Len);
+  if (status == -1) {
+    throw runtime_error(
+        appendErr("Ipv4SslSocket::Connect: Invalid IPv4 address: "));
+  }
 }
 
 void IPv4SslSocket::tcpConnect(const string &host,
                                const string &service) const {
-    struct addrinfo *result;
+  struct addrinfo *result;
 
-    int st = getaddrinfo(host.c_str(), service.c_str(), &hints, &result);
-    if (0 != st) {
-        throw runtime_error(
-                "Ipv4SslSocket::tcpConnect: Failed to get address info: " +
-                string(gai_strerror(st)));
-    }
+  int st = getaddrinfo(host.c_str(), service.c_str(), &hints, &result);
+  if (0 != st) {
+    throw runtime_error(
+        "Ipv4SslSocket::tcpConnect: Failed to get address info: " +
+        string(gai_strerror(st)));
+  }
 
-    for (struct addrinfo *rp{result}; rp; rp = rp->ai_next) {
-        if (0 == Sys::connect(socketFD, rp->ai_addr, rp->ai_addrlen)) break;
-    }
+  for (struct addrinfo *rp{result}; rp; rp = rp->ai_next) {
+    if (0 == Sys::connect(socketFD, rp->ai_addr, rp->ai_addrlen)) break;
+  }
 
-    freeaddrinfo(result);
+  freeaddrinfo(result);
 }
-
-
 
 bool IPv4SslSocket::isReadReady() {
   // Clear the fd_set
