@@ -66,4 +66,6 @@ public:
 private:
     int port;
     IPv4UdpSocket protocolClientSocket;
+
+    std::string buildMessage(const std::string &code);
 };

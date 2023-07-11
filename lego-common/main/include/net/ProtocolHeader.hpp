@@ -6,6 +6,8 @@
 
 /*---------------------------Broadcast Address--------------------------------*/
 
+#define BROADCAST_FIRST "172"
+#define BROADCAST_SECOND "16"
 #define BROADCAST_ADDR_PREFIX "172.16.123."
 #define BROADCAST_ADDR_INCREMENT 16
 #define BROADCAST_ADDR_START 15

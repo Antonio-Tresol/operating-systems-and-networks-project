@@ -3,6 +3,8 @@
 //
 
 #include "../../include/net/SslServer.hpp"
+#include "./logging/Logger.hpp"
+#include "net/ProtocolHeader.hpp"
 
 #include <algorithm>
 #include <exception>
@@ -33,7 +35,13 @@ void SslServer::start() {
 
   Logger::info("SslServer: Listener certificates: \n" + listener.getCerts());
 
-  Logger::info("SslServer: Listening at " + getCurrentIP());
+  try {
+        Logger::info("SslServer: Listening at " + getCurrentIP());
+    } catch (std::runtime_error &e) {
+        Logger::error("Could not find valid self IP: ", e);
+        stop();
+        exit(1);
+    }
 
   while (true) {
     try {
@@ -76,25 +84,42 @@ void SslServer::handleRequests(int worker_pos) {
 
 std::string SslServer::getCurrentIP() {
   std::string command = "hostname -I";
-  std::string ip = "";
+  std::string ips = "";
   // Open pipe for reading output of command (hostname -I)
   FILE *pipe = popen(command.c_str(), "r");
   if (pipe) {
     char buffer[128];
     while (!feof(pipe)) {
       if (fgets(buffer, 128, pipe) != nullptr) {
-        ip += buffer;
+        ips += buffer;
       }
     }
     pclose(pipe);
   }
-  // Erase any newline characters from the ip
-  ip.erase(std::remove(ip.begin(), ip.end(), '\n'), ip.end());
-  ip.erase(std::remove(ip.begin(), ip.end(), '\r'), ip.end());
+  // Erase any newline characters from the ips
+  ips.erase(std::remove(ips.begin(), ips.end(), '\n'), ips.end());
+  ips.erase(std::remove(ips.begin(), ips.end(), '\r'), ips.end());
 
-  std::istringstream iss(ip);
-  std::string output;
-  std::getline(iss, output, ' ');
+  std::istringstream iss(ips);
+    std::string output;
 
-  return output;
+    //std::getline(iss, output, ' ');
+
+    std::vector<std::string> addresses;
+
+    for(std::string s; iss >> s; )
+        addresses.push_back(s);
+
+  for (const auto& address : addresses) {
+        std::istringstream isss(address);
+        std::string segment1;
+        std::string segment2;
+        std::getline(isss, segment1, '.');
+        std::getline(isss, segment2, '.');
+        if (segment1 == BROADCAST_FIRST && segment2 == BROADCAST_SECOND) {
+            return address;
+        }
+    }
+
+    throw std::runtime_error("No IP found with the initial segments: " + std::string{BROADCAST_FIRST} + "." + std::string{BROADCAST_SECOND});
 }

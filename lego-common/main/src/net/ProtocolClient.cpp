@@ -19,7 +19,7 @@ void ProtocolClient::discover() {
     Logger::info("ProtocolClient: Sending " + getLegoMessageCodeName(LEGO_DISCOVER));
 
     std::string code{std::to_string(static_cast<int>(LEGO_DISCOVER))};
-    std::string message = code + SEPARATOR + this->getCurrentIP() + ":" + std::to_string(port);
+    std::string message = buildMessage(code);
 
     for (int i{0}; i < 7; ++i) {
         int broadcastAddrSuffix{BROADCAST_ADDR_START + BROADCAST_ADDR_INCREMENT * i};
@@ -29,6 +29,16 @@ void ProtocolClient::discover() {
     }
 
     this->protocolClientSocket.send(message, "255.255.255.255");
+}
+
+std::string ProtocolClient::buildMessage(const std::string &code) {
+    try {
+        std::string message = code + SEPARATOR + getCurrentIP() + ":" + std::to_string(port);
+        return message;
+    } catch (std::runtime_error &e) {
+        Logger::error("Could not find valid self IP: ", e);
+        exit(1);
+    }
 }
 
 void ProtocolClient::presentBcast(const std::vector<std::string> &figures) {
@@ -45,7 +55,7 @@ void ProtocolClient::presentBcast(const std::vector<std::string> &figures) {
 
 void ProtocolClient::present(const std::string &ipAddress, const std::vector<std::string> &figures) {
     std::string code{std::to_string(static_cast<int>(LEGO_PRESENT))};
-    std::string message = code + SEPARATOR + this->getCurrentIP() + ":" + std::to_string(port);
+    std::string message = buildMessage(code);
     for (const std::string &figure: figures) {
         message += SEPARATOR + figure;
     }
@@ -55,7 +65,7 @@ void ProtocolClient::present(const std::string &ipAddress, const std::vector<std
 void ProtocolClient::release() {
     Logger::info("ProtocolClient: Sending " + getLegoMessageCodeName(LEGO_RELEASE));
     std::string code{std::to_string(static_cast<int>(LEGO_RELEASE))};
-    std::string message = code + SEPARATOR + this->getCurrentIP() + ":" + std::to_string(port);
+    std::string message = buildMessage(code);
 
     for (int i{0}; i < 7; ++i) {
         int broadcastAddrSuffix{BROADCAST_ADDR_START + BROADCAST_ADDR_INCREMENT * i};
@@ -74,26 +84,43 @@ void ProtocolClient::errorMsg(const std::string &code, const std::string &ipAddr
 
 std::string ProtocolClient::getCurrentIP() {
     std::string command = "hostname -I";
-    std::string ip = "";
+    std::string ips = "";
     // Open pipe for reading output of command (hostname -I)
     FILE *pipe = popen(command.c_str(), "r");
     if (pipe) {
         char buffer[128];
         while (!feof(pipe)) {
             if (fgets(buffer, 128, pipe) != nullptr) {
-                ip += buffer;
+                ips += buffer;
             }
         }
         pclose(pipe);
     }
-    // Erase any newline characters from the ip
-    ip.erase(std::remove(ip.begin(), ip.end(), '\n'), ip.end());
-    ip.erase(std::remove(ip.begin(), ip.end(), '\r'), ip.end());
+    // Erase any newline characters from the ips
+    ips.erase(std::remove(ips.begin(), ips.end(), '\n'), ips.end());
+    ips.erase(std::remove(ips.begin(), ips.end(), '\r'), ips.end());
 
-    std::istringstream iss(ip);
+    std::istringstream iss(ips);
     std::string output;
-    std::getline(iss, output, ' ');
 
-    return output;
+    //std::getline(iss, output, ' ');
+
+    std::vector<std::string> addresses;
+
+    for(std::string s; iss >> s; )
+        addresses.push_back(s);
+
+    for (const auto& address : addresses) {
+        std::istringstream isss(address);
+        std::string segment1;
+        std::string segment2;
+        std::getline(isss, segment1, '.');
+        std::getline(isss, segment2, '.');
+        if (segment1 == BROADCAST_FIRST && segment2 == BROADCAST_SECOND) {
+            return address;
+        }
+    }
+
+    throw std::runtime_error("No IP found with the initial segments: " + std::string{BROADCAST_FIRST} + "." + std::string{BROADCAST_SECOND});
 }
 
