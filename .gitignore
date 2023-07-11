@@ -52,3 +52,4 @@ lego-client/cmake_install.cmake
 lego-server/lego-server
 lego-server/Makefile
 lego-server/logs/log.txt
+build/
