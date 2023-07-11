@@ -21,7 +21,7 @@ Figure Figure::fromHtml(const string &html) {
   string::const_iterator searchEnd(html.cend());
 
   smatch matchName;
-  regex regName{"/lego/(?:[a-zA-Z]+)/([a-zA-Z]+)(?=.jpg\" width=500 height=500)"};
+  regex regName{"/images/([a-zA-Z]+)(?=.jpg\" width=500 height=500)"};
   string name;
   if (regex_search(searchStart, searchEnd, matchName, regName)) {
     name = matchName[1];
