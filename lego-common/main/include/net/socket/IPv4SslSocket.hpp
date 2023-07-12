@@ -66,13 +66,6 @@ public:
     IPv4SslSocket &operator=(const IPv4SslSocket &) = delete;
 
     /**
-     * @brief Establishes a TCP connection.
-     * @param host Host to connect to.
-     * @param service Service over which to connect.
-     */
-    void connect(const std::string &host, const std::string &service) const;
-
-    /**
      * @brief Binds socket to given port.
      * @param port Port to bind to.
      */
@@ -124,7 +117,7 @@ public:
 
     [[nodiscard]] std::string getCerts() const;
 
-    void close();
+    void close() const;
 
     int getSocketFD() const;
 
@@ -149,14 +142,14 @@ private:
      */
     static std::string appendSslErr(const std::string &message);
 
-    void tcpConnect(const std::string &host, int port) const;
+    void connect(const std::string &host, int port) const;
 
     /**
      * @brief Establishes a TCP connection.
      * @param host Host to connect to.
      * @param service Service over which to connect.
      */
-    void tcpConnect(const std::string &host, const std::string &service) const;
+    void connect(const std::string &host, const std::string &service) const;
 
 
     /**

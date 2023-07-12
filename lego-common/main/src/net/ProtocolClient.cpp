@@ -116,9 +116,10 @@ std::string ProtocolClient::getCurrentIP() {
         std::string segment2;
         std::getline(isss, segment1, '.');
         std::getline(isss, segment2, '.');
-        if (segment1 == BROADCAST_FIRST && segment2 == BROADCAST_SECOND) {
-            return address;
-        }
+//        if (segment1 == BROADCAST_FIRST && segment2 == BROADCAST_SECOND) {
+//            return address;
+//        }
+        return address;
     }
 
     throw std::runtime_error("No IP found with the initial segments: " + std::string{BROADCAST_FIRST} + "." + std::string{BROADCAST_SECOND});

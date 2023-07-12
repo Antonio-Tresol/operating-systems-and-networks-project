@@ -10,8 +10,7 @@
 #include <string>
 
 #include "../../../../lego-common/main/include/logging/Logger.hpp"
-#include "../../../../lego-common/main/include/net/socket/clSocket.hpp"
-#include "./net/socket/IPv4SslSocket.hpp"
+#include "net/socket/IPv4SslClientSocket.hpp"
 
 /**
  * @brief Makes HTTP requests.

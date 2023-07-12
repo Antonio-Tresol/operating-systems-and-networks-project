@@ -13,26 +13,13 @@ using std::string;
 string HttpsClient::get(const std::string &host,
                         const std::string &resource) const {
   try {
-    // IPv4SslSocket socket{};
+    const string request{string{GET} + resource + CRLF + HOST + host + CRLF + CRLF};
 
-    // socket.sslConnect(host, PORT);
-
-    const string request{string{GET} + resource + CRLF + HOST + host + CRLF +
-                         CRLF};
-    // Logger::info("Sending request: " + request);
-    // socket.sslWrite(request);
-
-    // string response{socket.sslRead()};
-
-    Socket* client = new Socket('s', false);
-    client->InitSSL();
+    IPv4SslClientSocket client{};
     const char* hostc = host.c_str();
-    client->SSLConnect(hostc, PORT);
-    client->SSLWrite(request.data(), request.size());
-    char buf[4096];
-    int bytes = client->SSLRead(buf, sizeof(buf));
-    buf[bytes] = '\0';
-    string response = string(buf);
+    client.sslConnect(hostc, PORT);
+      client.sslWrite(request.data());
+    string response{client.sslRead()};
     return response;
   } catch (exception const &e) {
     throw_with_nested(runtime_error("Failed to GET from: " + resource));

@@ -12,7 +12,6 @@
 #include "../../../../lego-common/main/include/logging/Logger.hpp"
 #include "../../../../lego-common/main/include/net/ProtocolHeader.hpp"
 #include "../../../../lego-common/main/include/net/socket/IPv4SslSocket.hpp"
-#include "../../../../lego-common/main/include/net/socket/clSocket.hpp"
 /**
  * @brief Makes Ssl Lego Requests from proxy servers.
  */
